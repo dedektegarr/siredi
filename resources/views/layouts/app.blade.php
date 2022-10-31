@@ -15,6 +15,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="{{ env('ICON') }}">
+    {{-- data tables --}}
+    <link rel="stylesheet" href="/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="/css/responsive.bootstrap4.min.css">
+    <link rel="stylesheet" href="/css/buttons.bootstrap4.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="/css/adminlte.min.css">
 </head>
@@ -64,8 +68,26 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <script src="/js/jquery.min.js"></script>
     <!-- Bootstrap 4 -->
     <script src="/js/bootstrap.bundle.min.js"></script>
+    {{-- data tables --}}
+    <script src="/js/jquery.dataTables.min.js"></script>
+    <script src="/js/dataTables.bootstrap4.min.js"></script>
+    <script src="/js/dataTables.responsive.min.js"></script>
+    <script src="/js/responsive.bootstrap4.min.js"></script>
+    <script src="/js/dataTables.buttons.min.js"></script>
+    <script src="/js/buttons.bootstrap4.min.js"></script>
+    <script src="/js/jszip.min.js"></script>
+    <script src="/js/pdfmake.min.js"></script>
+    <script src="/js/vfs_fonts.js"></script>
+    <script src="/js/buttons.html5.min.js"></script>
+    <script src="/js/buttons.print.min.js"></script>
+    <script src="/js/buttons.colVis.min.js"></script>
+    
     <!-- AdminLTE App -->
     <script src="/js/adminlte.min.js"></script>
+
+
+    @yield('custom_script')
+
 </body>
 
 </html>

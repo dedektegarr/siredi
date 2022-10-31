@@ -14,7 +14,9 @@ class NurseController extends Controller
      */
     public function index()
     {
-        //
+        return view('nurses.index', [
+            'pageTitle' => 'Data Perawat'
+        ]);
     }
 
     /**
