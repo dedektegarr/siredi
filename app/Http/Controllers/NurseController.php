@@ -15,7 +15,8 @@ class NurseController extends Controller
     public function index()
     {
         return view('nurses.index', [
-            'pageTitle' => 'Data Perawat'
+            'pageTitle' => 'Data Perawat',
+            'nurses' => Nurse::all()
         ]);
     }
 
@@ -46,9 +47,12 @@ class NurseController extends Controller
      * @param  \App\Models\Nurse  $nurse
      * @return \Illuminate\Http\Response
      */
-    public function show(Nurse $nurse)
+    public function show(Nurse $perawat)
     {
-        //
+        return view('nurses.detail', [
+            'pageTitle' => 'Detail Perawat',
+            'nurse' => $perawat
+        ]);
     }
 
     /**

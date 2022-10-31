@@ -37,13 +37,13 @@
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <li class="nav-item">
                     <a href="{{ route('dashboard') }}" class="nav-link {{ Route::is('dashboard*') ? 'active' : '' }}">
-                        <i class="fa-solid fa-gauge"></i>
+                        <i class="nav-icon fa-solid fa-gauge"></i>
                         <p> Dashboard</p>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="{{ route('perawat.index') }}" class="nav-link {{ Route::is('perawat*') ? 'active' : '' }}">
-                        <i class="fa-solid fa-user-nurse"></i>
+                        <i class="nav-icon fa-solid fa-user-nurse"></i>
                         <p> Perawat</p>
                     </a>
                 </li>
