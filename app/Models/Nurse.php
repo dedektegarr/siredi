@@ -9,6 +9,10 @@ class Nurse extends Model
 {
     use HasFactory;
 
+    protected $primaryKey = 'id_perawat';
+    protected $keyType = 'char';
+    public $incrementing = false;
+
     public function getRouteKeyName()
     {
         return 'id_perawat';

@@ -17,10 +17,15 @@
 </head>
 
 <body class="hold-transition login-page">
-    @if (session()->has('error'))
-    <div id="toast-container" class="toast-top-center" style="margin-top: rem">
+    @if ($errors->any())
+    <div id="toast-container" class="toast-top-center" style="margin-top: 3rem">
         <div class="toast toast-error" aria-live="assertive" style="display: block;">
-            <div class="toast-message">{{ session('error') }}</div>
+            <ul class="mt-2" style="margin-left: -.5rem">
+                @foreach ($errors->all() as $error)
+                <li class="toast-message">{{ $error }}</li>
+                @endforeach
+            </ul>
+            {{-- <div class="toast-message">{{ $error }}</div> --}}
         </div>
     </div>
     @endif
@@ -35,30 +40,22 @@
                 <form action="{{ route('loginStore') }}" method="post">
                     @csrf
                     <div class="input-group mb-3">
-                        <input type="text" class="form-control @error('username') is-invalid @enderror" placeholder="Username" name="username">
+                        <input type="text" class="form-control @error('username') is-invalid @enderror"
+                            placeholder="Username" name="username" value="{{ old('username') }}">
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-envelope"></span>
                             </div>
                         </div>
-                        @error('username')
-                            <p class="invalid-feedback">
-                                {{ $message }}
-                            </p>
-                        @enderror
                     </div>
                     <div class="input-group mb-3">
-                        <input type="password" class="form-control @error('password') is-invalid @enderror" placeholder="Password" name="password">
+                        <input type="password" class="form-control @error('password') is-invalid @enderror"
+                            placeholder="Password" name="password">
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-lock"></span>
                             </div>
                         </div>
-                        @error('password')
-                            <p class="invalid-feedback">
-                                {{ $message }}
-                            </p>
-                        @enderror
                     </div>
                     <div class="row">
                         <div class="col-12">

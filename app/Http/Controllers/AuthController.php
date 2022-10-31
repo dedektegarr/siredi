@@ -25,7 +25,9 @@ class AuthController extends Controller
             return redirect()->intended('dashboard');
         }
  
-        return back()->with('error', 'Akun tidak sesuai');
+        return back()->withErrors([
+            'username' => 'Akun tidak ditemukan'
+        ])->onlyInput('username');
     }
 
     public function logout(Request $request) {
