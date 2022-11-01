@@ -12,6 +12,15 @@
                 <div id="nurses_table_wrapper" class="dataTables_wrapper dt-bootstrap4">
                     <div class="row">
                         <div class="col-sm-12">
+                            @if (session()->has('success'))
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                <i class="fa-solid fa-check mr-1"></i>
+                                {!! session('success') !!}
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            @endif
                             <table id="nurses_table" class="table table-bordered table-striped dataTable dtr-inline"
                                 aria-describedby="nurses_table_info">
                                 <thead>
@@ -31,21 +40,30 @@
                                         <td>
                                             <div class="btn-group">
                                                 <button type="button" class="btn btn-info btn-sm">Action</button>
-                                                <button type="button" class="btn btn-info btn-sm dropdown-toggle dropdown-icon"
+                                                <button type="button"
+                                                    class="btn btn-info btn-sm dropdown-toggle dropdown-icon"
                                                     data-toggle="dropdown">
                                                     <span class="sr-only">Toggle Dropdown</span>
                                                 </button>
                                                 <div class="dropdown-menu" role="menu">
-                                                    <a class="dropdown-item text-info" href="{{ route('perawat.show', $nurse->id_perawat) }}">
+                                                    <a class="dropdown-item text-info"
+                                                        href="{{ route('perawat.show', $nurse->id_perawat) }}">
                                                         <i class="fa-solid fa-circle-info"></i>
                                                         Detail</a>
                                                     <a class="dropdown-item text-warning" href="">
                                                         <i class="fa-solid fa-pen-to-square"></i>
                                                         Edit</a>
                                                     <div class="dropdown-divider"></div>
-                                                    <a class="dropdown-item text-danger" href="#">
-                                                        <i class="fa-solid fa-trash"></i>
-                                                        Hapus</a>
+                                                    <form action="{{ route('perawat.destroy', $nurse->id_perawat) }}"
+                                                        method="POST">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="dropdown-item text-danger"
+                                                            onclick="return confirm('Anda yakin ingin menghapus data ini?')">
+                                                            <i class="fa-solid fa-trash"></i>
+                                                            Hapus
+                                                        </button>
+                                                    </form>
                                                 </div>
                                             </div>
                                         </td>

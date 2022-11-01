@@ -22,7 +22,10 @@ class DoctorFactory extends Factory
             'nama' => fake()->name(),
             'email' => fake()->safeEmail(),
             'no_hp' => '08' . fake()->unique()->randomNumber(9, true),
-            'alamat' => fake()->sentence()
+            'alamat' => fake()->sentence(),
+            'tgl_lahir' => fake()->dateTime(),
+            'tempat_lahir' => 'Metro',
+            'poli' => fake()->name()
         ];
     }
 }

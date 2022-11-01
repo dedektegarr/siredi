@@ -50,7 +50,7 @@ class NurseController extends Controller
     public function show(Nurse $perawat)
     {
         return view('nurses.detail', [
-            'pageTitle' => 'Detail Perawat',
+            'pageTitle' => $perawat->nama,
             'nurse' => $perawat
         ]);
     }
@@ -84,8 +84,9 @@ class NurseController extends Controller
      * @param  \App\Models\Nurse  $nurse
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Nurse $nurse)
+    public function destroy(Nurse $perawat)
     {
-        //
+        Nurse::where('id_perawat', $perawat->id_perawat)->delete();
+        return redirect()->route('perawat.index')->with('success', "Data <strong>$perawat->nama</strong> berhasil dihapus");
     }
 }

@@ -21,6 +21,9 @@ return new class extends Migration
             $table->string('email', 50)->unique();
             $table->string('no_hp', 15);
             $table->text('alamat', 255);
+            $table->string('poli', 50);
+            $table->date('tgl_lahir');
+            $table->string('tempat_lahir', 50);
             $table->timestamps();
         });
     }

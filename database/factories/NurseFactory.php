@@ -22,7 +22,9 @@ class NurseFactory extends Factory
             'nama' => fake()->name(),
             'email' => fake()->safeEmail(),
             'no_hp' => '08' . fake()->unique()->randomNumber(9, true),
-            'alamat' => fake()->sentence()
+            'alamat' => fake()->sentence(),
+            'tgl_lahir' => fake()->date(),
+            'tempat_lahir' => 'Metro',
         ];
     }
 }
