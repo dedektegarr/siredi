@@ -61,9 +61,9 @@ class NurseController extends Controller
      * @param  \App\Models\Nurse  $nurse
      * @return \Illuminate\Http\Response
      */
-    public function edit(Nurse $nurse)
+    public function edit(Nurse $perawat)
     {
-        //
+        // 
     }
 
     /**

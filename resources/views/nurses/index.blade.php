@@ -50,9 +50,6 @@
                                                         href="{{ route('perawat.show', $nurse->id_perawat) }}">
                                                         <i class="fa-solid fa-circle-info"></i>
                                                         Detail</a>
-                                                    <a class="dropdown-item text-warning" href="">
-                                                        <i class="fa-solid fa-pen-to-square"></i>
-                                                        Edit</a>
                                                     <div class="dropdown-divider"></div>
                                                     <form action="{{ route('perawat.destroy', $nurse->id_perawat) }}"
                                                         method="POST">
