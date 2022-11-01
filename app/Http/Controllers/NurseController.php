@@ -42,22 +42,11 @@ class NurseController extends Controller
      */
     public function store(Request $request)
     {
-        // account validation and create
-        // $validatedAccount = $request->validate([
-        //     'username' => ['required', 'unique:users', 'max:255'],
-        //     'password' => ['required', 'min:5']
-        // ]);
-
-        // $validatedAccount['password'] = bcrypt($request->password);
-        // $validatedAccount["role"] = 'perawat';
-
-        // User::create($validatedAccount);
-
         // data validation
         $validatedData = $request->validate([
             'nama' => ['required', 'max:100'],
             'email' => ['nullable', 'email:dns', 'unique:nurses', 'max:50'],
-            'no_hp' => ['nullable', 'numeric', 'unique:nurses', 'max_digits:15'],
+            'no_hp' => ['required', 'numeric', 'unique:nurses', 'max_digits:15'],
             'tgl_lahir' => ['nullable', 'date'],
             'tempat_lahir' => ['nullable', 'max:50'],
             'alamat' => ['nullable', 'max:255'],
@@ -126,9 +115,24 @@ class NurseController extends Controller
      * @param  \App\Models\Nurse  $nurse
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Nurse $nurse)
+    public function update(Request $request, Nurse $perawat)
     {
-        //
+        // data validation
+        $validatedData = $request->validate([
+            'nama' => ['required', 'max:100'],
+            'email' => "nullable|email:dns|max:50|unique:nurses,email," . $perawat->id_perawat,
+            // 'email' => ['nullable', 'email:dns', 'unique:nurses', 'max:50'],
+            'no_hp' => ['required', 'numeric', 'unique:nurses', 'max_digits:15'],
+            'tgl_lahir' => ['nullable', 'date'],
+            'tempat_lahir' => ['nullable', 'max:50'],
+            'alamat' => ['nullable', 'max:255']
+        ]);
+
+        Nurse::where('id_perawat', $perawat->id_perawat)
+                ->update($validatedData);
+
+        return back()->with('success', 'Data berhasil di update')
+                ->with('success', 'Data berhasil di update');
     }
 
     /**

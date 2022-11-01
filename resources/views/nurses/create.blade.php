@@ -23,20 +23,20 @@
                     @enderror
                 </div>
                 <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" class="form-control @error('email') is-invalid @enderror" id="email"
-                        placeholder="email" name="email" value="{{ old('email') }}">
-                    @error('email')
+                    <label for="no_hp">No Hp</label>
+                    <input type="number" class="form-control @error('no_hp') is-invalid @enderror" id="no_hp"
+                        placeholder="No Hp" name="no_hp" value="{{ old('no_hp') }}">
+                    @error('no_hp')
                     <p class="invalid-feedback">
                         {{ $message }}
                     </p>
                     @enderror
                 </div>
                 <div class="form-group">
-                    <label for="no_hp">No Hp</label>
-                    <input type="number" class="form-control @error('no_hp') is-invalid @enderror" id="no_hp"
-                        placeholder="No Hp" name="no_hp" value="{{ old('no_hp') }}">
-                    @error('no_hp')
+                    <label for="email">Email</label>
+                    <input type="email" class="form-control @error('email') is-invalid @enderror" id="email"
+                        placeholder="email" name="email" value="{{ old('email') }}">
+                    @error('email')
                     <p class="invalid-feedback">
                         {{ $message }}
                     </p>

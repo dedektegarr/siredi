@@ -2,6 +2,15 @@
 
 @section('content')
 <div class="row">
+    @if (session()->has('success'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <i class="fa-solid fa-check mr-1"></i>
+        {!! session('success') !!}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    @endif
     <div class="col-md-4">
         <div class="card card-primary card-outline">
             <div class="card-body box-profile">
@@ -23,21 +32,16 @@
                     </li>
                 </ul>
                 <div class="row">
-                    <div class="col-6">
+                    <div class="col-12">
                         <form action="{{ route('perawat.destroy', $nurse->id_perawat) }}" method="POST">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-danger btn-block"
+                            <button type="submit" class="btn btn-danger btn-block btn-sm"
                                 onclick="return confirm('Anda yakin ingin menghapus data ini?')">
-                                <i class="fa-solid fa-trash"></i>
-                                Hapus
+                                <i class="fa-solid fa-trash mr-1"></i>
+                                Hapus Data
                             </button>
                         </form>
-                    </div>
-                    <div class="col-6">
-                        <a href="#" class="btn btn-warning btn-block" id="edit-btn">
-                            <i class="fa-solid fa-pen-to-square"></i>
-                            Edit</a>
                     </div>
                 </div>
             </div>
@@ -70,7 +74,7 @@
             <div class="col-md-12">
                 <div class="card card-info collapsed-card">
                     <div class="card-header">
-                        <h3 class="card-title">Akun</h3>
+                        <h3 class="card-title">Ubah Password</h3>
 
                         <div class="card-tools">
                             <button type="button" class="btn btn-tool" data-card-widget="collapse"><i
@@ -86,7 +90,8 @@
                                 <div class="form-group row">
                                     <label for="username" class="col-sm-2 col-form-label">Username</label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control form-control-sm" id="username" placeholder="">
+                                        <input type="text" class="form-control form-control-sm" id="username"
+                                            value="{{ $nurse->user->username }}" readonly disabled>
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -99,7 +104,9 @@
                             </div>
                             <!-- /.card-body -->
                             <div class="card-footer">
-                                <button type="submit" class="btn btn-primary">Update</button>
+                                <button type="submit" class="btn btn-info btn-sm"
+                                    onclick="return confirm('Anda yakin ingin mengubah password ini?')">Update
+                                    Password</button>
                             </div>
                             <!-- /.card-footer -->
                         </form>
@@ -114,40 +121,77 @@
             </div>
             <!-- /.card-header -->
             <!-- form start -->
-            <form>
+            <form method="POST" action="{{ route('perawat.update', $nurse->id_perawat) }}">
+                @csrf
+                @method('PUT')
                 <div class="card-body">
                     <div class="form-group">
                         <label for="nama">Nama</label>
-                        <input type="text" class="form-control" id="nama" value="{{ old('nama', $nurse->nama) }}">
+                        <input type="text" class="form-control @error('nama') is-invalid @enderror" id="nama"
+                            name="nama" value="{{ old('nama', $nurse->nama) }}" placeholder="Nama">
+                        @error('nama')
+                        <p class="invalid-feedback">
+                            {{ $message }}
+                        </p>
+                        @enderror
                     </div>
                     <div class="form-group">
                         <label for="email">Email</label>
-                        <input type="email" class="form-control" id="email" value="{{ old('email', $nurse->email) }}">
+                        <input type="email" class="form-control @error('email') is-invalid @enderror"" id=" email"
+                            name="email" value="{{ old('email', $nurse->email) }}" placeholder="Email">
+                        @error('email')
+                        <p class="invalid-feedback">
+                            {{ $message }}
+                        </p>
+                        @enderror
                     </div>
                     <div class="form-group">
                         <label for="no_hp">No Hp</label>
-                        <input type="number" class="form-control" id="no_hp" value="{{ old('no_hp', $nurse->no_hp) }}">
+                        <input type="number" class="form-control @error('no_hp') is-invalid @enderror"" id=" no_hp"
+                            name="no_hp" value="{{ old('no_hp', $nurse->no_hp) }}" placeholder="No Hp">
+                        @error('no_hp')
+                        <p class="invalid-feedback">
+                            {{ $message }}
+                        </p>
+                        @enderror
                     </div>
                     <div class="form-group">
                         <label for="tgl_lahir">Tanggal Lahir</label>
-                        <input type="date" class="form-control" id="tgl_lahir"
-                            value="{{ old('tgl_lahir', $nurse->tgl_lahir) }}">
+                        <input type="date" class="form-control @error('tgl_lahir') is-invalid @enderror"" id="
+                            tgl_lahir" value="{{ old('tgl_lahir', $nurse->tgl_lahir) }}" name="tgl_lahir">
+                        @error('tgl_lahir')
+                        <p class="invalid-feedback">
+                            {{ $message }}
+                        </p>
+                        @enderror
                     </div>
                     <div class="form-group">
                         <label for="tempat_lahir">Tempat Lahir</label>
-                        <input type="text" class="form-control" id="tempat_lahir"
-                            value="{{ old('tempat_lahir', $nurse->tempat_lahir) }}">
+                        <input type="text" class="form-control @error('tempat_lahir') is-invalid @enderror"" id="
+                            tempat_lahir" value="{{ old('tempat_lahir', $nurse->tempat_lahir) }}" name="tempat_lahir"
+                            placeholder="Tempat Lahir">
+                        @error('tempat_lahir')
+                        <p class="invalid-feedback">
+                            {{ $message }}
+                        </p>
+                        @enderror
                     </div>
                     <div class="form-group">
                         <label for="alamat">Alamat</label>
-                        <textarea name="alamat" id="alamat" class="form-control"
-                            rows="3">{{ $nurse->alamat }}</textarea>
+                        <textarea name="alamat" id="alamat"
+                            class="form-control @error('alamat') is-invalid @enderror"" rows=" 3"
+                            placeholder="Alamat">{{ old('alamat', $nurse->alamat) }}</textarea>
+                        @error('alamat')
+                        <p class="invalid-feedback">
+                            {{ $message }}
+                        </p>
+                        @enderror
                     </div>
                 </div>
                 <!-- /.card-body -->
 
                 <div class="card-footer">
-                    <button type="submit" class="btn btn-primary">Update</button>
+                    <button type="submit" class="btn btn-primary">Update Data</button>
                 </div>
             </form>
         </div>
