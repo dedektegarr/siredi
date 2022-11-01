@@ -21,6 +21,10 @@
                                 </button>
                             </div>
                             @endif
+                            <a href="{{ route('perawat.create') }}" class="btn btn-info btn-sm mb-2">
+                                <i class="fa-solid fa-plus"></i>
+                                Tambah Data
+                            </a>
                             <table id="nurses_table" class="table table-bordered table-striped dataTable dtr-inline"
                                 aria-describedby="nurses_table_info">
                                 <thead>

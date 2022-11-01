@@ -126,7 +126,7 @@
                     </div>
                     <div class="form-group">
                         <label for="no_hp">No Hp</label>
-                        <input type="text" class="form-control" id="no_hp" value="{{ old('no_hp', $nurse->no_hp) }}">
+                        <input type="number" class="form-control" id="no_hp" value="{{ old('no_hp', $nurse->no_hp) }}">
                     </div>
                     <div class="form-group">
                         <label for="tgl_lahir">Tanggal Lahir</label>

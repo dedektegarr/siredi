@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
                 'role' => 'admin'
             ]);
 
-        // \App\Models\User::factory(5)->create();
+        // \App\Models\User::factory(4)->create();
         \App\Models\Doctor::factory(5)->create();
         \App\Models\Nurse::factory(5)->create();
         \App\Models\Pharmacist::factory(5)->create();

@@ -18,12 +18,12 @@ return new class extends Migration
             $table->unsignedBigInteger('id')->unique()->nullable();
             $table->foreign('id')->references('id')->on('users');
             $table->string('nama', 100);
-            $table->string('email', 50)->unique();
-            $table->string('no_hp', 15);
-            $table->text('alamat', 255);
-            $table->string('poli', 50);
-            $table->date('tgl_lahir');
-            $table->string('tempat_lahir', 50);
+            $table->string('email', 50)->unique()->nullable();
+            $table->string('no_hp', 15)->nullable();
+            $table->text('alamat', 255)->nullable();
+            $table->string('poli', 50)->nullable();
+            $table->date('tgl_lahir')->nullable();
+            $table->string('tempat_lahir', 50)->nullable();
             $table->timestamps();
         });
     }

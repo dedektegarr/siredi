@@ -13,8 +13,14 @@ class Nurse extends Model
     protected $keyType = 'char';
     public $incrementing = false;
 
+    protected $guarded = [''];
+
     public function getRouteKeyName()
     {
         return 'id_perawat';
+    }
+
+    public function user() {
+        return $this->hasOne(User::class, 'id');
     }
 }

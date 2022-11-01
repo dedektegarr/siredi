@@ -27,4 +27,8 @@ class User extends Authenticatable
     protected $hidden = [
         'password'
     ];
+
+    public function nurse() {
+        return $this->belongsTo(Nurse::class, 'id_perawat');
+    }
 }
