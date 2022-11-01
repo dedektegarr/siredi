@@ -21,12 +21,12 @@ class DatabaseSeeder extends Seeder
             ]);
 
         // \App\Models\User::factory(4)->create();
-        \App\Models\Doctor::factory(5)->create();
-        \App\Models\Nurse::factory(5)->create();
-        \App\Models\Pharmacist::factory(5)->create();
-        \App\Models\Patient::factory(5)->create();
-        \App\Models\Poly::factory(5)->create();
-        \App\Models\Medicine::factory(5)->create();
+        // \App\Models\Doctor::factory(5)->create();
+        // \App\Models\Nurse::factory(5)->create();
+        // \App\Models\Pharmacist::factory(5)->create();
+        // \App\Models\Patient::factory(5)->create();
+        // \App\Models\Poly::factory(5)->create();
+        // \App\Models\Medicine::factory(5)->create();
         // \App\Models\Queue::factory(5)->create();
     }
 }

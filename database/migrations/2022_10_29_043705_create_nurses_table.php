@@ -16,7 +16,10 @@ return new class extends Migration
         Schema::create('nurses', function (Blueprint $table) {
             $table->char('id_perawat', 5)->primary();
             $table->unsignedBigInteger('id')->unique()->nullable();
-            $table->foreign('id')->references('id')->on('users');
+            $table->foreign('id')->references('id')
+                    ->on('users')
+                    ->onDelete('cascade')
+                    ->onUpdate('cascade');
             $table->string('nama', 100);
             $table->string('email', 50)->unique()->nullable();
             $table->string('no_hp', 15)->nullable();

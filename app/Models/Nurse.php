@@ -21,6 +21,6 @@ class Nurse extends Model
     }
 
     public function user() {
-        return $this->hasOne(User::class, 'id');
+        return $this->belongsTo(User::class, 'id');
     }
 }

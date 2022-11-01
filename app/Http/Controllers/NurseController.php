@@ -140,6 +140,7 @@ class NurseController extends Controller
     public function destroy(Nurse $perawat)
     {
         Nurse::where('id_perawat', $perawat->id_perawat)->delete();
+        User::where('id', $perawat->user->id)->delete();
         return redirect()->route('perawat.index')->with('success', "Data <strong>$perawat->nama</strong> berhasil dihapus");
     }
 }

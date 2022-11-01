@@ -29,6 +29,6 @@ class User extends Authenticatable
     ];
 
     public function nurse() {
-        return $this->belongsTo(Nurse::class, 'id_perawat');
+        return $this->hasOne(Nurse::class, 'id');
     }
 }
