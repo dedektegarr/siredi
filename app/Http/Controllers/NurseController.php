@@ -118,15 +118,25 @@ class NurseController extends Controller
     public function update(Request $request, Nurse $perawat)
     {
         // data validation
-        $validatedData = $request->validate([
+        $rules = [
             'nama' => ['required', 'max:100'],
-            'email' => "nullable|email:dns|max:50|unique:nurses,email," . $perawat->id_perawat,
-            // 'email' => ['nullable', 'email:dns', 'unique:nurses', 'max:50'],
-            'no_hp' => ['required', 'numeric', 'unique:nurses', 'max_digits:15'],
+            // 'email' => "nullable|email:dns|max:50|unique:nurses,email," . $perawat->id_perawat,
+            // // 'email' => ['nullable', 'email:dns', 'unique:nurses', 'max:50'],
+            // 'no_hp' => ['required', 'numeric', 'unique:nurses', 'max_digits:15'],
             'tgl_lahir' => ['nullable', 'date'],
             'tempat_lahir' => ['nullable', 'max:50'],
             'alamat' => ['nullable', 'max:255']
-        ]);
+        ];
+
+        if($request->no_hp !== $perawat->no_hp) {
+            $rules['no_hp'] = ['required', 'numeric', 'unique:nurses', 'max_digits:15'];
+        }
+
+        if($request->email !== $perawat->email) {
+            $rules['email'] = ['nullable', 'email:dns', 'unique:nurses', 'max:50'];
+        }
+
+        $validatedData = $request->validate($rules);
 
         Nurse::where('id_perawat', $perawat->id_perawat)
                 ->update($validatedData);
