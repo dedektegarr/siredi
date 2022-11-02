@@ -83,6 +83,10 @@ class NurseController extends Controller
 
     }
 
+    public function upload(Request $request, Nurse $perawat) {
+        return dd($request->file('image'));
+    }
+
     /**
      * Display the specified resource.
      *

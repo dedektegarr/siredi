@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\NurseController;
 use App\Http\Controllers\UserController;
+use Faker\Guesser\Name;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -36,6 +37,7 @@ Route::middleware(['auth'])->group(function() {
 
     // nurse resource
     Route::resource('perawat', NurseController::class);
+    Route::put('perawat/{perawat}', [NurseController::class, 'upload'])->name('perawat.upload');
 
 });
 
