@@ -76,7 +76,7 @@
     <div class="col-md-8">
         <div class="row">
             <div class="col-md-12">
-                <div class="card card-info collapsed-card">
+                <div class="card card-info">
                     <div class="card-header">
                         <h3 class="card-title">Ubah Password</h3>
 
@@ -88,21 +88,36 @@
                         <!-- /.card-tools -->
                     </div>
                     <!-- /.card-header -->
-                    <div class="card-body" style="display: none;">
-                        <form class="form-horizontal">
+                    <div class="card-body" style="display: block;">
+                        <form class="form-horizontal" method="POST"
+                            action="{{ route('user.update', $nurse->user->id) }}">
+                            @csrf
+                            @method('PUT')
                             <div class="card-body">
                                 <div class="form-group row">
                                     <label for="username" class="col-sm-2 col-form-label">Username</label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control form-control-sm" id="username"
-                                            value="{{ $nurse->user->username }}" readonly disabled>
+                                        <input type="text"
+                                            class="form-control form-control-sm @error('username') is-invalid @enderror"
+                                            id="username" value="{{ $nurse->user->username }}" name="username" readonly>
+                                        @error('username')
+                                        <p class="invalid-feedback">
+                                            {{ $message }}
+                                        </p>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label for="password" class="col-sm-2 col-form-label">Password</label>
                                     <div class="col-sm-10">
-                                        <input type="password" class="form-control form-control-sm" id="password"
-                                            placeholder="Password">
+                                        <input type="password"
+                                            class="form-control form-control-sm @error('password') is-invalid @enderror"
+                                            id="password" placeholder="Password" name="password">
+                                        @error('password')
+                                        <p class="invalid-feedback">
+                                            {{ $message }}
+                                        </p>
+                                        @enderror
                                     </div>
                                 </div>
                             </div>

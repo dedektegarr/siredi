@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\NurseController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,8 +30,13 @@ Route::middleware(['auth'])->group(function() {
     })->name('dashboard');
 
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+   
+    // user resource
+    Route::resource('user', UserController::class);
 
+    // nurse resource
     Route::resource('perawat', NurseController::class);
+
 });
 
 Route::middleware(['guest'])->group(function() {
