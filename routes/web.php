@@ -37,8 +37,6 @@ Route::middleware(['auth'])->group(function() {
 
     // nurse resource
     Route::resource('perawat', NurseController::class);
-    Route::put('perawat/{perawat}', [NurseController::class, 'upload'])->name('perawat.upload');
-
 });
 
 Route::middleware(['guest'])->group(function() {

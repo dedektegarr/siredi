@@ -83,10 +83,6 @@ class NurseController extends Controller
 
     }
 
-    public function upload(Request $request, Nurse $perawat) {
-        return dd($request->file('image'));
-    }
-
     /**
      * Display the specified resource.
      *
@@ -121,17 +117,29 @@ class NurseController extends Controller
      */
     public function update(Request $request, Nurse $perawat)
     {
+        // if nurse avatar is null
+        // return var_dump($request->photo);
+        if($request->photo) {
+            $validatedData = $request->validate([
+                'photo' => ['nullable', 'image', 'file', 'max:1024']
+            ]);
+
+            $validatedData['photo'] = $request->file('photo')->store('user-photo');
+
+            Nurse::where('id_perawat', $perawat->id_perawat)->update($validatedData);
+            
+            return back()->with('success', 'Foto berhasil di update');
+        }
+
         // data validation
         $rules = [
             'nama' => ['required', 'max:100'],
-            // 'email' => "nullable|email:dns|max:50|unique:nurses,email," . $perawat->id_perawat,
-            // // 'email' => ['nullable', 'email:dns', 'unique:nurses', 'max:50'],
-            // 'no_hp' => ['required', 'numeric', 'unique:nurses', 'max_digits:15'],
             'tgl_lahir' => ['nullable', 'date'],
             'tempat_lahir' => ['nullable', 'max:50'],
-            'alamat' => ['nullable', 'max:255']
+            'alamat' => ['nullable', 'max:255'],
         ];
 
+        // rules if request number, email is equal nurse
         if($request->no_hp !== $perawat->no_hp) {
             $rules['no_hp'] = ['required', 'numeric', 'unique:nurses', 'max_digits:15'];
         }
@@ -142,6 +150,7 @@ class NurseController extends Controller
 
         $validatedData = $request->validate($rules);
 
+        // update
         Nurse::where('id_perawat', $perawat->id_perawat)
                 ->update($validatedData);
 

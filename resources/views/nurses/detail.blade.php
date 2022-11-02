@@ -3,6 +3,17 @@
 @section('content')
 <div class="row">
     <div class="col-md-12">
+        @if ($errors->any())
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <i class="fa-solid fa-circle-exclamation mr-1"></i>
+            @foreach ($errors->all() as $error)
+            {{ $error }}
+            @endforeach
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        @endif
         @if (session()->has('success'))
         <div class="alert alert-success alert-dismissible fade show" role="alert">
             <i class="fa-solid fa-check mr-1"></i>
@@ -20,13 +31,19 @@
             <div class="card-body box-profile">
                 <div class="text-center">
                     <label for="file-input">
+                        @if ($nurse->photo)
                         <img class="profile-user-img img-fluid img-circle" style="cursor: pointer"
-                            src="https://source.unsplash.com/100x100?avatar" alt="User profile picture">
+                            src="{{ asset($nurse->photo) }}" alt="User profile picture">
+                        @else
+                        <img class="profile-user-img img-fluid img-circle" style="cursor: pointer"
+                            src="{{ asset('img/nurse-img.png') }}" alt="User profile picture">
+                        @endif
                     </label>
-                    <form action="{{ route('perawat.upload', $nurse->id_perawat) }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('perawat.update', $nurse->id_perawat) }}" method="POST"
+                        enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
-                        <input type="file" id="file-input" class="d-none" onchange="this.form.submit()" name="image">
+                        <input type="file" id="file-input" class="d-none" onchange="this.form.submit()" name="photo">
                     </form>
                 </div>
 
@@ -82,6 +99,7 @@
     </div>
     <div class="col-md-8">
         <div class="row">
+            {{-- update account --}}
             <div class="col-md-12">
                 @if ($errors->any())
                 <div class="card card-info">
@@ -146,6 +164,8 @@
                     </div>
                 </div>
             </div>
+
+            {{-- update data --}}
             <div class="card card-primary">
                 <div class="card-header">
                     <h3 class="card-title">Edit</h3>

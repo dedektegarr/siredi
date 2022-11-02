@@ -88,6 +88,7 @@
             "responsive": true,
             "lengthChange": false,
             "autoWidth": false,
+            "ordering": false,
             "buttons": ["pdf", "print", "colvis"]
         }).buttons().container().appendTo('#nurses_table_wrapper .col-md-6:eq(0)');
         // $('#example2').DataTable({

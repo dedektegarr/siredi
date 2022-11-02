@@ -26,6 +26,7 @@ return new class extends Migration
             $table->text('alamat', 255)->nullable();
             $table->date('tgl_lahir')->nullable();
             $table->string('tempat_lahir', 50)->nullable();
+            $table->string('photo')->unique()->nullable();
             $table->timestamps();
         });
     }
