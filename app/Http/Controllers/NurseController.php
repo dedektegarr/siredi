@@ -135,6 +135,7 @@ class NurseController extends Controller
         // data validation
         $rules = [
             'nama' => ['required', 'max:100'],
+            'jenis_kelamin' => ['required'],
             'tgl_lahir' => ['nullable', 'date'],
             'tempat_lahir' => ['nullable', 'max:50'],
             'alamat' => ['nullable', 'max:255'],
