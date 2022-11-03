@@ -118,7 +118,7 @@ class NurseController extends Controller
      */
     public function update(Request $request, Nurse $perawat)
     {
-        // if nurse avatar is null
+        // if request photo is true
         // return var_dump($request->photo);
         if($request->photo) {
             $validatedData = $request->validate([

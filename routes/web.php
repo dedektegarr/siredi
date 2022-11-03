@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\NurseController;
 use App\Http\Controllers\UserController;
 use Faker\Guesser\Name;
@@ -37,6 +38,9 @@ Route::middleware(['auth'])->group(function() {
 
     // nurse resource
     Route::resource('perawat', NurseController::class);
+
+    // doctor resource
+    Route::resource('dokter', DoctorController::class);
 });
 
 Route::middleware(['guest'])->group(function() {

@@ -31,15 +31,22 @@
             <div class="card-body box-profile">
                 <div class="text-center">
                     <label for="file-input">
-                        @if ($nurse->photo)
+                        @if ($doctor->photo)
                         <img class="profile-user-img img-fluid img-circle" style="cursor: pointer"
-                            src="{{ asset($nurse->photo) }}" alt="User profile picture">
+                            src="{{ asset($doctor->photo) }}" alt="User profile picture">
                         @else
-                        <img class="profile-user-img img-fluid img-circle" style="cursor: pointer"
-                            src="{{ asset('img/nurse-img.png') }}" alt="User profile picture">
+                            @if ($doctor->jenis_kelamin == 'pria')
+                            <img class="profile-user-img img-fluid img-circle" style="cursor: pointer"
+                            src="{{ asset('img/doctor-male-img.jpeg') }}" alt="User profile picture">
+                            
+                            @else
+                            <img class="profile-user-img img-fluid img-circle" style="cursor: pointer"
+                            src="{{ asset('img/doctor-female-img.jpeg') }}" alt="User profile picture">
+                            @endif
+                        
                         @endif
                     </label>
-                    <form action="{{ route('perawat.update', $nurse->id_perawat) }}" method="POST"
+                    <form action="{{ route('dokter.update', $doctor->id_dokter) }}" method="POST"
                         enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
@@ -47,21 +54,21 @@
                     </form>
                 </div>
 
-                <h3 class="profile-username text-center">{{ $nurse->nama }}</h3>
+                <h3 class="profile-username text-center">{{ $doctor->nama }}</h3>
 
-                <p class="text-muted text-center">Perawat</p>
+                <p class="text-muted text-center">dokter</p>
 
                 <ul class="list-group list-group-unbordered mb-3">
                     <li class="list-group-item">
-                        <b>Email</b> <a class="float-right">{{ $nurse->email }}</a>
+                        <b>Email</b> <a class="float-right">{{ $doctor->email }}</a>
                     </li>
                     <li class="list-group-item">
-                        <b>No Hp</b> <a class="float-right">{{ $nurse->no_hp }}</a>
+                        <b>No Hp</b> <a class="float-right">{{ $doctor->no_hp }}</a>
                     </li>
                 </ul>
                 <div class="row">
                     <div class="col-12">
-                        <form action="{{ route('perawat.destroy', $nurse->id_perawat) }}" method="POST">
+                        <form action="{{ route('dokter.destroy', $doctor->id_dokter) }}" method="POST">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger btn-block btn-sm"
@@ -84,15 +91,15 @@
             <div class="card-body">
 
                 <strong><i class="fas fa-calendar-days mr-1"></i> Tanggal lahir</strong>
-                <p class="text-muted">{{ $nurse->tgl_lahir }}</p>
+                <p class="text-muted">{{ $doctor->tgl_lahir }}</p>
                 <hr>
 
                 <strong><i class="fas fa-map-marker-alt mr-1"></i> Tempat lahir</strong>
-                <p class="text-muted">{{ $nurse->tempat_lahir }}</p>
+                <p class="text-muted">{{ $doctor->tempat_lahir }}</p>
                 <hr>
 
                 <strong><i class="fas fa-map-marker-alt mr-1"></i> Alamat</strong>
-                <p class="text-muted">{{ $nurse->alamat }}</p>
+                <p class="text-muted">{{ $doctor->alamat }}</p>
             </div>
             <!-- /.card-body -->
         </div>
@@ -119,7 +126,7 @@
                         <!-- /.card-header -->
                         <div class="card-body" style="display: @error('password') block @enderror">
                             <form class="form-horizontal" method="POST"
-                                action="{{ route('user.update', $nurse->user->id) }}">
+                                action="{{ route('user.update', $doctor->user->id) }}">
                                 @csrf
                                 @method('PUT')
                                 <div class="card-body">
@@ -128,7 +135,7 @@
                                         <div class="col-sm-10">
                                             <input type="text"
                                                 class="form-control form-control-sm @error('username') is-invalid @enderror"
-                                                id="username" value="{{ $nurse->user->username }}" name="username"
+                                                id="username" value="{{ $doctor->user->username }}" name="username"
                                                 readonly>
                                             @error('username')
                                             <p class="invalid-feedback">
@@ -172,14 +179,14 @@
                 </div>
                 <!-- /.card-header -->
                 <!-- form start -->
-                <form method="POST" action="{{ route('perawat.update', $nurse->id_perawat) }}">
+                <form method="POST" action="{{ route('dokter.update', $doctor->id_dokter) }}">
                     @csrf
                     @method('PUT')
                     <div class="card-body">
                         <div class="form-group">
                             <label for="nama">Nama</label>
                             <input type="text" class="form-control @error('nama') is-invalid @enderror" id="nama"
-                                name="nama" value="{{ old('nama', $nurse->nama) }}" placeholder="Nama">
+                                name="nama" value="{{ old('nama', $doctor->nama) }}" placeholder="Nama">
                             @error('nama')
                             <p class="invalid-feedback">
                                 {{ $message }}
@@ -187,11 +194,30 @@
                             @enderror
                         </div>
                         <div class="form-group">
+                            <label for="poli">Poli</label>
+                            <select class="form-control @error('poli') is-invalid @enderror" id="poli"
+                                name="poli">
+                                <option value="">Pilih Poli</option>
+                                <option value="pria">Pria</option>
+                                <option value="wanita">Wanita</option>
+                            </select>
+                            @error('poli')
+                            <p class="invalid-feedback">
+                                {{ $message }}
+                            </p>
+                            @enderror
+                        </div>
+                        <div class="form-group">
                             <label for="jenis_kelamin">Jenis Kelamin</label>
-                            <select class="form-control @error('jenis_kelamin') is-invalid @enderror" id="jenis_kelamin" name="jenis_kelamin">
+                            <select class="form-control @error('jenis_kelamin') is-invalid @enderror" id="jenis_kelamin"
+                                name="jenis_kelamin">
                                 <option value="">Pilih jenis kelamin</option>
-                                <option value="pria" {{ old('jenis_kelamin', $nurse->jenis_kelamin == 'pria') ? 'selected' : '' }}>Pria</option>
-                                <option value="wanita" {{ old('jenis_kelamin', $nurse->jenis_kelamin == 'wanita') ? 'selected' : '' }}>Wanita</option>
+                                <option value="pria"
+                                    {{ old('jenis_kelamin', $doctor->jenis_kelamin == 'pria') ? 'selected' : '' }}>Pria
+                                </option>
+                                <option value="wanita"
+                                    {{ old('jenis_kelamin', $doctor->jenis_kelamin == 'wanita') ? 'selected' : '' }}>
+                                    Wanita</option>
                             </select>
                             @error('jenis_kelamin')
                             <p class="invalid-feedback">
@@ -202,7 +228,7 @@
                         <div class="form-group">
                             <label for="email">Email</label>
                             <input type="email" class="form-control @error('email') is-invalid @enderror"" id=" email"
-                                name="email" value="{{ old('email', $nurse->email) }}" placeholder="Email">
+                                name="email" value="{{ old('email', $doctor->email) }}" placeholder="Email">
                             @error('email')
                             <p class="invalid-feedback">
                                 {{ $message }}
@@ -212,7 +238,7 @@
                         <div class="form-group">
                             <label for="no_hp">No Hp</label>
                             <input type="number" class="form-control @error('no_hp') is-invalid @enderror"" id=" no_hp"
-                                name="no_hp" value="{{ old('no_hp', $nurse->no_hp) }}" placeholder="No Hp">
+                                name="no_hp" value="{{ old('no_hp', $doctor->no_hp) }}" placeholder="No Hp">
                             @error('no_hp')
                             <p class="invalid-feedback">
                                 {{ $message }}
@@ -222,7 +248,7 @@
                         <div class="form-group">
                             <label for="tgl_lahir">Tanggal Lahir</label>
                             <input type="date" class="form-control @error('tgl_lahir') is-invalid @enderror"" id="
-                                tgl_lahir" value="{{ old('tgl_lahir', $nurse->tgl_lahir) }}" name="tgl_lahir">
+                                tgl_lahir" value="{{ old('tgl_lahir', $doctor->tgl_lahir) }}" name="tgl_lahir">
                             @error('tgl_lahir')
                             <p class="invalid-feedback">
                                 {{ $message }}
@@ -232,7 +258,7 @@
                         <div class="form-group">
                             <label for="tempat_lahir">Tempat Lahir</label>
                             <input type="text" class="form-control @error('tempat_lahir') is-invalid @enderror"" id="
-                                tempat_lahir" value="{{ old('tempat_lahir', $nurse->tempat_lahir) }}"
+                                tempat_lahir" value="{{ old('tempat_lahir', $doctor->tempat_lahir) }}"
                                 name="tempat_lahir" placeholder="Tempat Lahir">
                             @error('tempat_lahir')
                             <p class="invalid-feedback">
@@ -244,7 +270,7 @@
                             <label for="alamat">Alamat</label>
                             <textarea name="alamat" id="alamat"
                                 class="form-control @error('alamat') is-invalid @enderror" rows=" 3"
-                                placeholder="Alamat">{{ old('alamat', $nurse->alamat) }}</textarea>
+                                placeholder="Alamat">{{ old('alamat', $doctor->alamat) }}</textarea>
                             @error('alamat')
                             <p class="invalid-feedback">
                                 {{ $message }}

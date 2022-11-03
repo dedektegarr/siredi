@@ -22,7 +22,6 @@ return new class extends Migration
             $table->enum('jenis_kelamin', ['pria', 'wanita']);
             $table->string('no_hp', 15)->nullable();
             $table->text('alamat', 255)->nullable();
-            $table->string('poli', 50)->nullable();
             $table->date('tgl_lahir')->nullable();
             $table->string('tempat_lahir', 50)->nullable();
             $table->string('photo')->unique()->nullable();

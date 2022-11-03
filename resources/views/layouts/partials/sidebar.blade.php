@@ -42,6 +42,12 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a href="{{ route('dokter.index') }}" class="nav-link {{ Route::is('dokter*') ? 'active' : '' }}">
+                        <i class="nav-icon fa-solid fa-user-doctor"></i>
+                        <p> Dokter</p>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a href="{{ route('perawat.index') }}" class="nav-link {{ Route::is('perawat*') ? 'active' : '' }}">
                         <i class="nav-icon fa-solid fa-user-nurse"></i>
                         <p> Perawat</p>
