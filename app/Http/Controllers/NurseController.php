@@ -46,6 +46,7 @@ class NurseController extends Controller
         $validatedData = $request->validate([
             'nama' => ['required', 'max:100'],
             'email' => ['nullable', 'email:dns', 'unique:nurses', 'max:50'],
+            'jenis_kelamin' => ['required'],
             'no_hp' => ['required', 'numeric', 'unique:nurses', 'max_digits:15'],
             'tgl_lahir' => ['nullable', 'date'],
             'tempat_lahir' => ['nullable', 'max:50'],

@@ -22,6 +22,7 @@ return new class extends Migration
                     ->onUpdate('cascade');
             $table->string('nama', 100);
             $table->string('email', 50)->unique()->nullable();
+            $table->enum('jenis_kelamin', ['pria', 'wanita']);
             $table->string('no_hp', 15)->nullable();
             $table->text('alamat', 255)->nullable();
             $table->date('tgl_lahir')->nullable();

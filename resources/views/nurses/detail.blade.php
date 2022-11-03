@@ -187,6 +187,19 @@
                             @enderror
                         </div>
                         <div class="form-group">
+                            <label for="jenis_kelamin">Jenis Kelamin</label>
+                            <select class="form-control @error('jenis_kelamin') is-invalid @enderror" id="jenis_kelamin" name="jenis_kelamin">
+                                <option value="">Pilih jenis kelamin</option>
+                                <option value="wanita" {{ old('jenis_kelamin', $nurse->jenis_kelamin) ? 'selected' : '' }}>Wanita</option>
+                                <option value="pria" {{ old('jenis_kelamin', $nurse->jenis_kelamin) ? 'selected' : '' }}>Pria</option>
+                            </select>
+                            @error('jenis_kelamin')
+                            <p class="invalid-feedback">
+                                {{ $message }}
+                            </p>
+                            @enderror
+                        </div>
+                        <div class="form-group">
                             <label for="email">Email</label>
                             <input type="email" class="form-control @error('email') is-invalid @enderror"" id=" email"
                                 name="email" value="{{ old('email', $nurse->email) }}" placeholder="Email">

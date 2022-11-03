@@ -32,6 +32,7 @@
                                         <th>ID</th>
                                         <th>Nama</th>
                                         <th>No Hp</th>
+                                        <th>Jenis Kelamin</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -41,6 +42,13 @@
                                         <td>{{ $nurse->id_perawat }}</td>
                                         <td>{{ $nurse->nama }}</td>
                                         <td>{{ $nurse->no_hp }}</td>
+                                        <td style="width: 100px">
+                                            @if ($nurse->jenis_kelamin === 'pria')
+                                            <h4 class="text-center"><i class="fa-solid fa-person"></i></h4>
+                                            @else
+                                            <h4 class="text-center"><i class="fa-solid fa-person-dress"></i></h4>
+                                            @endif
+                                        </td>
                                         <td>
                                             <div class="btn-group">
                                                 <button type="button" class="btn btn-info btn-sm">Action</button>

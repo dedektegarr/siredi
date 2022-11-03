@@ -23,6 +23,19 @@
                     @enderror
                 </div>
                 <div class="form-group">
+                    <label for="jenis_kelamin">Jenis Kelamin</label>
+                    <select class="form-control @error('jenis_kelamin') is-invalid @enderror" id="jenis_kelamin" name="jenis_kelamin">
+                        <option value="">Pilih jenis kelamin</option>
+                        <option value="wanita">Wanita</option>
+                        <option value="pria">Pria</option>
+                    </select>
+                    @error('jenis_kelamin')
+                    <p class="invalid-feedback">
+                        {{ $message }}
+                    </p>
+                    @enderror
+                </div>
+                <div class="form-group">
                     <label for="no_hp">No Hp</label>
                     <input type="number" class="form-control @error('no_hp') is-invalid @enderror" id="no_hp"
                         placeholder="No Hp" name="no_hp" value="{{ old('no_hp') }}">
