@@ -35,15 +35,15 @@
                         <img class="profile-user-img img-fluid img-circle" style="cursor: pointer"
                             src="{{ asset($doctor->photo) }}" alt="User profile picture">
                         @else
-                            @if ($doctor->jenis_kelamin == 'pria')
-                            <img class="profile-user-img img-fluid img-circle" style="cursor: pointer"
+                        @if ($doctor->jenis_kelamin == 'pria')
+                        <img class="profile-user-img img-fluid img-circle" style="cursor: pointer"
                             src="{{ asset('img/doctor-male-img.jpeg') }}" alt="User profile picture">
-                            
-                            @else
-                            <img class="profile-user-img img-fluid img-circle" style="cursor: pointer"
+
+                        @else
+                        <img class="profile-user-img img-fluid img-circle" style="cursor: pointer"
                             src="{{ asset('img/doctor-female-img.jpeg') }}" alt="User profile picture">
-                            @endif
-                        
+                        @endif
+
                         @endif
                     </label>
                     <form action="{{ route('dokter.update', $doctor->id_dokter) }}" method="POST"
@@ -194,14 +194,14 @@
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="poli">Poli</label>
-                            <select class="form-control @error('poli') is-invalid @enderror" id="poli"
-                                name="poli">
+                            <label for="id_poli">Poli</label>
+                            <select class="form-control @error('id_poli') is-invalid @enderror" id="poli" name="id_poli">
                                 <option value="">Pilih Poli</option>
-                                <option value="pria">Pria</option>
-                                <option value="wanita">Wanita</option>
+                                @foreach ($polies as $poly)
+                                <option value="{{ $poly->id_poli }}" {{ old('id_poli', $doctor->poly->id_poli == $poly->id_poli) ? 'selected' : '' }}>{{ $poly->nama_poli }}</option>
+                                @endforeach
                             </select>
-                            @error('poli')
+                            @error('id_poli')
                             <p class="invalid-feedback">
                                 {{ $message }}
                             </p>

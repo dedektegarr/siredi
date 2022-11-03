@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Doctor;
+use App\Models\Poly;
 use Illuminate\Http\Request;
 
 class DoctorController extends Controller
@@ -30,7 +31,8 @@ class DoctorController extends Controller
     {
         return view('doctors.create', [
             'pageTitle' => 'Tambah dokter',
-            'doctors' => Doctor::latest()->limit(5)->pluck('nama', 'id_dokter')
+            'doctors' => Doctor::latest()->limit(5)->pluck('nama', 'id_dokter'),
+            'polies' => Poly::all()
         ]);
     }
 
@@ -45,11 +47,11 @@ class DoctorController extends Controller
         // data validation
         $validatedData = $request->validate([
             'nama' => ['required', 'max:100'],
-            'email' => ['nullable', 'email:dns', 'unique:nurses', 'max:50'],
+            'email' => ['nullable', 'email:dns', 'unique:doctors', 'max:50'],
             'jenis_kelamin' => ['required'],
-            'no_hp' => ['required', 'numeric', 'unique:nurses', 'max_digits:15'],
+            'no_hp' => ['required', 'numeric', 'unique:doctors', 'max_digits:15'],
             'tgl_lahir' => ['nullable', 'date'],
-            'poli' => ['nullable'],
+            'id_poli' => ['required'],
             'tempat_lahir' => ['nullable', 'max:50'],
             'alamat' => ['nullable', 'max:255'],
             'username' => ['required', 'unique:users', 'max:255'],
@@ -94,7 +96,8 @@ class DoctorController extends Controller
     {
         return view('doctors.detail', [
             'pageTitle' => $dokter->nama,
-            'doctor' => $dokter
+            'doctor' => $dokter,
+            'polies' => Poly::all()
         ]);
     }
 
@@ -137,6 +140,7 @@ class DoctorController extends Controller
             'nama' => ['required', 'max:100'],
             'jenis_kelamin' => ['required'],
             'tgl_lahir' => ['nullable', 'date'],
+            'id_poli' => ['required'],
             'tempat_lahir' => ['nullable', 'max:50'],
             'alamat' => ['nullable', 'max:255'],
         ];

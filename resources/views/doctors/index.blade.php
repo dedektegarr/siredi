@@ -29,10 +29,11 @@
                                 aria-describedby="doctors_table_info">
                                 <thead>
                                     <tr>
-                                        <th>ID</th>
+                                        <th style="width: 10px">ID</th>
                                         <th>Nama</th>
+                                        <th>Poli</th>
                                         <th>No Hp</th>
-                                        <th>Jenis Kelamin</th>
+                                        <th style="width: 100px">Jenis Kelamin</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -41,8 +42,9 @@
                                     <tr class="odd">
                                         <td>{{ $doctor->id_dokter }}</td>
                                         <td>{{ $doctor->nama }}</td>
+                                        <td>{{ $doctor->poly->nama_poli }}</td>
                                         <td>{{ $doctor->no_hp }}</td>
-                                        <td style="width: 100px">
+                                        <td>
                                             @if ($doctor->jenis_kelamin === 'pria')
                                             <h4 class="text-center"><i class="fa-solid fa-person"></i></h4>
                                             @else

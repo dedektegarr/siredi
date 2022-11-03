@@ -24,4 +24,8 @@ class Doctor extends Model
     public function user() {
         return $this->belongsTo(User::class, 'id');
     }
+
+    public function poly() {
+        return $this->belongsTo(Poly::class, 'id_poli');
+    }
 }

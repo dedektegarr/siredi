@@ -23,14 +23,15 @@
                     @enderror
                 </div>
                 <div class="form-group">
-                    <label for="poli">Poli</label>
-                    <select class="form-control @error('poli') is-invalid @enderror" id="poli"
-                        name="poli">
+                    <label for="id_poli">Poli</label>
+                    <select class="form-control @error('id_poli') is-invalid @enderror" id="id_poli"
+                        name="id_poli">
                         <option value="">Pilih Poli</option>
-                        <option value="pria">Pria</option>
-                        <option value="wanita">Wanita</option>
+                        @foreach ($polies as $poly)
+                        <option value="{{ $poly->id_poli }}">{{ $poly->nama_poli }}</option>
+                        @endforeach
                     </select>
-                    @error('poli')
+                    @error('id_poli')
                     <p class="invalid-feedback">
                         {{ $message }}
                     </p>

@@ -29,10 +29,10 @@
                                 aria-describedby="nurses_table_info">
                                 <thead>
                                     <tr>
-                                        <th>ID</th>
+                                        <th style="width: 10px">ID</th>
                                         <th>Nama</th>
                                         <th>No Hp</th>
-                                        <th>Jenis Kelamin</th>
+                                        <th style="width: 100px">Jenis Kelamin</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
