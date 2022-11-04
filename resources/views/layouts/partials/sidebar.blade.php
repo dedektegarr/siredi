@@ -41,23 +41,38 @@
                         <p> Dashboard</p>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a href="{{ route('dokter.index') }}" class="nav-link {{ Route::is('dokter*') ? 'active' : '' }}">
-                        <i class="nav-icon fa-solid fa-user-doctor"></i>
-                        <p> Dokter</p>
+                {{-- @dd(request()->route()->getPrefix() == '/users') --}}
+                <li class="nav-item {{ request()->route()->getPrefix() == '/users' ? 'menu-open' : '' }}">
+                    <a href="#" class="nav-link {{ request()->route()->getPrefix() == '/users' ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-users"></i>
+                        <p>
+                            Users
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
                     </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ route('perawat.index') }}" class="nav-link {{ Route::is('perawat*') ? 'active' : '' }}">
-                        <i class="nav-icon fa-solid fa-user-nurse"></i>
-                        <p> Perawat</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ route('apoteker.index') }}" class="nav-link {{ Route::is('apoteker*') ? 'active' : '' }}">
-                        <i class="nav-icon fa-solid fa-user-nurse"></i>
-                        <p> Apoteker</p>
-                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('dokter.index') }}"
+                                class="nav-link {{ Route::is('dokter*') ? 'active' : '' }}">
+                                <i class="nav-icon fa-solid fa-user-doctor"></i>
+                                <p> Dokter</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('perawat.index') }}"
+                                class="nav-link {{ Route::is('perawat*') ? 'active' : '' }}">
+                                <i class="nav-icon fa-solid fa-user-nurse"></i>
+                                <p> Perawat</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('apoteker.index') }}"
+                                class="nav-link {{ Route::is('apoteker*') ? 'active' : '' }}">
+                                <i class="nav-icon fa-solid fa-user-nurse"></i>
+                                <p> Apoteker</p>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
             </ul>
         </nav>

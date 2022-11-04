@@ -37,14 +37,16 @@ Route::middleware(['auth'])->group(function() {
     // user resource
     Route::resource('user', UserController::class);
 
-    // doctor resource
-    Route::resource('dokter', DoctorController::class);
+    Route::prefix('users')->group(function() {
+        // doctor resource
+        Route::resource('dokter', DoctorController::class);
+        
+        // nurse resource
+        Route::resource('perawat', NurseController::class);
     
-    // nurse resource
-    Route::resource('perawat', NurseController::class);
-
-    // pharmacist resource
-    Route::resource('apoteker', PharmacistController::class);
+        // pharmacist resource
+        Route::resource('apoteker', PharmacistController::class);
+    });
 
 });
 
