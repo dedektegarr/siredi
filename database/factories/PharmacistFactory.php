@@ -20,6 +20,7 @@ class PharmacistFactory extends Factory
             'id_apoteker' => 'A-' . fake()->unique()->randomNumber(3, true),
             // 'id_user' => fake()->unique()->randomDigit(2, 5),
             'nama' => fake()->name(),
+            'jenis_kelamin' => 'pria',
             'email' => fake()->safeEmail(),
             'no_hp' => '08' . fake()->unique()->randomNumber(9, true),
             'alamat' => fake()->sentence()

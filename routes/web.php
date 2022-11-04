@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\NurseController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\PharmacistController;
 use Faker\Guesser\Name;
 use Illuminate\Support\Facades\Route;
 
@@ -36,11 +37,15 @@ Route::middleware(['auth'])->group(function() {
     // user resource
     Route::resource('user', UserController::class);
 
+    // doctor resource
+    Route::resource('dokter', DoctorController::class);
+    
     // nurse resource
     Route::resource('perawat', NurseController::class);
 
-    // doctor resource
-    Route::resource('dokter', DoctorController::class);
+    // pharmacist resource
+    Route::resource('apoteker', PharmacistController::class);
+
 });
 
 Route::middleware(['guest'])->group(function() {

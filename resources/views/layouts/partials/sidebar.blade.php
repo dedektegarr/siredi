@@ -53,6 +53,12 @@
                         <p> Perawat</p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="{{ route('apoteker.index') }}" class="nav-link {{ Route::is('apoteker*') ? 'active' : '' }}">
+                        <i class="nav-icon fa-solid fa-user-nurse"></i>
+                        <p> Apoteker</p>
+                    </a>
+                </li>
             </ul>
         </nav>
         <!-- /.sidebar-menu -->
