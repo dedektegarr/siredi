@@ -27,7 +27,9 @@ class PatientController extends Controller
      */
     public function create()
     {
-        //
+        return view('patients.create', [
+            'pageTitle' => 'Tambah Pasien'
+        ]);
     }
 
     /**
@@ -38,7 +40,7 @@ class PatientController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return $request;
     }
 
     /**

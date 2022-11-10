@@ -5,7 +5,7 @@
     <div class="col-md-7">
         <div class="card card-primary">
             <div class="card-header">
-                <h3 class="card-title">Tambah</h3>
+                <h3 class="card-title">Data Dokter</h3>
             </div>
             <!-- /.card-header -->
             <!-- form start -->
