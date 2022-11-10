@@ -26,8 +26,8 @@
                     <label for="jenis_kelamin">Jenis Kelamin</label>
                     <select class="form-control @error('jenis_kelamin') is-invalid @enderror" id="jenis_kelamin" name="jenis_kelamin">
                         <option value="">Pilih jenis kelamin</option>
-                        <option value="pria">Pria</option>
-                        <option value="wanita">Wanita</option>
+                        <option value="pria" {{ old('jenis_kelamin') == 'pria' ? 'selected' : '' }}>Pria</option>
+                        <option value="wanita" {{ old('jenis_kelamin') == 'wanita' ? 'selected' : '' }}>Wanita</option>
                     </select>
                     @error('jenis_kelamin')
                     <p class="invalid-feedback">

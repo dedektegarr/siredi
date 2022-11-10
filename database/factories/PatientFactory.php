@@ -18,7 +18,7 @@ class PatientFactory extends Factory
     {
         $gender = ['pria', 'wanita'];
         return [
-            'id_pasien' => 'P-' . fake()->unique()->randomNumber(3, true),
+            'id_pasien' => 'PA' . fake()->unique()->randomNumber(3, true),
             'no_bpjs' => '000' . fake()->unique()->randomNumber(9, true),
             'nama' => fake()->name(),
             'jenis_kelamin' => $gender[mt_rand(0, 1)],

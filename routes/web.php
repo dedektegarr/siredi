@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\NurseController;
+use App\Http\Controllers\PatientController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PharmacistController;
 use Faker\Guesser\Name;
@@ -47,6 +48,10 @@ Route::middleware(['auth'])->group(function() {
         // pharmacist resource
         Route::resource('apoteker', PharmacistController::class);
     });
+
+    
+    // patient resource
+    Route::resource('pasien', PatientController::class);
 
 });
 

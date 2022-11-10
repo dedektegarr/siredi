@@ -49,7 +49,7 @@
 
                 <h3 class="profile-username text-center">{{ $nurse->nama }}</h3>
 
-                <p class="text-muted text-center">{{ ucwords($pharmacist->user->role) }}</p>
+                <p class="text-muted text-center">{{ ucwords($nurse->user->role) }}</p>
 
                 <ul class="list-group list-group-unbordered mb-3">
                     <li class="list-group-item">
