@@ -40,7 +40,34 @@ class PatientController extends Controller
      */
     public function store(Request $request)
     {
-        return $request;
+        $validatedData = $request->validate([
+            'no_bpjs' => ['nullable', 'numeric', 'digits:13', 'unique:patients'],
+            'nama' => ['required', 'max:100'],
+            'jenis_kelamin' => ['required', 'alpha'],
+            'tgl_lahir' => ['required', 'date'],
+            'tempat_lahir' => ['required', 'max:50'],
+            'no_hp' => ['required', 'numeric', 'unique:patients', 'max_digits:15'],
+            'alamat' => ['required'],
+            'berat_badan' => ['nullable', 'numeric', 'max_digits:3'],
+            'tinggi_badan' => ['nullable', 'numeric', 'max_digits:3']
+        ]);
+
+        // create patients id
+        $patientsCount = Patient::count() + 1;
+        if($patientsCount < 10) {
+            $code = '00' . $patientsCount;
+        }
+        elseif($patientsCount < 100) {
+            $code = '0' . $patientsCount;
+        }else {
+            $code = '';
+        }
+
+        $validatedData['id_pasien'] = 'PA' . $code;
+
+        Patient::create($validatedData);
+
+        return redirect()->route('pasien.index')->with('success', 'Data berhasil ditambahkan');
     }
 
     /**
