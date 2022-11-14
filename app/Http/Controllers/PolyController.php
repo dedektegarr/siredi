@@ -49,7 +49,14 @@ class PolyController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'id_poli' => ['required', 'unique:polies', 'size:5'],
+            'nama_poli' => ['required', 'max:100']
+        ]);
+
+        Poly::create($validatedData);
+
+        return redirect()->route('poli.index')->with('success', 'Data berhasil ditambah');
     }
 
     /**
@@ -69,9 +76,9 @@ class PolyController extends Controller
      * @param  \App\Models\Poly  $poly
      * @return \Illuminate\Http\Response
      */
-    public function edit(Poly $poly)
+    public function edit(Poly $poli)
     {
-        //
+        // 
     }
 
     /**
@@ -81,9 +88,19 @@ class PolyController extends Controller
      * @param  \App\Models\Poly  $poly
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Poly $poly)
+    public function update(Request $request, Poly $poli)
     {
-        //
+        $validatedData = $request->validate([
+            'nama_poli' => ['required', 'max:100']
+        ]);
+
+        if($poli->id_poli !== $request->id_poli) {
+            $validatedData['nama_poli'] = ['required', 'unique:polies', 'size:5'];
+        }
+        
+        Poly::where('id_poli', $poli->id_poli)->update($validatedData);
+
+        return redirect()->route('poli.index')->with('success', 'Data berhasil di update');
     }
 
     /**
@@ -92,8 +109,9 @@ class PolyController extends Controller
      * @param  \App\Models\Poly  $poly
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Poly $poly)
+    public function destroy(Poly $poli)
     {
-        //
+        Poly::where('id_poli', $poli->id_poli)->delete();
+        return back()->with('success', 'Data berhasil dihapus');
     }
 }

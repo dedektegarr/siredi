@@ -15,7 +15,8 @@ return new class extends Migration
     {
         Schema::table('doctors', function (Blueprint $table) {
             $table->char('id_poli', 5)->after('id')->nullable();
-            $table->foreign('id_poli')->references('id_poli')->on('polies');
+            $table->foreign('id_poli')->references('id_poli')->on('polies')
+            ->nullOnDelete();
         });
     }
 

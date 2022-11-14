@@ -21,10 +21,64 @@
                                 </button>
                             </div>
                             @endif
-                            <a href="{{ route('poli.create') }}" class="btn btn-info btn-sm mb-2">
+                            <!-- Button trigger modal -->
+                            <button type="button" class="btn btn-info btn-sm mb-2" data-toggle="modal"
+                                data-target="#addModal">
                                 <i class="fa-solid fa-plus"></i>
                                 Tambah Data
-                            </a>
+                            </button>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="addModal" tabindex="-1" role="dialog"
+                                aria-labelledby="addModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="addModalLabel">Tambah Data Poli</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <form action="{{ route('poli.store') }}" method="post">
+                                            <div class="modal-body">
+                                                @csrf
+                                                <div class="form-group">
+                                                    <label for="id_poli">Kode Poli</label>
+                                                    <input type="text"
+                                                        class="form-control @error('id_poli') is-invalid @enderror"
+                                                        id="id_poli" placeholder="ID Poli" name="id_poli"
+                                                        value="{{ old('id_poli') }}">
+                                                    @error('id_poli')
+                                                    <p class="invalid-feedback">
+                                                        {{ $message }}
+                                                    </p>
+                                                    @enderror
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="nama_poli">Nama Poli</label>
+                                                    <input type="text"
+                                                        class="form-control @error('nama_poli') is-invalid @enderror"
+                                                        id="nama_poli" placeholder="Nama Poli" name="nama_poli"
+                                                        value="{{ old('nama_poli') }}">
+                                                    @error('nama_poli')
+                                                    <p class="invalid-feedback">
+                                                        {{ $message }}
+                                                    </p>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-dismiss="modal">Tutup</button>
+                                                <button type="submit" class="btn btn-primary">Tambah</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
                             <table id="polies_table" class="table table-bordered table-striped dataTable dtr-inline"
                                 aria-describedby="polies_table_info">
                                 <thead>
@@ -38,10 +92,61 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($polies as $index => $poly)
+                                    <!-- Edit Modal -->
+                                    <div class="modal fade" id="modal{{ $poly->id_poli }}" tabindex="-1" role="dialog"
+                                        aria-labelledby="modal{{ $poly->id_poli }}Label" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="modal{{ $poly->id_poli }}Label">Update Data Poli</h5>
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <form action="{{ route('poli.update', $poly->id_poli) }}" method="post">
+                                                    <div class="modal-body">
+                                                        @csrf
+                                                        @method('PUT')
+                                                        <div class="form-group">
+                                                            <label for="id_poli">Kode Poli</label>
+                                                            <input type="text"
+                                                                class="form-control @error('id_poli') is-invalid @enderror"
+                                                                id="id_poli" placeholder="ID Poli" name="id_poli"
+                                                                value="{{ old('id_poli', $poly->id_poli) }}">
+                                                            @error('id_poli')
+                                                            <p class="invalid-feedback">
+                                                                {{ $message }}
+                                                            </p>
+                                                            @enderror
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="nama_poli">Nama Poli</label>
+                                                            <input type="text"
+                                                                class="form-control @error('nama_poli') is-invalid @enderror"
+                                                                id="nama_poli" placeholder="Nama Poli" name="nama_poli"
+                                                                value="{{ old('nama_poli', $poly->nama_poli) }}">
+                                                            @error('nama_poli')
+                                                            <p class="invalid-feedback">
+                                                                {{ $message }}
+                                                            </p>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary"
+                                                            data-dismiss="modal">Tutup</button>
+                                                        <button type="submit" class="btn btn-primary">Update</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <tr class="odd">
                                         <td>{{ $poly->id_poli }}</td>
                                         <td>{{ $poly->nama_poli }}</td>
-                                        <td>{{ $doctors[$index] }} orang</td>
+                                        <td>{{ $doctors[$index] <= 0 ? 'Belum ada dokter' : $doctors[$index].' dokter' }}
+                                        </td>
                                         <td></td>
                                         <td>
                                             <div class="btn-group">
@@ -52,16 +157,11 @@
                                                     <span class="sr-only">Toggle Dropdown</span>
                                                 </button>
                                                 <div class="dropdown-menu" role="menu">
-                                                    <a class="dropdown-item text-info"
-                                                        href="{{ route('poli.show', $poly->id_poli) }}">
-                                                        <i class="fa-solid fa-circle-info"></i>
-                                                        Detail
-                                                    </a>
-                                                    <a class="dropdown-item text-warning"
-                                                        href="{{ route('poli.edit', $poly->id_poli) }}">
+                                                    <button type="submit" class="dropdown-item text-warning"
+                                                        data-toggle="modal" data-target="#modal{{ $poly->id_poli }}">
                                                         <i class="fa-solid fa-pen-to-square"></i>
                                                         Edit
-                                                    </a>
+                                                    </button>
                                                     <div class="dropdown-divider"></div>
                                                     <form action="{{ route('poli.destroy', $poly->id_poli) }}"
                                                         method="POST">
@@ -91,6 +191,10 @@
 
 @section('custom_script')
 <script>
+    @if(count($errors) > 0)
+    $('#addModal').modal('show');
+    @endif
+
     $(function () {
         $("#polies_table").DataTable({
             "responsive": true,

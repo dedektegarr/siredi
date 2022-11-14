@@ -42,7 +42,7 @@
                                     <tr class="odd">
                                         <td>{{ $doctor->id_dokter }}</td>
                                         <td>{{ $doctor->nama }}</td>
-                                        <td>{{ $doctor->poly->nama_poli }}</td>
+                                        <td>{!! $doctor->poly->nama_poli ?? '<strong class="text-danger">Silahkan pilih poli</strong>' !!}</td>
                                         <td>{{ $doctor->no_hp }}</td>
                                         <td>
                                             @if ($doctor->jenis_kelamin === 'pria')

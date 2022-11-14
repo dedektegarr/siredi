@@ -9,6 +9,8 @@ class Poly extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['id_poli', 'nama_poli'];
+
     protected $primaryKey = 'id_poli';
     protected $keyType = 'char';
     public $incrementing = false;
