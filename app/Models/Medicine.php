@@ -8,4 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Medicine extends Model
 {
     use HasFactory;
+
+    protected $primaryKey = 'id_obat';
+    protected $guarded = ['id_obat'];
+
+    public function getRouteKeyName()
+    {
+        return 'id_obat';
+    }
 }

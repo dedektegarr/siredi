@@ -90,13 +90,16 @@ class PolyController extends Controller
      */
     public function update(Request $request, Poly $poli)
     {
-        $validatedData = $request->validate([
+
+        $rules = [
             'nama_poli' => ['required', 'max:100']
-        ]);
+        ];
 
         if($poli->id_poli !== $request->id_poli) {
-            $validatedData['nama_poli'] = ['required', 'unique:polies', 'size:5'];
+            $rules['id_poli'] = ['required', 'unique:polies', 'size:5'];
         }
+
+        $validatedData = $request->validate($rules);
         
         Poly::where('id_poli', $poli->id_poli)->update($validatedData);
 

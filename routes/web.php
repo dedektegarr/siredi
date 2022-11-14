@@ -2,11 +2,13 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DoctorController;
+use App\Http\Controllers\MedicineController;
 use App\Http\Controllers\NurseController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PharmacistController;
 use App\Http\Controllers\PolyController;
+use App\Models\Medicine;
 use Faker\Guesser\Name;
 use Illuminate\Support\Facades\Route;
 
@@ -57,6 +59,8 @@ Route::middleware(['auth'])->group(function() {
     // poly resource
     Route::resource('poli', PolyController::class);
 
+    // medicine resource
+    Route::resource('obat', MedicineController::class);
 });
 
 Route::middleware(['guest'])->group(function() {

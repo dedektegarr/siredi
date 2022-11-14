@@ -86,6 +86,12 @@
                         <p> Poli</p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="{{ route('obat.index') }}" class="nav-link {{ Route::is('obat*') ? 'active' : '' }}">
+                        <i class="nav-icon fa-solid fa-pills"></i>
+                        <p> Obat</p>
+                    </a>
+                </li>
             </ul>
         </nav>
         <!-- /.sidebar-menu -->
