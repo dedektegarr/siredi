@@ -80,6 +80,12 @@
                         <p> Pasien</p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="{{ route('poli.index') }}" class="nav-link {{ Route::is('poli*') ? 'active' : '' }}">
+                        <i class="nav-icon fa-solid fa-notes-medical"></i>
+                        <p> Poli</p>
+                    </a>
+                </li>
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

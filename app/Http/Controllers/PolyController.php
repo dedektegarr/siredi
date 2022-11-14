@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Doctor;
 use App\Models\Poly;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,20 @@ class PolyController extends Controller
      */
     public function index()
     {
-        //
+        $polies = Poly::latest()->get();
+
+        // get doctor with poly count
+        foreach($polies as $poly) {
+            $doctors[] = Doctor::where('id_poli', $poly->id_poli)->get();
+        }
+
+        return view('polies.index', [
+            'pageTitle' => 'Data Poli',
+            'polies' => $polies,
+            'doctors' => collect($doctors)->map(function($doctor) {
+                return $doctor->count();
+            })
+        ]);
     }
 
     /**

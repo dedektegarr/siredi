@@ -79,7 +79,10 @@ class PatientController extends Controller
      */
     public function show(Patient $pasien)
     {
-        // 
+        return view('patients.detail', [
+            'pageTitle' => $pasien->nama,
+            'patient' => $pasien
+        ]);
     }
 
     /**

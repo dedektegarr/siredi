@@ -6,6 +6,7 @@ use App\Http\Controllers\NurseController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PharmacistController;
+use App\Http\Controllers\PolyController;
 use Faker\Guesser\Name;
 use Illuminate\Support\Facades\Route;
 
@@ -52,6 +53,9 @@ Route::middleware(['auth'])->group(function() {
     
     // patient resource
     Route::resource('pasien', PatientController::class);
+
+    // poly resource
+    Route::resource('poli', PolyController::class);
 
 });
 
