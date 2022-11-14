@@ -123,5 +123,42 @@
             </form>
         </div>
     </div>
+
+    <div class="col-md-4">
+        <div class="card collapsed-card">
+            <div class="card-header">
+                <h3 class="card-title">Terakhir Ditambah</h3>
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i>
+                    </button>
+                </div>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body p-0">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th style="width: 10px">ID</th>
+                            <th>Nama</th>
+                            <th style="width: 40px">#</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($patients as $id => $patient)
+                            <tr>
+                                <td>{{ $id }}</td>
+                                <td>{{ $patient }}</td>
+                                <td>
+                                    <a href="{{ route('pasien.show', $id) }}"><span class="badge bg-info">Detail</span>
+                                    </a>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.card-body -->
+        </div>
+    </div>
 </div>
 @endsection

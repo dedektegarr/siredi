@@ -28,7 +28,8 @@ class PatientController extends Controller
     public function create()
     {
         return view('patients.create', [
-            'pageTitle' => 'Tambah Pasien'
+            'pageTitle' => 'Tambah Pasien',
+            'patients' => Patient::latest()->limit(5)->pluck('nama', 'id_pasien')
         ]);
     }
 
@@ -110,8 +111,9 @@ class PatientController extends Controller
      * @param  \App\Models\Patient  $patient
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Patient $patient)
+    public function destroy(Patient $pasien)
     {
-        //
+        Patient::where('id_pasien', $pasien->id_pasien)->delete();
+        return redirect()->route('pasien.index')->with('success', "Data <strong>$pasien->nama</strong> berhasil dihapus");
     }
 }

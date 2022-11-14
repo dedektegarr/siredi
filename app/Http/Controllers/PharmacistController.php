@@ -165,8 +165,10 @@ class PharmacistController extends Controller
      * @param  \App\Models\Pharmacist  $pharmacist
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Pharmacist $pharmacist)
+    public function destroy(Pharmacist $apoteker)
     {
-        //
+        Pharmacist::where('id_apoteker', $apoteker->id_apoteker)->delete();
+        User::where('id', $apoteker->user->id)->delete();
+        return redirect()->route('apoteker.index')->with('success', "Data <strong>$apoteker->nama</strong> berhasil dihapus");
     }
 }
