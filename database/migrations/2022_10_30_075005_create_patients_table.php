@@ -22,8 +22,8 @@ return new class extends Migration
             $table->string('tempat_lahir', 50);
             $table->text('alamat', 255);
             $table->string('no_hp', 15)->unique();
-            $table->integer('berat_badan');
-            $table->integer('tinggi_badan');
+            $table->integer('berat_badan')->nullable();
+            $table->integer('tinggi_badan')->nullable();
             $table->timestamps();
         });
     }

@@ -43,7 +43,7 @@
                                     <tr class="odd">
                                         <td>{{ $patient->id_pasien }}</td>
                                         <td>{{ $patient->nama }}</td>
-                                        <td>{{ $patient->no_bpjs }}</td>
+                                        <td class="text-center">{{ $patient->no_bpjs ? $patient->no_bpjs : '-' }}</td>
                                         <td style="width: 100px">
                                             @if ($patient->jenis_kelamin === 'pria')
                                             <h4 class="text-center"><i class="fa-solid fa-person"></i></h4>
@@ -65,7 +65,13 @@
                                                     <a class="dropdown-item text-info"
                                                         href="{{ route('pasien.show', $patient->id_pasien) }}">
                                                         <i class="fa-solid fa-circle-info"></i>
-                                                        Detail</a>
+                                                        Detail
+                                                    </a>
+                                                    <a class="dropdown-item text-warning"
+                                                        href="{{ route('pasien.edit', $patient->id_pasien) }}">
+                                                        <i class="fa-solid fa-pen-to-square"></i>
+                                                        Edit
+                                                    </a>
                                                     <div class="dropdown-divider"></div>
                                                     <form action="{{ route('pasien.destroy', $patient->id_pasien) }}"
                                                         method="POST">

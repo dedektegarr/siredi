@@ -77,9 +77,9 @@ class PatientController extends Controller
      * @param  \App\Models\Patient  $patient
      * @return \Illuminate\Http\Response
      */
-    public function show(Patient $patient)
+    public function show(Patient $pasien)
     {
-        //
+        // 
     }
 
     /**
@@ -88,9 +88,14 @@ class PatientController extends Controller
      * @param  \App\Models\Patient  $patient
      * @return \Illuminate\Http\Response
      */
-    public function edit(Patient $patient)
+    public function edit(Patient $pasien)
     {
-        //
+        return view('patients.edit', [
+            'pageTitle' => $pasien->nama,
+            'patient' => $pasien,
+            'patients' => Patient::latest()->limit(5)->orderBy('updated_at', 'desc')
+                            ->pluck('nama', 'id_pasien')
+        ]);
     }
 
     /**
