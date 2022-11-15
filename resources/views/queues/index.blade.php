@@ -43,16 +43,16 @@
                                             <div class="modal-body">
                                                 @csrf
                                                 <div class="form-group">
-                                                    <label>Pasien</label>
+                                                    <label for="id_pasien">Pasien</label>
                                                     <select
                                                         id="patient-select"
                                                         class="form-control @error('id_pasien') is-invalid @enderror"
                                                         style="width: 100%;" tabindex="-1"
                                                         aria-hidden="true" name="id_pasien">
-                                                        <option selected>Cari pasien</option>
-                                                        @foreach ($patients as $id => $patient)
-                                                        <option value="{{ $id }}">{{ $id . ' - ' . $patient }}</option>
-                                                        @endforeach
+                                                            <option value="">Cari pasien</option>
+                                                            @foreach ($patients as $id => $patient)
+                                                                <option value="{{ $id }}">{{ $id . ' - ' . $patient }}</option>
+                                                            @endforeach
                                                     </select>
                                                     @error('id_pasien')
                                                     <p class="invalid-feedback">
@@ -61,15 +61,15 @@
                                                     @enderror
                                                 </div>
                                                 <div class="form-group" data-select2-id="42">
-                                                    <label>Poli Tujuan</label>
+                                                    <label for="id_pasien">Poli Tujuan</label>
                                                     <select
                                                         id="poly-select"
                                                         class="form-control @error('id_poli') is-invalid @enderror"
                                                         style="width: 100%;" tabindex="-1"
                                                         aria-hidden="true" name="id_poli">
-                                                        <option selected>Cari poli tujuan</option>
+                                                            <option value="">Cari poli tujuan</option>
                                                         @foreach ($polies as $id => $poly)
-                                                        <option value="{{ $id }}">{{ $id . ' - ' . $poly }}</option>
+                                                            <option value="{{ $id }}">{{ $id . ' - ' . $poly }}</option>
                                                         @endforeach
                                                     </select>
                                                     @error('id_poli')
@@ -93,61 +93,22 @@
                                 aria-describedby="queues_table_info">
                                 <thead>
                                     <tr>
-                                        <th style="width: 100px">No Urut</th>
                                         <th>Nama Pasien</th>
                                         <th>Poli Tujuan</th>
-                                        <th>Aksi</th>
+                                        <th>Tanggal Masuk</th>
+                                        <th>Jam Masuk</th>
+                                        <th>Status</th>
+                                        <th style="width: 200px">Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($queues as $queue)
-                                    <!-- Edit Modal -->
-                                    <div class="modal fade" id="modal{{ $queue->id_antrian }}" tabindex="-1"
-                                        role="dialog" aria-labelledby="modal{{ $queue->id_antrian }}Label"
-                                        aria-hidden="true">
-                                        <div class="modal-dialog" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="modal{{ $queue->id_antrian }}Label">
-                                                        Update Data Antrian</h5>
-                                                    <button type="button" class="close" data-dismiss="modal"
-                                                        aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <form action="{{ route('antrian.update', $queue->id_antrian) }}"
-                                                    method="post">
-                                                    <div class="modal-body">
-                                                        @csrf
-                                                        @method('PUT')
-                                                        <div class="form-group">
-                                                            <label for="id_pasien">Nama Pasien</label>
-                                                            <input type="text"
-                                                                class="form-control @error('id_pasien') is-invalid @enderror"
-                                                                id="id_pasien" placeholder="Nama pasien"
-                                                                name="id_pasien"
-                                                                value="{{ old('id_pasien', $queue->id_pasien) }}">
-                                                            @error('id_pasien')
-                                                            <p class="invalid-feedback">
-                                                                {{ $message }}
-                                                            </p>
-                                                            @enderror
-                                                        </div>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary"
-                                                            data-dismiss="modal">Tutup</button>
-                                                        <button type="submit" class="btn btn-primary">Update</button>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
                                     <tr class="odd">
-                                        <td>{{ $queue->id_pasien}}</td>
-                                        <td>{{ $queue->id_poli }}</td>
-                                        </td>
-                                        <td></td>
+                                        <td>{{ $queue->patient->nama}}</td>
+                                        <td>{{ $queue->poly->nama_poli }}</td>
+                                        <td>{{ $queue->created_at->format('d-m-Y')}}</td>
+                                        <td>{{ $queue->created_at->format('h:i')}}</td>
+                                        <td>{!! $queue->status ? '<span class="badge bg-success">Sudah Diperiksa</span>' : '<span class="badge bg-secondary">Belum Diperiksa</span>' !!}</td>
                                         <td>
                                             <div class="btn-group">
                                                 <button type="button" class="btn btn-info btn-sm">Action</button>
@@ -157,12 +118,6 @@
                                                     <span class="sr-only">Toggle Dropdown</span>
                                                 </button>
                                                 <div class="dropdown-menu" role="menu">
-                                                    <button type="submit" class="dropdown-item text-warning"
-                                                        data-toggle="modal"
-                                                        data-target="#modal{{ $queue->id_antrian }}">
-                                                        <i class="fa-solid fa-pen-to-square"></i>
-                                                        Edit
-                                                    </button>
                                                     <div class="dropdown-divider"></div>
                                                     <form action="{{ route('antrian.destroy', $queue->id_antrian) }}"
                                                         method="POST">

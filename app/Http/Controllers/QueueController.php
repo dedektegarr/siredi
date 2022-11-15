@@ -18,7 +18,7 @@ class QueueController extends Controller
     {
         return view('queues.index', [
             'pageTitle' => 'Data Antrian',
-            'queues' => Queue::latest()->get(),
+            'queues' => Queue::oldest()->get(),
             'patients' => Patient::latest()->pluck('nama', 'id_pasien'),
             'polies' => Poly::latest()->pluck('nama_poli', 'id_poli')
         ]);
@@ -42,7 +42,17 @@ class QueueController extends Controller
      */
     public function store(Request $request)
     {
-        return $request;
+        $validatedData = $request->validate([
+            'id_pasien' => ['required', 'unique:queues', 'size:5'],
+            'id_poli' => ['required', 'size:5'],
+        ]);
+
+        $validatedData['status'] = 0;
+
+        Queue::create($validatedData);
+
+        return redirect()->route('antrian.index')
+            ->with('success', 'Data berhasil ditambahkan ke antrian');
     }
 
     /**

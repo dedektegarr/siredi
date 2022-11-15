@@ -15,7 +15,6 @@ return new class extends Migration
     {
         Schema::create('queues', function (Blueprint $table) {
             $table->id('id_antrian');
-            $table->integer('no_urut');
             $table->char('id_pasien', 5)->unique()->nullable();
             $table->foreign('id_pasien')->references('id_pasien')->on('patients');
             $table->char('id_poli', 5)->nullable();

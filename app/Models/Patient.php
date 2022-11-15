@@ -19,4 +19,8 @@ class Patient extends Model
     {
         return 'id_pasien';
     }
+
+    public function queue() {
+        return $this->hasOne(Queue::class, 'id_pasien');
+    }
 }
