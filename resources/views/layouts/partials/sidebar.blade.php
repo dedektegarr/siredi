@@ -92,6 +92,12 @@
                         <p> Obat</p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="{{ route('antrian.index') }}" class="nav-link {{ Route::is('antrian*') ? 'active' : '' }}">
+                        <i class="nav-icon fa-solid fa-sort"></i>
+                        <p> Antrian</p>
+                    </a>
+                </li>
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

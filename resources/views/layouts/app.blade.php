@@ -19,6 +19,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <link rel="stylesheet" href="/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="/css/responsive.bootstrap4.min.css">
     <link rel="stylesheet" href="/css/buttons.bootstrap4.min.css">
+
+    {{-- select 2 --}}
+    <link rel="stylesheet" href="/css/select2.min.css">
+
     <!-- Theme style -->
     <link rel="stylesheet" href="/css/adminlte.min.css">
 </head>
@@ -81,6 +85,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <script src="/js/buttons.html5.min.js"></script>
     <script src="/js/buttons.print.min.js"></script>
     <script src="/js/buttons.colVis.min.js"></script>
+
+    {{-- select2 --}}
+    <script src="/js/select2.min.js"></script>
     
     <!-- AdminLTE App -->
     <script src="/js/adminlte.min.js"></script>

@@ -8,6 +8,7 @@ use App\Http\Controllers\PatientController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PharmacistController;
 use App\Http\Controllers\PolyController;
+use App\Http\Controllers\QueueController;
 use App\Models\Medicine;
 use Faker\Guesser\Name;
 use Illuminate\Support\Facades\Route;
@@ -61,6 +62,9 @@ Route::middleware(['auth'])->group(function() {
 
     // medicine resource
     Route::resource('obat', MedicineController::class);
+
+    // queue resource
+    Route::resource('antrian', QueueController::class);
 });
 
 Route::middleware(['guest'])->group(function() {

@@ -17,10 +17,8 @@ class QueueFactory extends Factory
     public function definition()
     {
         return [
-            'id_antrian' => 'DG' . fake()->unique()->randomNumber(3, true),
-            'id_pasien' => 'P-' . fake()->randomNumber(3, true),
-            'id_poli' => 'G01' . fake()->randomNumber(2, true),
-            'waktu_datang' => now(),
+            'id_pasien' => 'PA117',
+            'id_poli' => 'POL45',
             'status' => true
         ];
     }

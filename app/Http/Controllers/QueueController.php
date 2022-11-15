@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Patient;
+use App\Models\Poly;
 use App\Models\Queue;
 use Illuminate\Http\Request;
 
@@ -14,7 +16,12 @@ class QueueController extends Controller
      */
     public function index()
     {
-        //
+        return view('queues.index', [
+            'pageTitle' => 'Data Antrian',
+            'queues' => Queue::latest()->get(),
+            'patients' => Patient::latest()->pluck('nama', 'id_pasien'),
+            'polies' => Poly::latest()->pluck('nama_poli', 'id_poli')
+        ]);
     }
 
     /**
@@ -35,7 +42,7 @@ class QueueController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return $request;
     }
 
     /**
