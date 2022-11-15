@@ -13,6 +13,11 @@ class Queue extends Model
 
     protected $guarded = ['id_antrian'];
 
+    public function getRouteKeyName()
+    {
+        return 'id_antrian';
+    }
+
     public function patient() {
         return $this->belongsTo(Patient::class, 'id_pasien');
     }

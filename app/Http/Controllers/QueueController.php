@@ -95,8 +95,9 @@ class QueueController extends Controller
      * @param  \App\Models\Queue  $queue
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Queue $queue)
+    public function destroy(Queue $antrian)
     {
-        //
+        Queue::where('id_antrian', $antrian->id_antrian)->delete();
+        return redirect()->route('antrian.index')->with('success', 'Antrian berhasil dihapus');
     }
 }

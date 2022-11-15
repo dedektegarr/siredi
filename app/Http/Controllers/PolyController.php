@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Doctor;
 use App\Models\Poly;
+use App\Models\Queue;
 use Illuminate\Http\Request;
 
 class PolyController extends Controller
@@ -17,9 +18,10 @@ class PolyController extends Controller
     {
         $polies = Poly::latest()->get();
 
-        // get doctor with poly count
+        // get doctor and queue with poly -> count
         foreach($polies as $poly) {
             $doctors[] = Doctor::where('id_poli', $poly->id_poli)->get();
+            $queues[] = Queue::where('id_poli', $poly->id_poli)->get();
         }
 
         return view('polies.index', [
@@ -27,6 +29,9 @@ class PolyController extends Controller
             'polies' => $polies,
             'doctors' => collect($doctors)->map(function($doctor) {
                 return $doctor->count();
+            }),
+            'queues' => collect($queues)->map(function($queue) {
+                return $queue->count();
             })
         ]);
     }

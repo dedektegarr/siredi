@@ -77,8 +77,6 @@
                                 </div>
                             </div>
 
-
-
                             <table id="polies_table" class="table table-bordered table-striped dataTable dtr-inline"
                                 aria-describedby="polies_table_info">
                                 <thead>
@@ -147,7 +145,7 @@
                                         <td>{{ $poly->nama_poli }}</td>
                                         <td>{{ $doctors[$index] <= 0 ? 'Belum ada dokter' : $doctors[$index].' dokter' }}
                                         </td>
-                                        <td></td>
+                                        <td>{{ $queues[$index] <= 0 ? 'Belum ada pasien' : $queues[$index].' pasien' }}</td>
                                         <td>
                                             <div class="btn-group">
                                                 <button type="button" class="btn btn-info btn-sm">Action</button>

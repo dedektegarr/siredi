@@ -106,8 +106,8 @@
                                     <tr class="odd">
                                         <td>{{ $queue->patient->nama}}</td>
                                         <td>{{ $queue->poly->nama_poli }}</td>
-                                        <td>{{ $queue->created_at->format('d-m-Y')}}</td>
-                                        <td>{{ $queue->created_at->format('h:i')}}</td>
+                                        <td>{{ $queue->created_at->format('d M Y')}}</td>
+                                        <td>{{ $queue->created_at->format('H:i')}}</td>
                                         <td>{!! $queue->status ? '<span class="badge bg-success">Sudah Diperiksa</span>' : '<span class="badge bg-secondary">Belum Diperiksa</span>' !!}</td>
                                         <td>
                                             <div class="btn-group">
