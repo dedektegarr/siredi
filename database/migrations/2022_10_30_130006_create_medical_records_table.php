@@ -24,6 +24,7 @@ return new class extends Migration
             $table->integer('diastole');
             $table->integer('sistole');
             $table->string('alergi', 100);
+            $table->text('keluhan', 255);
             $table->integer('gula_darah');
             $table->text('diagnosis', 255);
             $table->text('terapi', 255);

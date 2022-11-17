@@ -26,7 +26,14 @@
                                 <tr>
                                     <td>Nama Dokter</td>
                                     <td>:</td>
-                                    <td>Select</td>
+                                    <td>
+                                        <select name="dokter" id="doctor-select" class="form-control">
+                                            <option value="">Pilih dokter</option>
+                                            @foreach ($doctors as $id => $doctor)
+                                                <option value="{{ $id }}">{{ $id . ' - ' . $doctor }}</option>
+                                            @endforeach
+                                        </select>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -42,7 +49,7 @@
                                 <tr>
                                     <td>Tanggal / Jam</td>
                                     <td>:</td>
-                                    <td>{{ now()->format('d M y / h:i') }}</td>
+                                    <td>{{ now()->format('d M y / H:i') }}</td>
                                 </tr>
                                 <tr>
                                     <td>Poli</td>
@@ -53,6 +60,32 @@
                         </table>
                     </div>
                 </div>
+
+                <hr>
+
+                <form action="#" method="POST">
+                    @csrf
+                    <div class="row mt-2">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="sistole">Sistole</label>
+                                <input type="number" class="form-control" placeholder="Sistole" id="sistole" name="sistole">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="diastole">Diastole</label>
+                                <input type="number" class="form-control" placeholder="Diastole" id="diastole" name="sistole">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="gula_darah">Gula Darah</label>
+                                <input type="number" class="form-control" placeholder="Gula Darah" id="gula_darah" name="gula_darah">
+                            </div>
+                        </div>
+                    </div>
+                </form>
             </div>
             <!-- /.card-body -->
 
@@ -75,4 +108,12 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('custom_script')
+    <script>
+        $(document).ready(function() {
+            $('#doctor-select').select2();
+        });
+    </script>
 @endsection

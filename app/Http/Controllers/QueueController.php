@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Doctor;
 use App\Models\Patient;
 use App\Models\Poly;
 use App\Models\Queue;
@@ -69,7 +70,9 @@ class QueueController extends Controller
     public function check(Queue $antrian) {
         return view('queues.check', [
             'pageTitle' => 'Periksa | ' . $antrian->patient->nama,
-            'queue' => $antrian
+            'queue' => $antrian,
+            'doctors' => Doctor::where('id_poli', $antrian->id_poli)
+                            ->pluck('nama', 'id_dokter')
         ]);
     }
 
