@@ -84,7 +84,7 @@
                                         <th style="width: 10px">ID</th>
                                         <th>Nama Poli</th>
                                         <th>Jumlah Dokter</th>
-                                        <th>Jumlah Pasien</th>
+                                        <th>Jumlah Antrian</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>

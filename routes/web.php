@@ -65,6 +65,9 @@ Route::middleware(['auth'])->group(function() {
 
     // queue resource
     Route::resource('antrian', QueueController::class);
+
+    // check route
+    Route::get('antrian/{antrian}/periksa', [QueueController::class, 'check'])->name('antrian.check');
 });
 
 Route::middleware(['guest'])->group(function() {

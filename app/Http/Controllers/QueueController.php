@@ -61,9 +61,16 @@ class QueueController extends Controller
      * @param  \App\Models\Queue  $queue
      * @return \Illuminate\Http\Response
      */
-    public function show(Queue $queue)
+    public function show(Queue $antrian)
     {
-        //
+        // 
+    }
+
+    public function check(Queue $antrian) {
+        return view('queues.check', [
+            'pageTitle' => 'Periksa | ' . $antrian->patient->nama,
+            'queue' => $antrian
+        ]);
     }
 
     /**

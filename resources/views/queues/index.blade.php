@@ -118,6 +118,11 @@
                                                     <span class="sr-only">Toggle Dropdown</span>
                                                 </button>
                                                 <div class="dropdown-menu" role="menu">
+                                                    <a class="dropdown-item text-info"
+                                                        href="{{ route('antrian.check', $queue->id_antrian) }}">
+                                                        <i class="fa-solid fa-pen-to-square"></i>
+                                                        Periksa
+                                                    </a>
                                                     <div class="dropdown-divider"></div>
                                                     <form action="{{ route('antrian.destroy', $queue->id_antrian) }}"
                                                         method="POST">

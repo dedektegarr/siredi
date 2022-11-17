@@ -85,13 +85,7 @@
             <div class="card-header">
                 <div class="row align-items-center">
                     <div class="col-6">
-                        <h3 class="card-title"><strong>Rekam Medis Pasien</strong></h3>
-                    </div>
-                    <div class="col-6">
-                        <a href="" class="btn btn-info btn-sm float-right">
-                            <i class="fa-solid fa-plus"></i>
-                            Tambah
-                        </a>
+                        <h3 class="card-title"><strong>Riwayat Rekam Medis</strong></h3>
                     </div>
                 </div>
             </div>
