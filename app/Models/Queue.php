@@ -12,6 +12,7 @@ class Queue extends Model
     use HasFactory;
 
     protected $guarded = ['id_antrian'];
+    protected $primaryKey = 'id_antrian';
 
     public function getRouteKeyName()
     {

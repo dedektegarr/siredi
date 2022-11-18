@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\MedicalRecord;
+use App\Models\Queue;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class MedicalRecordController extends Controller
@@ -35,7 +37,31 @@ class MedicalRecordController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'id_pasien' => ['required', 'size:5'],
+            'id_dokter' => ['required', 'size:5'],
+            'id_poli' => ['required', 'size:5'],
+            'sistole' => ['required', 'numeric', 'max_digits:3'],
+            'diastole' => ['required', 'numeric', 'max_digits:3'],
+            'gula_darah' => ['required', 'numeric', 'max_digits:3'],
+            'alergi' => ['nullable', 'max:100'],
+            'keluhan' => ['required'],
+            'diagnosis' => ['required'],
+            'terapi' => ['required']
+        ]);
+
+        $validatedData['tgl_periksa'] = Carbon::now();
+
+        MedicalRecord::create($validatedData);
+
+        // update patient check status
+        $queue = Queue::where('id_antrian', $request->id_antrian)->first();
+        $queue->update([
+            'status' => 1
+        ]);
+
+        // return Queue::where('id_antrian', $request->id_antrian)->get();
+        return redirect()->route('antrian.index')->with('success', 'Pasien dengan nama <strong>' . $queue->patient->nama . '</strong> berhasil di periksa');
     }
 
     /**

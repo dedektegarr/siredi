@@ -9,101 +9,171 @@
             </div>
             <!-- /.card-header -->
             <div class="card-body">
-                <div class="row">
-                    <div class="col-6">
-                        <table cellpadding="5">
-                            <tbody>
-                                <tr>
-                                    <td>ID Pasien</td>
-                                    <td>:</td>
-                                    <td>{{ $queue->patient->id_pasien }}</td>
-                                </tr>
-                                <tr>
-                                    <td>ID Antrian</td>
-                                    <td>:</td>
-                                    <td>{{ $queue->id_antrian }}</td>
-                                </tr>
-                                <tr>
-                                    <td>Nama Dokter</td>
-                                    <td>:</td>
-                                    <td>
-                                        <select name="dokter" id="doctor-select" class="form-control">
-                                            <option value="">Pilih dokter</option>
-                                            @foreach ($doctors as $id => $doctor)
-                                                <option value="{{ $id }}">{{ $id . ' - ' . $doctor }}</option>
-                                            @endforeach
-                                        </select>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="col-6">
-                        <table cellpadding="5">
-                            <tbody>
-                                <tr>
-                                    <td>Nama Pasien</td>
-                                    <td>:</td>
-                                    <td>{{ $queue->patient->nama }}</td>
-                                </tr>
-                                <tr>
-                                    <td>Tanggal / Jam</td>
-                                    <td>:</td>
-                                    <td>{{ now()->format('d M y / H:i') }}</td>
-                                </tr>
-                                <tr>
-                                    <td>Poli</td>
-                                    <td>:</td>
-                                    <td>{{ $queue->poly->nama_poli }}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
-                <hr>
-
-                <form action="#" method="POST">
+                <form action="{{ route('rekam-medis.store') }}" method="POST">
                     @csrf
+                    {{-- hidden input --}}
+                    <input type="hidden" name="id_pasien" value="{{ $queue->patient->id_pasien }}">
+                    <input type="hidden" name="id_poli" value="{{ $queue->poly->id_poli }}">
+                    <input type="hidden" name="id_antrian" value="{{ $queue->id_antrian }}">
+
+                    <div class="row">
+                        <div class="col-6">
+                            <table cellpadding="5">
+                                <tbody>
+                                    <tr>
+                                        <td>ID Pasien</td>
+                                        <td>:</td>
+                                        <td>{{ $queue->patient->id_pasien }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>ID Antrian</td>
+                                        <td>:</td>
+                                        <td>{{ $queue->id_antrian }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Nama Dokter</td>
+                                        <td>:</td>
+                                        <td>
+                                            <select name="id_dokter" id="doctor-select @error('id_dokter') is-invalid @enderror" class="form-control">
+                                                <option value="">Pilih dokter</option>
+                                                @foreach ($doctors as $id => $doctor)
+                                                    <option value="{{ $id }}" {{ old('id_dokter') }}>{{ $id . ' - ' . $doctor }}</option>
+                                                @endforeach
+                                            </select>
+                                            @error('id_dokter')
+                                            <small class="text-danger">
+                                                {{ $message }}
+                                            </small>
+                                            @enderror
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-6">
+                            <table cellpadding="5">
+                                <tbody>
+                                    <tr>
+                                        <td>Nama Pasien</td>
+                                        <td>:</td>
+                                        <td>{{ $queue->patient->nama }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Tanggal / Jam</td>
+                                        <td>:</td>
+                                        <td>{{ now()->format('d M y / H:i') }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Poli</td>
+                                        <td>:</td>
+                                        <td>{{ $queue->poly->nama_poli }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <hr>
+
                     <div class="row mt-2">
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="sistole">Sistole</label>
-                                <input type="number" class="form-control" placeholder="Sistole" id="sistole" name="sistole">
+                                <input type="number" class="form-control @error('sistole') is-invalid @enderror" placeholder="Sistole" id="sistole" name="sistole"
+                                    value="{{ old('sistole') }}">
+                                @error('sistole')
+                                    <p class="invalid-feedback">
+                                        {{ $message }}
+                                    </p>
+                                @enderror
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="diastole">Diastole</label>
-                                <input type="number" class="form-control" placeholder="Diastole" id="diastole" name="sistole">
+                                <input type="number" class="form-control @error('diastole') is-invalid @enderror" placeholder="Diastole" id="diastole" name="diastole"
+                                value="{{ old('diastole') }}">
+                                @error('diastole')
+                                    <p class="invalid-feedback">
+                                        {{ $message }}
+                                    </p>
+                                @enderror
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="gula_darah">Gula Darah</label>
-                                <input type="number" class="form-control" placeholder="Gula Darah" id="gula_darah" name="gula_darah">
+                                <input type="number" class="form-control @error('gula_darah') is-invalid @enderror" placeholder="Gula Darah" id="gula_darah" name="gula_darah"
+                                value="{{ old('gula_darah') }}">
+                                @error('gula_darah')
+                                    <p class="invalid-feedback">
+                                        {{ $message }}
+                                    </p>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label for="alergi">Alergi</label>
+                                <input type="text" class="form-control @error('alergi') is-invalid @enderror" name="alergi" id="alergi" placeholder="Alergi"
+                                value="{{ old('alergi') }}">
+                                @error('alergi')
+                                    <p class="invalid-feedback">
+                                        {{ $message }}
+                                    </p>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label for="keluhan">Keluhan</label>
+                                <textarea name="keluhan" id="keluhan" class="form-control @error('keluhan') is-invalid @enderror" rows="3" placeholder="Keluhan pasien">{{ old('keluhan') }}</textarea>
+                                @error('keluhan')
+                                    <p class="invalid-feedback">
+                                        {{ $message }}
+                                    </p>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label for="diagnosis">Diagnosis</label>
+                                <textarea name="diagnosis" id="diagnosis" class="form-control @error('diagnosis') is-invalid @enderror" rows="3" placeholder="Diagnosis">{{ old('diagnosis') }}</textarea>
+                                @error('diagnosis')
+                                    <p class="invalid-feedback">
+                                        {{ $message }}
+                                    </p>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label for="terapi">Terapi</label>
+                                <textarea name="terapi" id="terapi" class="form-control @error('terapi') is-invalid @enderror" rows="3" placeholder="Terapi">{{ old('terapi') }}</textarea>
+                                @error('terapi')
+                                    <p class="invalid-feedback">
+                                        {{ $message }}
+                                    </p>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.card-body -->
+
+                    <div class="card-footer">
+                        <div class="row">
+                            <div class="col-6">
+                                <a href="{{ route('antrian.index') }}" class="btn btn-sm btn-info">
+                                    <i class="fa-solid fa-circle-xmark mr-1"></i>
+                                    Kembali
+                                </a>
+                            </div>
+                            <div class="col-6">
+                                <button type="submit" class="btn btn-sm btn-info float-right">
+                                    <i class="fa-solid fa-check mr-1"></i>
+                                    Simpan
+                                </button>
                             </div>
                         </div>
                     </div>
                 </form>
-            </div>
-            <!-- /.card-body -->
-
-            <div class="card-footer">
-                <div class="row">
-                    <div class="col-6">
-                        <a href="{{ route('antrian.index') }}" class="btn btn-sm btn-info">
-                            <i class="fa-solid fa-circle-xmark mr-1"></i>
-                            Kembali
-                        </a>
-                    </div>
-                    <div class="col-6">
-                        <a href="#" class="btn btn-sm btn-info float-right">
-                            <i class="fa-solid fa-check mr-1"></i>
-                            Simpan
-                        </a>
-                    </div>
-                </div>
             </div>
         </div>
     </div>

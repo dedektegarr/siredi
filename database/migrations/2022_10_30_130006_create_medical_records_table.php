@@ -23,11 +23,12 @@ return new class extends Migration
             $table->foreign('id_poli')->references('id_poli')->on('polies');
             $table->integer('diastole');
             $table->integer('sistole');
-            $table->string('alergi', 100);
+            $table->string('alergi', 100)->nullable();
             $table->text('keluhan', 255);
             $table->integer('gula_darah');
             $table->text('diagnosis', 255);
             $table->text('terapi', 255);
+            $table->timestamp('tgl_periksa');
             $table->timestamps();
         });
     }
