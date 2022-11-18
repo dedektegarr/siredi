@@ -198,7 +198,7 @@
                             <select class="form-control @error('id_poli') is-invalid @enderror" id="poli" name="id_poli">
                                 <option value="">Pilih Poli</option>
                                 @foreach ($polies as $poly)
-                                <option value="{{ $poly->id_poli }}" {{ old('id_poli', $doctor->poly->id_poli ?? 'null' == $poly->id_poli) ? 'selected' : '' }}>{{ $poly->nama_poli }}</option>
+                                <option value="{{ $poly->id_poli }}" {{ old('id_poli', $doctor->poly->id_poli) == $poly->id_poli ? 'selected' : '' }}>{{ $poly->nama_poli }}</option>
                                 @endforeach
                             </select>
                             @error('id_poli')
