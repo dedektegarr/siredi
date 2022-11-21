@@ -91,7 +91,7 @@
             </div>
             <!-- /.card-header -->
             <div class="card-body">
-                <table class="table responsive-table">
+                <table class="table">
                     <thead>
                         <tr>
                             <th style="width: 50px">#</th>
