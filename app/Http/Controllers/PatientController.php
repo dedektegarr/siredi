@@ -81,7 +81,8 @@ class PatientController extends Controller
     {
         return view('patients.detail', [
             'pageTitle' => $pasien->nama,
-            'patient' => $pasien
+            'patient' => $pasien,
+            'medRecords' => $pasien->medicalRecord
         ]);
     }
 

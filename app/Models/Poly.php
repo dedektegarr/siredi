@@ -22,4 +22,8 @@ class Poly extends Model
     public function queue() {
         return $this->hasMany(Queue::class, 'id_poli');
     }
+
+    public function medicalRecord() {
+        return $this->hasMany(MedicalRecord::class, 'id_poli');
+    }
 }

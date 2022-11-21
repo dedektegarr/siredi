@@ -23,4 +23,8 @@ class Patient extends Model
     public function queue() {
         return $this->hasOne(Queue::class, 'id_pasien');
     }
+
+    public function medicalRecord() {
+        return $this->hasMany(MedicalRecord::class, 'id_pasien');
+    }
 }

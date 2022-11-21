@@ -15,4 +15,12 @@ class MedicalRecord extends Model
     {
         return 'id_rekmed';
     }
+
+    public function patient() {
+        return $this->belongsTo(Patient::class, 'id_pasien');
+    }
+
+    public function poly() {
+        return $this->belongsTo(Poly::class, 'id_poli');
+    }
 }

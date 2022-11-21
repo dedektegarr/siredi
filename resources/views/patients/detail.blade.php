@@ -91,7 +91,30 @@
             </div>
             <!-- /.card-header -->
             <div class="card-body">
-
+                <table class="table responsive-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 50px">#</th>
+                            <th>Keluhan</th>
+                            <th>Poli</th>
+                            <th>Tanggal Periksa</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($medRecords as $medRecord)
+                            <tr>
+                                <td>{{ $loop->iteration }}.</td>
+                                <td>
+                                    <a href="" class="text-decoration-none">
+                                        {{ $medRecord->keluhan }}
+                                    </a>
+                                </td>
+                                <td>{{ $medRecord->poly->nama_poli }}</td>
+                                <td>{{ $medRecord->created_at->format('d M Y') }}</td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
             </div>
             <!-- /.card-body -->
         </div>
