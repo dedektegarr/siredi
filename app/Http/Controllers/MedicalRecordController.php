@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\MedicalRecord;
+use App\Models\Patient;
 use App\Models\Queue;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -70,9 +71,9 @@ class MedicalRecordController extends Controller
      * @param  \App\Models\MedicalRecord  $medicalRecord
      * @return \Illuminate\Http\Response
      */
-    public function show(MedicalRecord $medicalRecord)
+    public function show(Patient $pasien, MedicalRecord $rekam_medis)
     {
-        //
+        return $rekam_medis;
     }
 
     /**

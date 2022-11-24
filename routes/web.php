@@ -70,9 +70,11 @@ Route::middleware(['auth'])->group(function() {
 
     // medical record route
     Route::get('antrian/{antrian}/periksa', [QueueController::class, 'check'])->name('antrian.check');
+        // show detail
+        Route::get('pasien/{pasien}/rekam-medis/{rekam_medis}', [MedicalRecordController::class, 'show'])->name('rekam_medis.show');
 
         // store
-        Route::post('rekam-medis', [MedicalRecordController::class, 'store'])->name('rekam-medis.store');
+        Route::post('rekam-medis', [MedicalRecordController::class, 'store'])->name('rekam_medis.store');
 });
 
 Route::middleware(['guest'])->group(function() {

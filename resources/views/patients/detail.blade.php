@@ -105,7 +105,7 @@
                             <tr>
                                 <td>{{ $loop->iteration }}.</td>
                                 <td>
-                                    <a href="" class="text-decoration-none">
+                                    <a href="{{ route('rekam_medis.show', [$medRecord->id_pasien, $medRecord->id_rekmed]) }}" class="text-decoration-none">
                                         {{ $medRecord->keluhan }}
                                     </a>
                                 </td>

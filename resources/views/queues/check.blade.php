@@ -9,7 +9,7 @@
             </div>
             <!-- /.card-header -->
             <div class="card-body">
-                <form action="{{ route('rekam-medis.store') }}" method="POST">
+                <form action="{{ route('rekam_medis.store') }}" method="POST">
                     @csrf
                     {{-- hidden input --}}
                     <input type="hidden" name="id_pasien" value="{{ $queue->patient->id_pasien }}">
