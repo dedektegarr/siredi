@@ -81,6 +81,7 @@
                                 aria-describedby="polies_table_info">
                                 <thead>
                                     <tr>
+                                        <th style="width: 10px">#</th>
                                         <th style="width: 10px">ID</th>
                                         <th>Nama Poli</th>
                                         <th>Jumlah Dokter</th>
@@ -141,6 +142,7 @@
                                         </div>
                                     </div>
                                     <tr class="odd">
+                                        <td>{{ $loop->iteration }}.</td>
                                         <td>{{ $poly->id_poli }}</td>
                                         <td>{{ $poly->nama_poli }}</td>
                                         <td>{{ $doctors[$index] <= 0 ? 'Belum ada dokter' : $doctors[$index].' dokter' }}

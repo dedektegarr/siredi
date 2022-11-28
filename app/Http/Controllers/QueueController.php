@@ -52,7 +52,7 @@ class QueueController extends Controller
 
         Queue::create($validatedData);
 
-        return redirect()->route('antrian.index')
+        return redirect()->back()
             ->with('success', 'Data berhasil ditambahkan ke antrian');
     }
 

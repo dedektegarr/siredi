@@ -81,6 +81,7 @@
                                 aria-describedby="medicines_table_info">
                                 <thead>
                                     <tr>
+                                        <th style="width: 10px">#</th>
                                         <th>Nama Obat</th>
                                         <th>Stok</th>
                                         <th style="width: 200px;">Aksi</th>
@@ -142,6 +143,7 @@
                                         </div>
                                     </div>
                                     <tr class="odd">
+                                        <td>{{ $loop->iteration }}.</td>
                                         <td>{{ $medicine->nama_obat }}</td>
                                         <td>{{ $medicine->stok }}</td>
                                         <td>

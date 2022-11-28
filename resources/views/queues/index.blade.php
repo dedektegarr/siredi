@@ -93,6 +93,7 @@
                                 aria-describedby="queues_table_info">
                                 <thead>
                                     <tr>
+                                        <th style="width: 10px">#</th>
                                         <th>Nama Pasien</th>
                                         <th>Poli Tujuan</th>
                                         <th>Tanggal Masuk</th>
@@ -104,6 +105,7 @@
                                 <tbody>
                                     @foreach ($queues as $queue)
                                     <tr class="odd">
+                                        <td>{{ $loop->iteration }}.</td>
                                         <td>{{ $queue->patient->nama}}</td>
                                         <td>{{ $queue->poly->nama_poli }}</td>
                                         <td>{{ $queue->created_at->format('d M Y')}}</td>
@@ -118,12 +120,14 @@
                                                     <span class="sr-only">Toggle Dropdown</span>
                                                 </button>
                                                 <div class="dropdown-menu" role="menu">
+                                                    @if ($queue->status === 0)
                                                     <a class="dropdown-item text-info"
                                                         href="{{ route('antrian.check', $queue->id_antrian) }}">
                                                         <i class="fa-solid fa-pen-to-square"></i>
                                                         Periksa
                                                     </a>
                                                     <div class="dropdown-divider"></div>
+                                                    @endif
                                                     <form action="{{ route('antrian.destroy', $queue->id_antrian) }}"
                                                         method="POST">
                                                         @csrf

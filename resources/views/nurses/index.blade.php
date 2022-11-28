@@ -29,6 +29,7 @@
                                 aria-describedby="nurses_table_info">
                                 <thead>
                                     <tr>
+                                        <th style="width: 10px">#</th>
                                         <th style="width: 10px">ID</th>
                                         <th>Nama</th>
                                         <th>No Hp</th>
@@ -39,6 +40,7 @@
                                 <tbody>
                                     @foreach ($nurses as $nurse)
                                     <tr class="odd">
+                                        <td>{{ $loop->iteration }}.</td>
                                         <td>{{ $nurse->id_perawat }}</td>
                                         <td>{{ $nurse->nama }}</td>
                                         <td>{{ $nurse->no_hp }}</td>

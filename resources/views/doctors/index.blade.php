@@ -29,6 +29,7 @@
                                 aria-describedby="doctors_table_info">
                                 <thead>
                                     <tr>
+                                        <th style="width: 10px">#</th>
                                         <th style="width: 10px">ID</th>
                                         <th>Nama</th>
                                         <th>Poli</th>
@@ -40,6 +41,7 @@
                                 <tbody>
                                     @foreach ($doctors as $doctor)
                                     <tr class="odd">
+                                        <td>{{ $loop->iteration }}.</td>
                                         <td>{{ $doctor->id_dokter }}</td>
                                         <td>{{ $doctor->nama }}</td>
                                         <td>{!! $doctor->poly->nama_poli ?? '<strong class="text-danger">Silahkan pilih poli</strong>' !!}</td>

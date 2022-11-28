@@ -87,6 +87,14 @@
                     <div class="col-6">
                         <h3 class="card-title"><strong>Riwayat Rekam Medis</strong></h3>
                     </div>
+                    @if ($medRecords->count() > 0)
+                    <div class="col-6">
+                        <a href="{{ route('antrian.check', $patient->queue->id_antrian) }}" class="btn btn-sm btn-info float-right">
+                            <i class="fa-solid fa-plus"></i>
+                            Tambah
+                        </a>
+                    </div>
+                    @endif
                 </div>
             </div>
             <!-- /.card-header -->

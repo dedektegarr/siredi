@@ -29,6 +29,7 @@
                                 aria-describedby="patients_table_info">
                                 <thead>
                                     <tr>
+                                        <th style="width: 10px">#</th>
                                         <th style="width: 10px">ID</th>
                                         <th>Nama</th>
                                         <th>No Bpjs</th>
@@ -41,6 +42,7 @@
                                 <tbody>
                                     @foreach ($patients as $patient)
                                     <tr class="odd">
+                                        <td>{{ $loop->iteration }}.</td>
                                         <td>{{ $patient->id_pasien }}</td>
                                         <td>{{ $patient->nama }}</td>
                                         <td class="text-center">{{ $patient->no_bpjs ? $patient->no_bpjs : '-' }}</td>

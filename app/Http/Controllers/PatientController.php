@@ -82,7 +82,7 @@ class PatientController extends Controller
         return view('patients.detail', [
             'pageTitle' => $pasien->nama,
             'patient' => $pasien,
-            'medRecords' => $pasien->medicalRecord
+            'medRecords' => $pasien->medicalRecord->sortDesc()
         ]);
     }
 
