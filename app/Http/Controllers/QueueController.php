@@ -19,7 +19,7 @@ class QueueController extends Controller
     {
         return view('queues.index', [
             'pageTitle' => 'Data Antrian',
-            'queues' => Queue::oldest()->get(),
+            'queues' => Queue::all()->sortBy(['status', 'asc']),
             'patients' => Patient::latest()->pluck('nama', 'id_pasien'),
             'polies' => Poly::latest()->pluck('nama_poli', 'id_poli')
         ]);

@@ -61,8 +61,13 @@ class MedicalRecordController extends Controller
             'status' => 1
         ]);
 
+        $patient_id = $queue->patient->id_pasien;
+
         // return Queue::where('id_antrian', $request->id_antrian)->get();
-        return redirect()->route('antrian.index')->with('success', 'Pasien dengan nama <strong>' . $queue->patient->nama . '</strong> telah di periksa');
+        return redirect()->route('antrian.index')
+            ->with('success', 'Pasien dengan nama 
+                <strong>' . $queue->patient->nama . "</strong> 
+                telah di periksa <a class='btn btn-sm btn-primary text-decoration-none' href='/pasien/$patient_id'>Tampilkan</a>");
     }
 
     /**
