@@ -19,7 +19,8 @@ class QueueController extends Controller
     {
         return view('queues.index', [
             'pageTitle' => 'Data Antrian',
-            'queues' => Queue::all()->sortBy(['status', 'asc']),
+            'uncheckedQueues' => Queue::where('status', 0)->get(),
+            'checkedQueues' => Queue::where('status', 1)->get(),
             'patients' => Patient::latest()->pluck('nama', 'id_pasien'),
             'polies' => Poly::latest()->pluck('nama_poli', 'id_poli')
         ]);
@@ -109,5 +110,10 @@ class QueueController extends Controller
     {
         Queue::where('id_antrian', $antrian->id_antrian)->delete();
         return redirect()->route('antrian.index')->with('success', 'Antrian berhasil dihapus');
+    }
+
+    public function destroyAll() {
+        Queue::where('status', 1)->delete();
+        return redirect()->back()->with('delete_all_success', 'Data pasien telah diperiksa berhasil dihapus');
     }
 }

@@ -68,6 +68,9 @@ Route::middleware(['auth'])->group(function() {
     // queue resource
     Route::resource('antrian', QueueController::class);
 
+    // queue delete all
+    Route::post('/antrian/destroy_all', [QueueController::class, 'destroyAll'])->name('antrian.destroyAll');
+
     // medical record route
     Route::get('antrian/{antrian}/periksa', [QueueController::class, 'check'])->name('antrian.check');
         // show detail
