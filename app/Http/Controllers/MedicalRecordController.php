@@ -78,7 +78,11 @@ class MedicalRecordController extends Controller
      */
     public function show(Patient $pasien, MedicalRecord $rekam_medis)
     {
-        return $rekam_medis;
+        return view('medical_records.detail', [
+            'pageTitle' => 'Detail Rekam Medis',
+            'medRecord' => $rekam_medis,
+            'patient' => $pasien
+        ]);
     }
 
     /**
