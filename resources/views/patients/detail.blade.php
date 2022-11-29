@@ -89,10 +89,12 @@
                     </div>
                     @if ($medRecords->count() > 0)
                     <div class="col-6">
+                        @if ($patient->queue !== null)
                         <a href="{{ route('antrian.check', $patient->queue->id_antrian) }}" class="btn btn-sm btn-info float-right">
                             <i class="fa-solid fa-plus"></i>
                             Tambah
                         </a>
+                        @endif
                     </div>
                     @endif
                 </div>
