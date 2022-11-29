@@ -28,4 +28,8 @@ class Doctor extends Model
     public function poly() {
         return $this->belongsTo(Poly::class, 'id_poli');
     }
+
+    public function medicalRecord() {
+        return $this->hasMany(MedicalRecord::class, 'id_dokter');
+    }
 }

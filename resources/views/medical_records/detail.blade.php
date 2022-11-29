@@ -91,7 +91,66 @@
             </div>
             <!-- /.card-header -->
             <div class="card-body">
-                Hello hehehehe
+                <div class="row py-2 mb-3">
+                    <div class="col-6">
+                        <table cellpadding="6">
+                            <tr>
+                                <td>ID Rekmed</td>
+                                <td>:</td>
+                                <td>{{ $medRecord->id_rekmed }}</td>
+                            </tr>
+                            <tr>
+                                <td>Nama Dokter</td>
+                                <td>:</td>
+                                <td>{{ $medRecord->doctor->nama }}</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="col-6">
+                        <table cellpadding="6">
+                            <tr>
+                                <td>Tanggal / Jam</td>
+                                <td>:</td>
+                                <td>{{ $medRecord->created_at->format('d M Y') }} /
+                                    {{ $medRecord->created_at->format('H:i') }}</td>
+                            </tr>
+                            <tr>
+                                <td>Poli</td>
+                                <td>:</td>
+                                <td>{{ $medRecord->poly->nama_poli }}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Keluhan</th>
+                                    <th>Sistole</th>
+                                    <th>Diastole</th>
+                                    <th>Gula Darah</th>
+                                    <th>Alergi</th>
+                                    <th>Diagnosis</th>
+                                    <th>Terapi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>{{ $medRecord->keluhan }}</td>
+                                    <td>{{ $medRecord->sistole }}</td>
+                                    <td>{{ $medRecord->diastole }}</td>
+                                    <td>{{ $medRecord->gula_darah }}</td>
+                                    <td>{{ $medRecord->alergi ?? '-' }}</td>
+                                    <td>{{ $medRecord->diagnosis }}</td>
+                                    <td>{{ $medRecord->terapi }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
             <!-- /.card-body -->
         </div>
