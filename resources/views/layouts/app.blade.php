@@ -10,6 +10,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ env('APP_NAME') }} | {{ $pageTitle }}</title>
 
+    {{-- favicon --}}
+    <link rel="icon" type="image/x-icon" href="{{ env('APP_ICON') }}">
+
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
