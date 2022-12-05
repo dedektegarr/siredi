@@ -34,9 +34,10 @@
                                         <td>Nama Dokter</td>
                                         <td>:</td>
                                         <td>
-                                            <select name="id_dokter" id="doctor-select @error('id_dokter') is-invalid @enderror" class="form-control">
+                                            <select name="id_dokter" id="doctor-select" class="form-control @error('id_dokter') is-invalid @enderror">
                                                 <option value="">Pilih dokter</option>
                                                 @foreach ($doctors as $id => $doctor)
+
                                                     <option value="{{ $id }}" {{ old('id_dokter') }}>{{ $id . ' - ' . $doctor }}</option>
                                                 @endforeach
                                             </select>
@@ -155,6 +156,18 @@
                             </div>
                         </div>
                     </div>
+
+                    <hr>
+
+                    <div class="card card-outline card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title">Resep Obat</h3>
+                        </div>
+
+                        <div class="card-body">
+                            
+                        </div>
+                    </div>
                     <!-- /.card-body -->
 
                     <div class="card-footer">
@@ -182,6 +195,10 @@
 
 @section('custom_script')
     <script>
+        // $(document).ready(function() {
+        //     $('#doctor-select').select2();
+        // });
+
         $(document).ready(function() {
             $('#doctor-select').select2();
         });
