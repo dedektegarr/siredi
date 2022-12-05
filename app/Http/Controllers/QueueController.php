@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Doctor;
+use App\Models\Medicine;
 use App\Models\Patient;
 use App\Models\Poly;
 use App\Models\Queue;
@@ -48,7 +49,6 @@ class QueueController extends Controller
             'id_pasien' => ['required', 'unique:queues', 'size:5'],
             'id_poli' => ['required', 'size:5'],
         ]);
-
         $validatedData['status'] = 0;
 
         Queue::create($validatedData);
@@ -68,12 +68,14 @@ class QueueController extends Controller
         // 
     }
 
-    public function check(Queue $antrian) {
+    public function check(Queue $antrian)
+    {
         return view('queues.check', [
             'pageTitle' => 'Periksa | ' . $antrian->patient->nama,
             'queue' => $antrian,
             'doctors' => Doctor::where('id_poli', $antrian->id_poli)
-                            ->pluck('nama', 'id_dokter')
+                ->pluck('nama', 'id_dokter'),
+            'medicines' => Medicine::all()
         ]);
     }
 
@@ -112,7 +114,8 @@ class QueueController extends Controller
         return redirect()->route('antrian.index')->with('success', 'Antrian berhasil dihapus');
     }
 
-    public function destroyAll() {
+    public function destroyAll()
+    {
         Queue::where('status', 1)->delete();
         return redirect()->back()->with('delete_all_success', 'Data pasien telah diperiksa berhasil dihapus');
     }

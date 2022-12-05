@@ -26,6 +26,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
     {{-- select 2 --}}
     <link rel="stylesheet" href="/css/select2.min.css">
 
+    {{-- trix editor --}}
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/trix@2.0.0/dist/trix.css">
+
     <!-- Theme style -->
     <link rel="stylesheet" href="/css/adminlte.min.css">
 </head>
@@ -91,7 +94,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
     {{-- select2 --}}
     <script src="/js/select2.min.js"></script>
-    
+
+    {{-- trix editor --}}
+    <script type="text/javascript" src="https://unpkg.com/trix@2.0.0/dist/trix.umd.min.js"></script>
+
     <!-- AdminLTE App -->
     <script src="/js/adminlte.min.js"></script>
 
