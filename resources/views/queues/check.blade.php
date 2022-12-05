@@ -38,7 +38,8 @@
                                                     class="form-control @error('id_dokter') is-invalid @enderror">
                                                     <option value="">Pilih dokter</option>
                                                     @foreach ($doctors as $id => $doctor)
-                                                        <option value="{{ $id }}" {{ old('id_dokter') }}>
+                                                        <option value="{{ $id }}"
+                                                            {{ old('id_dokter') ? 'selected' : '' }}>
                                                             {{ $id . ' - ' . $doctor }}</option>
                                                     @endforeach
                                                 </select>
@@ -179,25 +180,43 @@
                                                 class="form-control @error('id_obat') is-invalid @enderror">
                                                 <option value="">Pilih Obat</option>
                                                 @foreach ($medicines as $medicine)
-                                                    <option value="{{ $medicine->id_obat }}" {{ old('id_obat') }}>
+                                                    <option value="{{ $medicine->id_obat }}"
+                                                        {{ old('id_obat') ? 'selected' : '' }}>
                                                         {{ $medicine->nama_obat }}</option>
                                                 @endforeach
                                             </select>
+                                            @error('id_obat')
+                                                <p class="invalid-feedback">
+                                                    {{ $message }}
+                                                </p>
+                                            @enderror
                                         </div>
                                     </div>
 
                                     <div class="col-4">
                                         <label for="jumlah">Jumlah</label>
-                                        <input type="number" name="jumlah" id="jumlah" class="form-control"
-                                            placeholder="Jumlah (strip)">
+                                        <input type="number" name="jumlah" id="jumlah"
+                                            class="form-control @error('jumlah') is-invalid @enderror"
+                                            placeholder="Jumlah (strip)" value="{{ old('jumlah') }}">
+                                        @error('jumlah')
+                                            <p class="invalid-feedback">
+                                                {{ $message }}
+                                            </p>
+                                        @enderror
                                     </div>
                                 </div>
 
 
                                 <div class="form-group">
                                     <label for="aturan_pakai">Aturan Pakai</label>
-                                    <input id="aturan_pakai" type="hidden" name="aturan_pakai">
+                                    <input id="aturan_pakai" type="hidden" name="aturan_pakai"
+                                        value="{{ old('aturan_pakai') }}">
                                     <trix-editor input="aturan_pakai"></trix-editor>
+                                    @error('aturan_pakai')
+                                        <p class="invalid-feedback">
+                                            {{ $message }}
+                                        </p>
+                                    @enderror
                                 </div>
                             </div>
                         </div>

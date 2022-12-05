@@ -21,6 +21,7 @@ return new class extends Migration
             $table->foreign('id_dokter')->references('id_dokter')->on('doctors');
             $table->unsignedBigInteger('id_rekmed')->nullable();
             $table->foreign('id_rekmed')->references('id_rekmed')->on('medical_records');
+            $table->integer('jumlah');
             $table->text('aturan_pakai', 255);
             $table->timestamps();
         });

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\MedicalPrescription;
 use App\Models\MedicalRecord;
 use App\Models\Patient;
 use App\Models\Queue;
@@ -38,7 +39,7 @@ class MedicalRecordController extends Controller
      */
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
+        $validatedMedRecord = $request->validate([
             'id_pasien' => ['required', 'size:5'],
             'id_dokter' => ['required', 'size:5'],
             'id_poli' => ['required', 'size:5'],
@@ -51,9 +52,25 @@ class MedicalRecordController extends Controller
             'terapi' => ['required']
         ]);
 
-        $validatedData['tgl_periksa'] = Carbon::now();
+        $validatedMedRecord['tgl_periksa'] = Carbon::now();
 
-        MedicalRecord::create($validatedData);
+        MedicalRecord::create($validatedMedRecord);
+
+        // get id in latest medical record
+        $latest_med_record = MedicalRecord::latest()->first();
+
+        // validate medical prescription
+        $validatedMedPrescription = $request->validate([
+            'id_obat' => ['required', 'numeric'],
+            'jumlah' => ['required', 'numeric'],
+            'aturan_pakai' => ['required', 'max:255']
+        ]);
+
+        // fill all relationship id
+        $validatedMedPrescription["id_dokter"] = $request->id_dokter;
+        $validatedMedPrescription["id_rekmed"] = $latest_med_record->id_rekmed;
+
+        MedicalPrescription::create($validatedMedPrescription);
 
         // update patient check status
         $queue = Queue::where('id_antrian', $request->id_antrian)->first();
