@@ -154,6 +154,22 @@
             </div>
             <!-- /.card-body -->
         </div>
+
+        <div class="card card-primary card-outline">
+            <div class="card-header">
+                <div class="row align-items-center">
+                    <div class="col-6">
+                        <h3 class="card-title"><strong>Resep Obat</strong></h3>
+                    </div>
+                </div>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+                
+            </div>
+            <!-- /.card-body -->
+        </div>
     </div>
+    
 </div>
 @endsection
