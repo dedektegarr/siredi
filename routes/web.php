@@ -26,8 +26,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware(['auth'])->group(function() {
-    Route::get('/', function() {
+Route::middleware(['auth'])->group(function () {
+    Route::get('/', function () {
         return view('dashboard', [
             'pageTitle' => 'Dashboard'
         ]);
@@ -40,22 +40,22 @@ Route::middleware(['auth'])->group(function() {
     })->name('dashboard');
 
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-   
+
     // user resource
     Route::resource('user', UserController::class);
 
-    Route::prefix('users')->group(function() {
+    Route::prefix('users')->group(function () {
         // doctor resource
         Route::resource('dokter', DoctorController::class);
-        
+
         // nurse resource
         Route::resource('perawat', NurseController::class);
-    
+
         // pharmacist resource
         Route::resource('apoteker', PharmacistController::class);
     });
 
-    
+
     // patient resource
     Route::resource('pasien', PatientController::class);
 
@@ -73,15 +73,17 @@ Route::middleware(['auth'])->group(function() {
 
     // medical record route
     Route::get('antrian/{antrian}/periksa', [QueueController::class, 'check'])->name('antrian.check');
-        // show detail
-        Route::get('pasien/{pasien}/rekam-medis/{rekam_medis}', [MedicalRecordController::class, 'show'])->name('rekam_medis.show');
+    // show detail
+    Route::get('pasien/{pasien}/rekam-medis/{rekam_medis}', [MedicalRecordController::class, 'show'])->name('rekam_medis.show');
 
-        // store
-        Route::post('rekam-medis', [MedicalRecordController::class, 'store'])->name('rekam_medis.store');
+    // edit
+    Route::get('pasien/{pasien}/rekam-medis/{rekam_medis}/edit', [MedicalRecordController::class, 'edit'])->name('rekam_medis.edit');
+
+    // store
+    Route::post('rekam-medis', [MedicalRecordController::class, 'store'])->name('rekam_medis.store');
 });
 
-Route::middleware(['guest'])->group(function() {
+Route::middleware(['guest'])->group(function () {
     Route::get('/login', [AuthController::class, 'loginView'])->name('loginView');
     Route::post('/login', [AuthController::class, 'loginStore'])->name('loginStore');
 });
-

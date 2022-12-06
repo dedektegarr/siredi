@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\MedicalPrescription;
 use App\Models\MedicalRecord;
+use App\Models\Medicine;
 use App\Models\Patient;
 use App\Models\Queue;
 use Carbon\Carbon;
@@ -108,9 +109,15 @@ class MedicalRecordController extends Controller
      * @param  \App\Models\MedicalRecord  $medicalRecord
      * @return \Illuminate\Http\Response
      */
-    public function edit(MedicalRecord $medicalRecord)
+    public function edit(Patient $pasien, MedicalRecord $rekam_medis)
     {
-        //
+        return view('medical_records.edit', [
+            'pageTitle' => 'Edit Rekam Medis',
+            'medRecord' => $rekam_medis,
+            'patient' => $pasien,
+            'medicines' => Medicine::all(),
+            'prescription' => MedicalPrescription::where('id_rekmed', $rekam_medis->id_rekmed)->get()
+        ]);
     }
 
     /**
