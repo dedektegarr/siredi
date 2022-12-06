@@ -9,7 +9,7 @@
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
-                    <form action="{{ route('rekam_medis.update') }}" method="POST">
+                    <form action="{{ route('rekam_medis.update', $medRecord->id_rekmed) }}" method="POST">
                         @csrf
                         @method('PUT')
 

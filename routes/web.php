@@ -79,6 +79,12 @@ Route::middleware(['auth'])->group(function () {
     // edit
     Route::get('pasien/{pasien}/rekam-medis/{rekam_medis}/edit', [MedicalRecordController::class, 'edit'])->name('rekam_medis.edit');
 
+    // update
+    Route::put('rekam-medis/{rekam_medis}', [MedicalRecordController::class, 'update'])->name('rekam_medis.update');
+
+    // delete
+    Route::delete('rekam_medis/{rekam_medis}', [MedicalRecordController::class, 'destroy'])->name('rekam_medis.destroy');
+
     // store
     Route::post('rekam-medis', [MedicalRecordController::class, 'store'])->name('rekam_medis.store');
 });

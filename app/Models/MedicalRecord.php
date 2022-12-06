@@ -8,7 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class MedicalRecord extends Model
 {
     use HasFactory;
-    
+
+    protected $primaryKey = 'id_rekmed';
     protected $guarded = ['id_rekmed'];
 
     public function getRouteKeyName()
@@ -16,15 +17,23 @@ class MedicalRecord extends Model
         return 'id_rekmed';
     }
 
-    public function patient() {
+    public function patient()
+    {
         return $this->belongsTo(Patient::class, 'id_pasien');
     }
 
-    public function poly() {
+    public function poly()
+    {
         return $this->belongsTo(Poly::class, 'id_poli');
     }
 
-    public function doctor() {
+    public function doctor()
+    {
         return $this->belongsTo(Doctor::class, 'id_dokter');
+    }
+
+    public function prescription()
+    {
+        return $this->belongsTo(MedicalPrescription::class, 'id_rekmed');
     }
 }

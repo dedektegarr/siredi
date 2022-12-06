@@ -81,6 +81,13 @@
         </div>
 
         <div class="col-md-8">
+            @if (session()->has('success'))
+                <div class="alert alert-success alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    <i class="icon fas fa-check"></i>
+                    {{ session('success') }}
+                </div>
+            @endif
             <div class="card card-primary card-outline">
                 <div class="card-header">
                     <div class="row align-items-center">
@@ -113,6 +120,11 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @if ($medRecords->count() === 0)
+                                <tr>
+                                    <td colspan="5" class="text-center">Belum ada riwayat rekam medis</td>
+                                </tr>
+                            @endif
                             @foreach ($medRecords as $medRecord)
                                 <tr>
                                     <td>{{ $loop->iteration }}.</td>
@@ -129,7 +141,8 @@
                                             class="btn btn-sm btn-warning">
                                             <i class="fa-solid fa-pen-to-square"></i>
                                         </a>
-                                        <form action="" method="POST" class="d-inline">
+                                        <form action="{{ route('rekam_medis.destroy', $medRecord->id_rekmed) }}"
+                                            method="POST" class="d-inline">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-sm btn-danger"

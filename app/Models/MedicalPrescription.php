@@ -11,4 +11,9 @@ class MedicalPrescription extends Model
 
     protected $guarded = ['id_resep'];
     protected $primaryKey = 'id_rekmed';
+
+    public function medical_record()
+    {
+        return $this->hasMany(MedicalRecord::class, 'id_rekmed');
+    }
 }

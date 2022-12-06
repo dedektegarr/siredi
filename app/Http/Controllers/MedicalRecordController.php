@@ -8,7 +8,9 @@ use App\Models\Medicine;
 use App\Models\Patient;
 use App\Models\Queue;
 use Carbon\Carbon;
+use Faker\Provider\Medical;
 use Illuminate\Http\Request;
+use Symfony\Component\VarDumper\VarDumper;
 
 class MedicalRecordController extends Controller
 {
@@ -127,9 +129,44 @@ class MedicalRecordController extends Controller
      * @param  \App\Models\MedicalRecord  $medicalRecord
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, MedicalRecord $medicalRecord)
+    public function update(Request $request, MedicalRecord $rekam_medis)
     {
-        //
+        $validatedMedRecord = $request->validate([
+            'sistole' => ['required', 'numeric', 'max_digits:3'],
+            'diastole' => ['required', 'numeric', 'max_digits:3'],
+            'gula_darah' => ['required', 'numeric', 'max_digits:3'],
+            'alergi' => ['nullable', 'max:100'],
+            'keluhan' => ['required'],
+            'diagnosis' => ['required'],
+            'terapi' => ['required']
+        ]);
+
+        // validate medical prescription
+        $validatedMedPrescription = $request->validate([
+            'id_obat' => ['required', 'numeric'],
+            'jumlah' => ['required', 'numeric'],
+            'aturan_pakai' => ['required', 'max:255']
+        ]);
+
+        // update query
+        // medical record
+        $medRecordUpdate = MedicalRecord::where('id_rekmed', $rekam_medis->id_rekmed)->first();
+        $medRecordUpdate->fill($validatedMedRecord);
+        $changesMedRecord = $medRecordUpdate->getDirty();
+        $medRecordUpdate->save();
+
+        // prescription
+        $prescriptionUpdate = MedicalPrescription::where('id_resep', $rekam_medis->prescription->id_resep)->first();
+        $prescriptionUpdate->fill($validatedMedPrescription);
+        $changesPrescription = $prescriptionUpdate->getDirty();
+        $prescriptionUpdate->save();
+
+        if ($changesMedRecord !== [] || $changesPrescription !== []) {
+            return redirect()->route('rekam_medis.show', [$rekam_medis->id_pasien, $rekam_medis->id_rekmed])
+                ->with('success', 'Data rekam medis berhasil di update');
+        } else {
+            return redirect()->route('rekam_medis.show', [$rekam_medis->id_pasien, $rekam_medis->id_rekmed]);
+        }
     }
 
     /**
@@ -138,8 +175,10 @@ class MedicalRecordController extends Controller
      * @param  \App\Models\MedicalRecord  $medicalRecord
      * @return \Illuminate\Http\Response
      */
-    public function destroy(MedicalRecord $medicalRecord)
+    public function destroy(MedicalRecord $rekam_medis)
     {
-        //
+        MedicalRecord::where('id_rekmed', $rekam_medis->id_rekmed)->delete();
+
+        return redirect()->route('pasien.show', $rekam_medis->id_pasien)->with('success', 'Data berhasil dihapus');
     }
 }
