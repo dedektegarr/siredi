@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DoctorController;
+use App\Http\Controllers\MedicalPrescriptionController;
 use App\Http\Controllers\MedicalRecordController;
 use App\Http\Controllers\MedicineController;
 use App\Http\Controllers\NurseController;
@@ -87,6 +88,12 @@ Route::middleware(['auth'])->group(function () {
 
     // store
     Route::post('rekam-medis', [MedicalRecordController::class, 'store'])->name('rekam_medis.store');
+
+    // medical prescription resource
+    Route::resource('resep-obat', MedicalPrescriptionController::class);
+
+    // prints
+    Route::post('prescriptions_print/{resep_obat}', [MedicalPrescriptionController::class, 'print'])->name('print.prescriptions');
 });
 
 Route::middleware(['guest'])->group(function () {

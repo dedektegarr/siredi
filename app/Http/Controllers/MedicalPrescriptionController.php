@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\MedicalPrescription;
+use App\Models\MedicalRecord;
 use Illuminate\Http\Request;
 
 class MedicalPrescriptionController extends Controller
@@ -14,7 +15,10 @@ class MedicalPrescriptionController extends Controller
      */
     public function index()
     {
-        //
+        return view('medical_prescriptions.index', [
+            'pageTitle' => 'Resep Obat Pasien',
+            'medRecords' => MedicalRecord::all()
+        ]);
     }
 
     /**
@@ -81,5 +85,13 @@ class MedicalPrescriptionController extends Controller
     public function destroy(MedicalPrescription $medicalPrescription)
     {
         //
+    }
+
+    public function print(MedicalPrescription $resep_obat)
+    {
+        return view('prints.prescription', [
+            'pageTitle' => "Cetak Resep Obat",
+            'prescriptions' => $resep_obat
+        ]);
     }
 }

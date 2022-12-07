@@ -203,7 +203,7 @@
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
-                    <table class="table">
+                    <table class="table table-hover">
                         <thead>
                             <tr>
                                 <th style="width: 20px;">#</th>
