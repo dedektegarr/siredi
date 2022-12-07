@@ -193,14 +193,32 @@
                             <h3 class="card-title"><strong>Resep Obat</strong></h3>
                         </div>
                     </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th style="width: 20px;">#</th>
+                                    <th>Nama Obat</th>
+                                    <th>Jumlah</th>
+                                    <th>Aturan Pakai</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($medRecord->prescription->all() as $prescription)
+                                    <tr>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $prescription->medicine->nama_obat }}</td>
+                                        <td>{{ $prescription->jumlah }}</td>
+                                        <td>{!! $prescription->aturan_pakai !!}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.card-body -->
                 </div>
-                <!-- /.card-header -->
-                <div class="card-body">
-
-                </div>
-                <!-- /.card-body -->
             </div>
-        </div>
 
-    </div>
-@endsection
+        </div>
+    @endsection

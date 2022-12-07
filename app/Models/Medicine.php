@@ -16,4 +16,9 @@ class Medicine extends Model
     {
         return 'id_obat';
     }
+
+    public function prescription()
+    {
+        return $this->hasMany(MedicalPrescription::class, 'id_obat');
+    }
 }
