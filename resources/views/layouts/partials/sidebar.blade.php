@@ -2,8 +2,7 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="{{ env('APP_URL') }}/dashboard" class="brand-link">
-        <img src="{{ env('APP_ICON') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
-            style="opacity: .8">
+        <img src="{{ env('APP_ICON') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
         <span class="brand-text font-weight-light">{{ env('APP_NAME') }}</span>
     </a>
 
@@ -16,14 +15,27 @@
             </div>
             <div class="info">
                 <a href="#" class="d-block">{{ auth()->user()->username }}
-                    <span class="right badge badge-danger">{{ auth()->user()->role }}</span></a>
+                    @if (auth()->user()->role === 'admin')
+                        <span class="right badge badge-danger">{{ auth()->user()->role }}</span>
+                    @endif
+                    @if (auth()->user()->role === 'dokter')
+                        <span class="right badge badge-success">{{ auth()->user()->role }}</span>
+                    @endif
+                    @if (auth()->user()->role === 'perawat')
+                        <span class="right badge badge-info">{{ auth()->user()->role }}</span>
+                    @endif
+                    @if (auth()->user()->role === 'apoteker')
+                        <span class="right badge badge-primary">{{ auth()->user()->role }}</span>
+                    @endif
+                </a>
             </div>
         </div>
 
         <!-- SidebarSearch Form -->
         <div class="form-inline">
             <div class="input-group" data-widget="sidebar-search">
-                <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
+                <input class="form-control form-control-sidebar" type="search" placeholder="Search"
+                    aria-label="Search">
                 <div class="input-group-append">
                     <button class="btn btn-sidebar">
                         <i class="fas fa-search fa-fw"></i>
@@ -34,7 +46,8 @@
 
         <!-- Sidebar Menu -->
         <nav class="mt-2">
-            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
+                data-accordion="false">
                 <li class="nav-item">
                     <a href="{{ route('dashboard') }}" class="nav-link {{ Route::is('dashboard*') ? 'active' : '' }}">
                         <i class="nav-icon fa-solid fa-gauge"></i>
@@ -42,8 +55,8 @@
                     </a>
                 </li>
                 {{-- @dd(request()->route()->getPrefix() == '/users') --}}
-                <li class="nav-item {{ request()->route()->getPrefix() == '/users' ? 'menu-open' : '' }}">
-                    <a href="#" class="nav-link {{ request()->route()->getPrefix() == '/users' ? 'active' : '' }}">
+                <li class="nav-item {{ request()->route()->getPrefix() == '/users'? 'menu-open': '' }}">
+                    <a href="#" class="nav-link {{ request()->route()->getPrefix() == '/users'? 'active': '' }}">
                         <i class="nav-icon fas fa-users"></i>
                         <p>
                             Users
@@ -81,6 +94,13 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a href="{{ route('antrian.index') }}"
+                        class="nav-link {{ Route::is('antrian*') ? 'active' : '' }}">
+                        <i class="nav-icon fa-solid fa-arrow-right"></i>
+                        <p> Antrian</p>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a href="{{ route('poli.index') }}" class="nav-link {{ Route::is('poli*') ? 'active' : '' }}">
                         <i class="nav-icon fa-solid fa-notes-medical"></i>
                         <p> Poli</p>
@@ -90,12 +110,6 @@
                     <a href="{{ route('obat.index') }}" class="nav-link {{ Route::is('obat*') ? 'active' : '' }}">
                         <i class="nav-icon fa-solid fa-pills"></i>
                         <p> Obat</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ route('antrian.index') }}" class="nav-link {{ Route::is('antrian*') ? 'active' : '' }}">
-                        <i class="nav-icon fa-solid fa-sort"></i>
-                        <p> Antrian</p>
                     </a>
                 </li>
             </ul>
