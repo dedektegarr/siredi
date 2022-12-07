@@ -192,33 +192,42 @@
                         <div class="col-6">
                             <h3 class="card-title"><strong>Resep Obat</strong></h3>
                         </div>
+                        <div class="col-6">
+                            @if ($medRecord->prescription->status === 'selesai')
+                                <small class="bg-success py-1 px-2 float-right">Obat sudah diberikan kepada pasien</small>
+                            @endif
+                            <small class="bg-secondary py-1 px-2 float-right">Sedang menunggu apoteker menyiapkan
+                                obat</small>
+                        </div>
                     </div>
-                    <!-- /.card-header -->
-                    <div class="card-body">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th style="width: 20px;">#</th>
-                                    <th>Nama Obat</th>
-                                    <th>Jumlah</th>
-                                    <th>Aturan Pakai</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($medRecord->prescription->all() as $prescription)
-                                    <tr>
-                                        <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $prescription->medicine->nama_obat }}</td>
-                                        <td>{{ $prescription->jumlah }}</td>
-                                        <td>{!! $prescription->aturan_pakai !!}</td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                    <!-- /.card-body -->
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th style="width: 20px;">#</th>
+                                <th>Nama Obat</th>
+                                <th>Jumlah</th>
+                                <th>Aturan Pakai</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1.</td>
+                                <td>{{ $medRecord->prescription->medicine->nama_obat }}</td>
+                                <td>{{ $medRecord->prescription->jumlah }}</td>
+                                <td>{!! $medRecord->prescription->aturan_pakai !!}</td>
+                                {{-- <td>{{ $prescription->jumlah }}</td>
+                                        <td>{!! $prescription->aturan_pakai !!}</td> --}}
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
-
+            <!-- /.card-body -->
         </div>
-    @endsection
+    </div>
+
+    </div>
+@endsection

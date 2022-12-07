@@ -23,6 +23,7 @@ return new class extends Migration
             $table->foreign('id_rekmed')->references('id_rekmed')->on('medical_records')->onDelete('cascade');
             $table->integer('jumlah');
             $table->text('aturan_pakai', 255);
+            $table->enum('status', ['menunggu', 'selesai'])->default('menunggu');
             $table->timestamps();
         });
     }
