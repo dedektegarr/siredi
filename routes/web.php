@@ -59,7 +59,10 @@ Route::middleware(['auth'])->group(function () {
 
         // poly resource
         Route::resource('poli', PolyController::class);
+    });
 
+    // admin, pharmacist middleware
+    Route::middleware('AdminPharmacist')->group(function () {
         // medicine resource
         Route::resource('obat', MedicineController::class);
 
@@ -67,14 +70,10 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('resep-obat', MedicalPrescriptionController::class);
     });
 
-
-    Route::middleware('AdminDoctor')->group(function () {
-
-
+    // admin, nurse, doctor middleware
+    Route::middleware('AdminDoctorNurse')->group(function () {
         // patient resource
         Route::resource('pasien', PatientController::class);
-
-
 
         // queue resource
         Route::resource('antrian', QueueController::class);
@@ -98,8 +97,6 @@ Route::middleware(['auth'])->group(function () {
 
         // store
         Route::post('rekam-medis', [MedicalRecordController::class, 'store'])->name('rekam_medis.store');
-
-
 
         // prints
         Route::post('prescriptions_print/{resep_obat}', [MedicalPrescriptionController::class, 'print'])->name('print.prescriptions');

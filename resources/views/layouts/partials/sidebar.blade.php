@@ -13,14 +13,26 @@
             <div class="image">
                 @if (auth()->user()->role === 'admin')
                     <img src="{{ asset('img/admin-img.png') }}" class="img-circle elevation-2" alt="User Image">
-                @else
+                @endif
+
+                @if (auth()->user()->role === 'dokter')
                     @if (auth()->user()->doctor->photo)
                         <img src="{{ asset(auth()->user()->doctor->photo) }}" class="img-circle elevation-2"
                             alt="User Image">
-                    @else
-                        <img src="{{ asset('img/default-avatar.png') }}" class="img-circle elevation-2"
+                    @endif
+                    <img src="{{ asset('img/default-avatar.png') }}" class="img-circle elevation-2" alt="User Image">
+                @elseif(auth()->user()->role === 'perawat')
+                    @if (auth()->user()->nurse->photo)
+                        <img src="{{ asset(auth()->user()->nurse->photo) }}" class="img-circle elevation-2"
                             alt="User Image">
                     @endif
+                    <img src="{{ asset('img/default-avatar.png') }}" class="img-circle elevation-2" alt="User Image">
+                @elseif(auth()->user()->role === 'apoteker')
+                    @if (auth()->user()->pharmacist->photo)
+                        <img src="{{ asset(auth()->user()->pharmacist->photo) }}" class="img-circle elevation-2"
+                            alt="User Image">
+                    @endif
+                    <img src="{{ asset('img/default-avatar.png') }}" class="img-circle elevation-2" alt="User Image">
                 @endif
             </div>
             <div class="info">
@@ -65,39 +77,49 @@
                     </a>
                 </li>
                 {{-- @dd(request()->route()->getPrefix() == '/users') --}}
-                <li class="nav-item {{ request()->route()->getPrefix() == '/users'? 'menu-open': '' }}">
-                    <a href="#" class="nav-link {{ request()->route()->getPrefix() == '/users'? 'active': '' }}">
-                        <i class="nav-icon fas fa-users"></i>
-                        <p>
-                            Users
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{ route('dokter.index') }}"
-                                class="nav-link {{ Route::is('dokter*') ? 'active' : '' }}">
-                                <i class="nav-icon fa-solid fa-user-doctor"></i>
-                                <p> Dokter</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('perawat.index') }}"
-                                class="nav-link {{ Route::is('perawat*') ? 'active' : '' }}">
-                                <i class="nav-icon fa-solid fa-user-nurse"></i>
-                                <p> Perawat</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('apoteker.index') }}"
-                                class="nav-link {{ Route::is('apoteker*') ? 'active' : '' }}">
-                                <i class="nav-icon fa-solid fa-user-nurse"></i>
-                                <p> Apoteker</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                @can('AdminDoctor')
+
+                @can('Admin')
+                    <li class="nav-item {{ request()->route()->getPrefix() == '/users'? 'menu-open': '' }}">
+                        <a href="#" class="nav-link {{ request()->route()->getPrefix() == '/users'? 'active': '' }}">
+                            <i class="nav-icon fas fa-users"></i>
+                            <p>
+                                Users
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{ route('dokter.index') }}"
+                                    class="nav-link {{ Route::is('dokter*') ? 'active' : '' }}">
+                                    <i class="nav-icon fa-solid fa-user-doctor"></i>
+                                    <p> Dokter</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('perawat.index') }}"
+                                    class="nav-link {{ Route::is('perawat*') ? 'active' : '' }}">
+                                    <i class="nav-icon fa-solid fa-user-nurse"></i>
+                                    <p> Perawat</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('apoteker.index') }}"
+                                    class="nav-link {{ Route::is('apoteker*') ? 'active' : '' }}">
+                                    <i class="nav-icon fa-solid fa-user-nurse"></i>
+                                    <p> Apoteker</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="{{ route('poli.index') }}" class="nav-link {{ Route::is('poli*') ? 'active' : '' }}">
+                            <i class="nav-icon fa-solid fa-notes-medical"></i>
+                            <p> Poli</p>
+                        </a>
+                    </li>
+                @endcan
+                @can('AdminDoctorNurse')
                     <li class="nav-item">
                         <a href="{{ route('pasien.index') }}" class="nav-link {{ Route::is('pasien*') ? 'active' : '' }}">
                             <i class="nav-icon fa-solid fa-hospital-user"></i>
@@ -112,25 +134,21 @@
                         </a>
                     </li>
                 @endcan
-                <li class="nav-item">
-                    <a href="{{ route('poli.index') }}" class="nav-link {{ Route::is('poli*') ? 'active' : '' }}">
-                        <i class="nav-icon fa-solid fa-notes-medical"></i>
-                        <p> Poli</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ route('obat.index') }}" class="nav-link {{ Route::is('obat*') ? 'active' : '' }}">
-                        <i class="nav-icon fa-solid fa-pills"></i>
-                        <p> Data Obat</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ route('resep-obat.index') }}"
-                        class="nav-link {{ Route::is('resep-obat*') ? 'active' : '' }}">
-                        <i class="nav-icon fa-solid fa-hospital-user"></i>
-                        <p> Resep Obat</p>
-                    </a>
-                </li>
+                @can('AdminPharmacist')
+                    <li class="nav-item">
+                        <a href="{{ route('obat.index') }}" class="nav-link {{ Route::is('obat*') ? 'active' : '' }}">
+                            <i class="nav-icon fa-solid fa-pills"></i>
+                            <p> Data Obat</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('resep-obat.index') }}"
+                            class="nav-link {{ Route::is('resep-obat*') ? 'active' : '' }}">
+                            <i class="nav-icon fa-solid fa-hospital-user"></i>
+                            <p> Resep Obat</p>
+                        </a>
+                    </li>
+                @endcan
             </ul>
         </nav>
         <!-- /.sidebar-menu -->
