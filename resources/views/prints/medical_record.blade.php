@@ -132,8 +132,12 @@
                     <p class="name mt-5">
                         @if (auth()->user()->role === 'admin')
                             {{ ucwords(auth()->user()->username) }}
-                        @else
+                        @endif
+                        @if (auth()->user()->role === 'dokter')
                             {{ ucwords(auth()->user()->doctor->nama) }}
+                        @endif
+                        @if (auth()->user()->role === 'perawat')
+                            {{ ucwords(auth()->user()->nurse->nama) }}
                         @endif
                     </p>
                 </div>
