@@ -55,12 +55,11 @@ class PatientController extends Controller
 
         // create patients id
         $patientsCount = Patient::count() + 1;
-        if($patientsCount < 10) {
+        if ($patientsCount < 10) {
             $code = '00' . $patientsCount;
-        }
-        elseif($patientsCount < 100) {
+        } elseif ($patientsCount < 100) {
             $code = '0' . $patientsCount;
-        }else {
+        } else {
             $code = '';
         }
 
@@ -98,7 +97,7 @@ class PatientController extends Controller
             'pageTitle' => $pasien->nama,
             'patient' => $pasien,
             'patients' => Patient::latest()->limit(5)->orderBy('updated_at', 'desc')
-                            ->pluck('nama', 'id_pasien')
+                ->pluck('nama', 'id_pasien')
         ]);
     }
 

@@ -42,58 +42,68 @@ Route::middleware(['auth'])->group(function () {
 
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-    // user resource
-    Route::resource('user', UserController::class);
+    Route::middleware('isAdmin')->group(function () {
+        // user resource
+        Route::resource('user', UserController::class);
 
-    Route::prefix('users')->group(function () {
-        // doctor resource
-        Route::resource('dokter', DoctorController::class);
+        Route::prefix('users')->group(function () {
+            // doctor resource
+            Route::resource('dokter', DoctorController::class);
 
-        // nurse resource
-        Route::resource('perawat', NurseController::class);
+            // nurse resource
+            Route::resource('perawat', NurseController::class);
 
-        // pharmacist resource
-        Route::resource('apoteker', PharmacistController::class);
+            // pharmacist resource
+            Route::resource('apoteker', PharmacistController::class);
+        });
+
+        // poly resource
+        Route::resource('poli', PolyController::class);
+
+        // medicine resource
+        Route::resource('obat', MedicineController::class);
+
+        // medical prescription resource
+        Route::resource('resep-obat', MedicalPrescriptionController::class);
     });
 
 
-    // patient resource
-    Route::resource('pasien', PatientController::class);
+    Route::middleware('AdminDoctor')->group(function () {
 
-    // poly resource
-    Route::resource('poli', PolyController::class);
 
-    // medicine resource
-    Route::resource('obat', MedicineController::class);
+        // patient resource
+        Route::resource('pasien', PatientController::class);
 
-    // queue resource
-    Route::resource('antrian', QueueController::class);
 
-    // queue delete all
-    Route::post('/antrian/destroy_all', [QueueController::class, 'destroyAll'])->name('antrian.destroyAll');
 
-    // medical record route
-    Route::get('antrian/{antrian}/periksa', [QueueController::class, 'check'])->name('antrian.check');
-    // show detail
-    Route::get('pasien/{pasien}/rekam-medis/{rekam_medis}', [MedicalRecordController::class, 'show'])->name('rekam_medis.show');
+        // queue resource
+        Route::resource('antrian', QueueController::class);
 
-    // edit
-    Route::get('pasien/{pasien}/rekam-medis/{rekam_medis}/edit', [MedicalRecordController::class, 'edit'])->name('rekam_medis.edit');
+        // queue delete all
+        Route::post('/antrian/destroy_all', [QueueController::class, 'destroyAll'])->name('antrian.destroyAll');
 
-    // update
-    Route::put('rekam-medis/{rekam_medis}', [MedicalRecordController::class, 'update'])->name('rekam_medis.update');
+        // medical record route
+        Route::get('antrian/{antrian}/periksa', [QueueController::class, 'check'])->name('antrian.check');
+        // show detail
+        Route::get('pasien/{pasien}/rekam-medis/{rekam_medis}', [MedicalRecordController::class, 'show'])->name('rekam_medis.show');
 
-    // delete
-    Route::delete('rekam_medis/{rekam_medis}', [MedicalRecordController::class, 'destroy'])->name('rekam_medis.destroy');
+        // edit
+        Route::get('pasien/{pasien}/rekam-medis/{rekam_medis}/edit', [MedicalRecordController::class, 'edit'])->name('rekam_medis.edit');
 
-    // store
-    Route::post('rekam-medis', [MedicalRecordController::class, 'store'])->name('rekam_medis.store');
+        // update
+        Route::put('rekam-medis/{rekam_medis}', [MedicalRecordController::class, 'update'])->name('rekam_medis.update');
 
-    // medical prescription resource
-    Route::resource('resep-obat', MedicalPrescriptionController::class);
+        // delete
+        Route::delete('rekam_medis/{rekam_medis}', [MedicalRecordController::class, 'destroy'])->name('rekam_medis.destroy');
 
-    // prints
-    Route::post('prescriptions_print/{resep_obat}', [MedicalPrescriptionController::class, 'print'])->name('print.prescriptions');
+        // store
+        Route::post('rekam-medis', [MedicalRecordController::class, 'store'])->name('rekam_medis.store');
+
+
+
+        // prints
+        Route::post('prescriptions_print/{resep_obat}', [MedicalPrescriptionController::class, 'print'])->name('print.prescriptions');
+    });
 });
 
 Route::middleware(['guest'])->group(function () {

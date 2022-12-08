@@ -11,7 +11,17 @@
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
-                <img src="{{ asset('img/admin-img.png') }}" class="img-circle elevation-2" alt="User Image">
+                @if (auth()->user()->role === 'admin')
+                    <img src="{{ asset('img/admin-img.png') }}" class="img-circle elevation-2" alt="User Image">
+                @else
+                    @if (auth()->user()->doctor->photo)
+                        <img src="{{ asset(auth()->user()->doctor->photo) }}" class="img-circle elevation-2"
+                            alt="User Image">
+                    @else
+                        <img src="{{ asset('img/default-avatar.png') }}" class="img-circle elevation-2"
+                            alt="User Image">
+                    @endif
+                @endif
             </div>
             <div class="info">
                 <a href="#" class="d-block">{{ auth()->user()->username }}
@@ -87,19 +97,21 @@
                         </li>
                     </ul>
                 </li>
-                <li class="nav-item">
-                    <a href="{{ route('pasien.index') }}" class="nav-link {{ Route::is('pasien*') ? 'active' : '' }}">
-                        <i class="nav-icon fa-solid fa-hospital-user"></i>
-                        <p> Pasien</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ route('antrian.index') }}"
-                        class="nav-link {{ Route::is('antrian*') ? 'active' : '' }}">
-                        <i class="nav-icon fa-solid fa-arrow-right"></i>
-                        <p> Antrian</p>
-                    </a>
-                </li>
+                @can('AdminDoctor')
+                    <li class="nav-item">
+                        <a href="{{ route('pasien.index') }}" class="nav-link {{ Route::is('pasien*') ? 'active' : '' }}">
+                            <i class="nav-icon fa-solid fa-hospital-user"></i>
+                            <p> Pasien</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('antrian.index') }}"
+                            class="nav-link {{ Route::is('antrian*') ? 'active' : '' }}">
+                            <i class="nav-icon fa-solid fa-arrow-right"></i>
+                            <p> Antrian</p>
+                        </a>
+                    </li>
+                @endcan
                 <li class="nav-item">
                     <a href="{{ route('poli.index') }}" class="nav-link {{ Route::is('poli*') ? 'active' : '' }}">
                         <i class="nav-icon fa-solid fa-notes-medical"></i>
