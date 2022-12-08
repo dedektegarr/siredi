@@ -91,14 +91,22 @@
             <div class="card card-primary card-outline">
                 <div class="card-header">
                     <div class="row align-items-center">
-                        <div class="col-6">
+                        <div class="col-8">
                             <h3 class="card-title"><strong>Riwayat Rekam Medis</strong></h3>
                         </div>
                         @if ($medRecords->count() > 0)
-                            <div class="col-6">
+                            <div class="col-4">
                                 @if ($patient->queue !== null)
+                                    <form action="{{ route('print.medical_record_all', $patient->id_pasien) }}"
+                                        method="POST" class="d-inline" target="_blank">
+                                        @csrf
+                                        <button type="submit" class="btn btn-info btn-sm">
+                                            <i class="fa-solid fa-print"></i>
+                                            Cetak Semua
+                                        </button>
+                                    </form>
                                     <a href="{{ route('antrian.check', $patient->queue->id_antrian) }}"
-                                        class="btn btn-sm btn-info float-right">
+                                        class="btn btn-sm btn-primary">
                                         <i class="fa-solid fa-plus"></i>
                                         Tambah
                                     </a>

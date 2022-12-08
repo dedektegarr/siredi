@@ -96,10 +96,14 @@
                         </div>
                         <div class="col-6">
                             <div class="float-right">
-                                <a href="" class="btn btn-info btn-sm">
-                                    <i class="fa-solid fa-print"></i>
-                                    Cetak
-                                </a>
+                                <form action="{{ route('print.medical_record', $medRecord->id_rekmed) }}" method="POST"
+                                    class="d-inline" target="_blank">
+                                    @csrf
+                                    <button type="submit" class="btn btn-info btn-sm">
+                                        <i class="fa-solid fa-print"></i>
+                                        Cetak
+                                    </button>
+                                </form>
                                 <a href="{{ route('rekam_medis.edit', [$medRecord->id_pasien, $medRecord->id_rekmed]) }}"
                                     class="btn btn-sm btn-warning">
                                     <i class="fa-solid fa-pen-to-square"></i>

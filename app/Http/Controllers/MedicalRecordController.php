@@ -181,4 +181,19 @@ class MedicalRecordController extends Controller
 
         return redirect()->route('pasien.show', $rekam_medis->id_pasien)->with('success', 'Data berhasil dihapus');
     }
+
+    public function print(MedicalRecord $rekam_medis)
+    {
+        return view('prints.medical_record', [
+            'medRecord' => $rekam_medis
+        ]);
+    }
+
+    public function printAll(Patient $pasien)
+    {
+        return view('prints.medical_record_all', [
+            'patient' => $pasien,
+            'medRecords' => $pasien->medicalRecord
+        ]);
+    }
 }
