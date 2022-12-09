@@ -9,6 +9,8 @@
         resep_obat_{{ $prescriptions->medical_record[0]->patient->nama }}_{{ $prescriptions->medical_record[0]->patient->id_pasien }}
     </title>
 
+    <link rel="shortcut icon" href="{{ env('APP_ICON') }}" type="image/x-icon">
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 
@@ -75,7 +77,7 @@
                         @if (auth()->user()->role === 'apoteker')
                             {{ ucwords(auth()->user()->pharmacist->nama) }}
                         @else
-                            {{ ucwords(auth()->user()->pharmacist->nama) }}
+                            {{ ucwords(auth()->user()->username) }}
                         @endif
                     </p>
                 </div>

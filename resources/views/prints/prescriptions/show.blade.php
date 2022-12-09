@@ -63,7 +63,7 @@
                                     @if (auth()->user()->role === 'apoteker')
                                         {{ ucwords(auth()->user()->pharmacist->nama) }}
                                     @else
-                                        {{ ucwords(auth()->user()->pharmacist->nama) }}
+                                        {{ ucwords(auth()->user()->username) }}
                                     @endif
                                 </p>
                             </div>
