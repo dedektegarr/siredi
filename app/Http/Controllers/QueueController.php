@@ -18,12 +18,17 @@ class QueueController extends Controller
      */
     public function index()
     {
+        $queues = Queue::all();
+
+        if (auth()->user()->role === 'dokter') {
+            $queues = Queue::where('id_poli', auth()->user()->doctor->id_poli)->get();
+        }
+
         return view('queues.index', [
             'pageTitle' => 'Data Antrian',
-            'uncheckedQueues' => Queue::where('status', 0)->get(),
-            'checkedQueues' => Queue::where('status', 1)->get(),
+            'queues' => $queues,
             'patients' => Patient::latest()->pluck('nama', 'id_pasien'),
-            'polies' => Poly::latest()->pluck('nama_poli', 'id_poli')
+            'polies' => Poly::latest()->pluck('nama_poli', 'id_poli'),
         ]);
     }
 

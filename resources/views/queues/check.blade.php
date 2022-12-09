@@ -16,6 +16,10 @@
                         <input type="hidden" name="id_poli" value="{{ $queue->poly->id_poli }}">
                         <input type="hidden" name="id_antrian" value="{{ $queue->id_antrian }}">
 
+                        @if (auth()->user()->role === 'dokter')
+                            <input type="hidden" name="id_dokter" value="{{ auth()->user()->doctor->id_dokter }}">
+                        @endif
+
                         <div class="row">
                             <div class="col-6">
                                 <table cellpadding="5">
@@ -34,15 +38,19 @@
                                             <td>Nama Dokter</td>
                                             <td>:</td>
                                             <td>
-                                                <select name="id_dokter" id="doctor-select"
-                                                    class="form-control @error('id_dokter') is-invalid @enderror">
-                                                    <option value="">Pilih dokter</option>
-                                                    @foreach ($doctors as $id => $doctor)
-                                                        <option value="{{ $id }}"
-                                                            {{ old('id_dokter') ? 'selected' : '' }}>
-                                                            {{ $id . ' - ' . $doctor }}</option>
-                                                    @endforeach
-                                                </select>
+                                                @if (auth()->user()->role === 'dokter')
+                                                    {{ auth()->user()->doctor->nama }}
+                                                @else
+                                                    <select name="id_dokter" id="doctor-select"
+                                                        class="form-control @error('id_dokter') is-invalid @enderror">
+                                                        <option value="">Pilih dokter</option>
+                                                        @foreach ($doctors as $id => $doctor)
+                                                            <option value="{{ $id }}"
+                                                                {{ old('id_dokter') ? 'selected' : '' }}>
+                                                                {{ $id . ' - ' . $doctor }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                @endif
                                                 @error('id_dokter')
                                                     <small class="text-danger">
                                                         {{ $message }}

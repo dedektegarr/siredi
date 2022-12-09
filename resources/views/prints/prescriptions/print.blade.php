@@ -69,10 +69,14 @@
             <div class="col-4">
                 <div class="role">
                     <p class="role">
-                        <strong>{{ ucwords(auth()->user()->role) }}</strong>
+                        {{ ucwords(auth()->user()->role) }}
                     </p>
                     <p class="name mt-5">
-                        {{ ucwords(auth()->user()->username) }}
+                        @if (auth()->user()->role === 'apoteker')
+                            {{ ucwords(auth()->user()->pharmacist->nama) }}
+                        @else
+                            {{ ucwords(auth()->user()->pharmacist->nama) }}
+                        @endif
                     </p>
                 </div>
             </div>

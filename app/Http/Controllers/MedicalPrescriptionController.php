@@ -87,9 +87,23 @@ class MedicalPrescriptionController extends Controller
         //
     }
 
+    public function printDetail(MedicalPrescription $resep_obat)
+    {
+        return view('prints.prescriptions.show', [
+            'pageTitle' => "Cetak Resep Obat",
+            'prescriptions' => $resep_obat
+        ]);
+    }
+
     public function print(MedicalPrescription $resep_obat)
     {
-        return view('prints.prescription', [
+        if ($resep_obat->status === 'menunggu') {
+            MedicalPrescription::where('id_resep', $resep_obat->id_resep)->update([
+                'status' => 'selesai'
+            ]);
+        }
+
+        return view('prints.prescriptions.print', [
             'pageTitle' => "Cetak Resep Obat",
             'prescriptions' => $resep_obat
         ]);

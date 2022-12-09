@@ -97,12 +97,14 @@ Route::middleware(['auth'])->group(function () {
 
         // store
         Route::post('rekam-medis', [MedicalRecordController::class, 'store'])->name('rekam_medis.store');
-
-        // prints
-        Route::post('prescriptions_print/{resep_obat}', [MedicalPrescriptionController::class, 'print'])->name('print.prescriptions');
-        Route::post('medical_record_print/{rekam_medis}', [MedicalRecordController::class, 'print'])->name('print.medical_record');
-        Route::post('medical_record_print_all/{pasien}', [MedicalRecordController::class, 'printAll'])->name('print.medical_record_all');
     });
+
+    // prints
+    Route::get('resep-obat/print/{resep_obat}/detail', [MedicalPrescriptionController::class, 'printDetail'])->name('print.prescriptions.show');
+    Route::post('resep-obat/print/{resep_obat}', [MedicalPrescriptionController::class, 'print'])->name('print.prescriptions');
+
+    Route::post('rekam-medis/print/{rekam_medis}', [MedicalRecordController::class, 'print'])->name('print.medical_record');
+    Route::post('rekam-medis/print/all/{pasien}', [MedicalRecordController::class, 'printAll'])->name('print.medical_record_all');
 });
 
 Route::middleware(['guest'])->group(function () {

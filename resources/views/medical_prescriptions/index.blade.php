@@ -65,15 +65,11 @@
                                                                 <span class="badge bg-secondary">Menunggu</span>
                                                             </td>
                                                             <td>
-                                                                <form
-                                                                    action="{{ route('print.prescriptions', $medRecord->prescription->id_resep) }}"
-                                                                    target="_blank" method="POST">
-                                                                    @csrf
-                                                                    <button type="submit" class="btn btn-info btn-sm">
-                                                                        <i class="fa-solid fa-print"></i>
-                                                                        Cetak Resep Obat
-                                                                    </button>
-                                                                </form>
+                                                                <a href="{{ route('print.prescriptions.show', $medRecord->prescription->id_resep) }}"
+                                                                    class="btn btn-sm btn-info">
+                                                                    <i class="fa-solid fa-print"></i>
+                                                                    Siapkan Resep Obat
+                                                                </a>
                                                             </td>
                                                         </tr>
                                                     @endif
@@ -128,12 +124,11 @@
                                                                 <span class="badge bg-success">Selesai</span>
                                                             </td>
                                                             <td>
-                                                                <form action="" method="POST">
-                                                                    <button type="submit" class="btn btn-info btn-sm">
-                                                                        <i class="fa-solid fa-print"></i>
-                                                                        Cetak Resep Obat
-                                                                    </button>
-                                                                </form>
+                                                                <a href="{{ route('print.prescriptions.show', $medRecord->prescription->id_resep) }}"
+                                                                    class="btn btn-sm btn-info">
+                                                                    <i class="fa-solid fa-print"></i>
+                                                                    Siapkan Resep Obat
+                                                                </a>
                                                             </td>
                                                         </tr>
                                                     @endif

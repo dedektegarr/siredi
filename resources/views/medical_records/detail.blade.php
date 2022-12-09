@@ -55,28 +55,30 @@
                 </div>
                 <!-- /.card-body -->
 
-                <div class="card-footer">
-                    <div class="row">
-                        <div class="col-6">
-                            <form action="{{ route('pasien.destroy', $patient->id_pasien) }}" method="POST">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger"
-                                    onclick="return confirm('Anda yakin ingin menghapus data ini?')">
-                                    <i class="fa-solid fa-trash mr-1"></i>
-                                    Hapus
-                                </button>
-                            </form>
-                        </div>
-                        <div class="col-6">
-                            <a href="{{ route('pasien.edit', $patient->id_pasien) }}"
-                                class="btn btn-sm btn-warning float-right">
-                                <i class="fa-solid fa-pen-to-square mr-1"></i>
-                                Edit
-                            </a>
+                @can('nurse')
+                    <div class="card-footer">
+                        <div class="row">
+                            <div class="col-6">
+                                <form action="{{ route('pasien.destroy', $patient->id_pasien) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-sm btn-danger"
+                                        onclick="return confirm('Anda yakin ingin menghapus data ini?')">
+                                        <i class="fa-solid fa-trash mr-1"></i>
+                                        Hapus
+                                    </button>
+                                </form>
+                            </div>
+                            <div class="col-6">
+                                <a href="{{ route('pasien.edit', $patient->id_pasien) }}"
+                                    class="btn btn-sm btn-warning float-right">
+                                    <i class="fa-solid fa-pen-to-square mr-1"></i>
+                                    Edit
+                                </a>
+                            </div>
                         </div>
                     </div>
-                </div>
+                @endcan
             </div>
         </div>
 
@@ -104,11 +106,13 @@
                                         Cetak
                                     </button>
                                 </form>
-                                <a href="{{ route('rekam_medis.edit', [$medRecord->id_pasien, $medRecord->id_rekmed]) }}"
-                                    class="btn btn-sm btn-warning">
-                                    <i class="fa-solid fa-pen-to-square"></i>
-                                    Edit
-                                </a>
+                                @can('doctor')
+                                    <a href="{{ route('rekam_medis.edit', [$medRecord->id_pasien, $medRecord->id_rekmed]) }}"
+                                        class="btn btn-sm btn-warning">
+                                        <i class="fa-solid fa-pen-to-square"></i>
+                                        Edit
+                                    </a>
+                                @endcan
 
                                 <form action="{{ route('rekam_medis.destroy', $medRecord->id_rekmed) }}" method="POST"
                                     class="d-inline">
@@ -199,9 +203,10 @@
                         <div class="col-6">
                             @if ($medRecord->prescription->status === 'selesai')
                                 <small class="bg-success py-1 px-2 float-right">Obat sudah diberikan kepada pasien</small>
+                            @else
+                                <small class="bg-secondary py-1 px-2 float-right">Sedang menunggu apoteker menyiapkan
+                                    obat</small>
                             @endif
-                            <small class="bg-secondary py-1 px-2 float-right">Sedang menunggu apoteker menyiapkan
-                                obat</small>
                         </div>
                     </div>
                 </div>

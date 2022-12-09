@@ -87,12 +87,14 @@
                             aria-labelledby="unchecked-patient-tab">
                             <div id="unchecked_queues_table_wrapper" class="dataTables_wrapper dt-bootstrap4">
 
-                                <!-- Button trigger modal -->
-                                <button type="button" class="btn btn-info btn-sm mb-2" data-toggle="modal"
-                                    data-target="#addModal">
-                                    <i class="fa-solid fa-plus"></i>
-                                    Tambah Data
-                                </button>
+                                @can('nurse')
+                                    <!-- Button trigger modal -->
+                                    <button type="button" class="btn btn-info btn-sm mb-2" data-toggle="modal"
+                                        data-target="#addModal">
+                                        <i class="fa-solid fa-plus"></i>
+                                        Tambah Data
+                                    </button>
+                                @endcan
 
                                 <div class="row">
                                     <div class="col-sm-12">
@@ -122,51 +124,57 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @foreach ($uncheckedQueues as $queue)
-                                                    <tr class="odd">
-                                                        <td>{{ $loop->iteration }}.</td>
-                                                        <td>{{ $queue->patient->nama }}</td>
-                                                        <td>{{ $queue->poly->nama_poli }}</td>
-                                                        <td>{{ $queue->created_at->format('d M Y') }}</td>
-                                                        <td>{{ $queue->created_at->format('H:i') }}</td>
-                                                        <td>{!! $queue->status
-                                                            ? '<span class="badge bg-success">Sudah
-                                                                                                                                                                                                                                                                                        Diperiksa</span>'
-                                                            : '<span class="badge bg-secondary">Belum Diperiksa</span>' !!}</td>
-                                                        <td>
-                                                            <div class="btn-group">
-                                                                <button type="button"
-                                                                    class="btn btn-info btn-sm">Action</button>
-                                                                <button type="button"
-                                                                    class="btn btn-info btn-sm dropdown-toggle dropdown-icon"
-                                                                    data-toggle="dropdown">
-                                                                    <span class="sr-only">Toggle Dropdown</span>
-                                                                </button>
-                                                                <div class="dropdown-menu" role="menu">
-                                                                    @if ($queue->status === 0)
-                                                                        <a class="dropdown-item text-info"
-                                                                            href="{{ route('antrian.check', $queue->id_antrian) }}">
-                                                                            <i class="fa-solid fa-pen-to-square"></i>
-                                                                            Periksa
-                                                                        </a>
-                                                                        <div class="dropdown-divider"></div>
-                                                                    @endif
-                                                                    <form
-                                                                        action="{{ route('antrian.destroy', $queue->id_antrian) }}"
-                                                                        method="POST">
-                                                                        @csrf
-                                                                        @method('DELETE')
-                                                                        <button type="submit"
-                                                                            class="dropdown-item text-danger"
-                                                                            onclick="return confirm('Anda yakin ingin menghapus data ini?')">
-                                                                            <i class="fa-solid fa-trash"></i>
-                                                                            Hapus
-                                                                        </button>
-                                                                    </form>
+                                                @foreach ($queues as $queue)
+                                                    @if ($queue->status === 0)
+                                                        <tr class="odd">
+                                                            <td>{{ $loop->iteration }}.</td>
+                                                            <td>{{ $queue->patient->nama }}</td>
+                                                            <td>{{ $queue->poly->nama_poli }}</td>
+                                                            <td>{{ $queue->created_at->format('d M Y') }}</td>
+                                                            <td>{{ $queue->created_at->format('H:i') }}</td>
+                                                            <td>{!! $queue->status
+                                                                ? '<span class="badge bg-success">Sudah Diperiksa</span>'
+                                                                : '<span class="badge bg-secondary">Belum Diperiksa</span>' !!}</td>
+                                                            <td>
+                                                                <div class="btn-group">
+                                                                    <button type="button"
+                                                                        class="btn btn-info btn-sm">Action</button>
+                                                                    <button type="button"
+                                                                        class="btn btn-info btn-sm dropdown-toggle dropdown-icon"
+                                                                        data-toggle="dropdown">
+                                                                        <span class="sr-only">Toggle Dropdown</span>
+                                                                    </button>
+                                                                    <div class="dropdown-menu" role="menu">
+                                                                        @can('doctor')
+                                                                            @if ($queue->status === 0)
+                                                                                <a class="dropdown-item text-info"
+                                                                                    href="{{ route('antrian.check', $queue->id_antrian) }}">
+                                                                                    <i class="fa-solid fa-pen-to-square"></i>
+                                                                                    Periksa
+                                                                                </a>
+                                                                            @endif
+                                                                        @endcan
+
+                                                                        @can('nurse')
+                                                                            <div class="dropdown-divider"></div>
+                                                                            <form
+                                                                                action="{{ route('antrian.destroy', $queue->id_antrian) }}"
+                                                                                method="POST">
+                                                                                @csrf
+                                                                                @method('DELETE')
+                                                                                <button type="submit"
+                                                                                    class="dropdown-item text-danger"
+                                                                                    onclick="return confirm('Anda yakin ingin menghapus data ini?')">
+                                                                                    <i class="fa-solid fa-trash"></i>
+                                                                                    Hapus
+                                                                                </button>
+                                                                            </form>
+                                                                        @endcan
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
+                                                            </td>
+                                                        </tr>
+                                                    @endif
                                                 @endforeach
                                             </tbody>
                                         </table>
@@ -181,14 +189,16 @@
                             <div id="checked_queues_table_wrapper" class="dataTables_wrapper dt-bootstrap4">
 
                                 <!-- Button Delete All -->
-                                @if ($checkedQueues->count() > 0)
+                                @if ($queues->count() > 0)
                                     <form action="{{ route('antrian.destroyAll') }}" method="POST">
                                         @csrf
-                                        <button type="submit" class="btn btn-danger btn-sm mb-2"
-                                            onclick="return confirm('Semua data pasien yang sudah diperiksa akan dihapus secara permanen, apakah anda yakin?')">
-                                            <i class="fa-solid fa-ban mr-1"></i>
-                                            Hapus Seluruh Data Pasien Sudah Diperiksa
-                                        </button>
+                                        @can('nurse')
+                                            <button type="submit" class="btn btn-danger btn-sm mb-2"
+                                                onclick="return confirm('Semua data pasien yang sudah diperiksa akan dihapus secara permanen, apakah anda yakin?')">
+                                                <i class="fa-solid fa-ban mr-1"></i>
+                                                Hapus Seluruh Data Pasien Sudah Diperiksa
+                                            </button>
+                                        @endcan
                                     </form>
                                 @endif
 
@@ -220,57 +230,61 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @foreach ($checkedQueues as $queue)
-                                                    <tr class="odd">
-                                                        <td>{{ $loop->iteration }}.</td>
-                                                        <td>{{ $queue->patient->nama }}</td>
-                                                        <td>{{ $queue->poly->nama_poli }}</td>
-                                                        <td>{{ $queue->created_at->format('d M Y') }}</td>
-                                                        <td>{{ $queue->created_at->format('H:i') }}</td>
-                                                        <td>{!! $queue->status
-                                                            ? '<span class="badge bg-success">Sudah
-                                                                                                                                                                                                                                                                                        Diperiksa</span>'
-                                                            : '<span class="badge bg-secondary">Belum Diperiksa</span>' !!}</td>
-                                                        <td>
-                                                            <div class="btn-group">
-                                                                <button type="button"
-                                                                    class="btn btn-info btn-sm">Action</button>
-                                                                <button type="button"
-                                                                    class="btn btn-info btn-sm dropdown-toggle dropdown-icon"
-                                                                    data-toggle="dropdown">
-                                                                    <span class="sr-only">Toggle Dropdown</span>
-                                                                </button>
-                                                                <div class="dropdown-menu" role="menu">
-                                                                    @if ($queue->status === 0)
-                                                                        <a class="dropdown-item text-info"
-                                                                            href="{{ route('antrian.check', $queue->id_antrian) }}">
-                                                                            <i class="fa-solid fa-pen-to-square"></i>
-                                                                            Periksa
-                                                                        </a>
-                                                                    @else
-                                                                        <a class="dropdown-item text-info"
-                                                                            href="{{ route('pasien.show', $queue->patient->id_pasien) }}">
-                                                                            <i class="fa-solid fa-pen-to-square"></i>
-                                                                            Detail
-                                                                        </a>
-                                                                        <div class="dropdown-divider"></div>
-                                                                    @endif
-                                                                    <form
-                                                                        action="{{ route('antrian.destroy', $queue->id_antrian) }}"
-                                                                        method="POST">
-                                                                        @csrf
-                                                                        @method('DELETE')
-                                                                        <button type="submit"
-                                                                            class="dropdown-item text-danger"
-                                                                            onclick="return confirm('Anda yakin ingin menghapus data ini?')">
-                                                                            <i class="fa-solid fa-trash"></i>
-                                                                            Hapus
-                                                                        </button>
-                                                                    </form>
+                                                @foreach ($queues as $queue)
+                                                    @if ($queue->status === 1)
+                                                        <tr class="odd">
+                                                            <td>{{ $loop->iteration }}.</td>
+                                                            <td>{{ $queue->patient->nama }}</td>
+                                                            <td>{{ $queue->poly->nama_poli }}</td>
+                                                            <td>{{ $queue->created_at->format('d M Y') }}</td>
+                                                            <td>{{ $queue->created_at->format('H:i') }}</td>
+                                                            <td>{!! $queue->status
+                                                                ? '<span class="badge bg-success">Sudah Diperiksa</span>'
+                                                                : '<span class="badge bg-secondary">Belum Diperiksa</span>' !!}</td>
+                                                            <td>
+                                                                <div class="btn-group">
+                                                                    <button type="button"
+                                                                        class="btn btn-info btn-sm">Action</button>
+                                                                    <button type="button"
+                                                                        class="btn btn-info btn-sm dropdown-toggle dropdown-icon"
+                                                                        data-toggle="dropdown">
+                                                                        <span class="sr-only">Toggle Dropdown</span>
+                                                                    </button>
+                                                                    <div class="dropdown-menu" role="menu">
+                                                                        @if ($queue->status === 0)
+                                                                            <a class="dropdown-item text-info"
+                                                                                href="{{ route('antrian.check', $queue->id_antrian) }}">
+                                                                                <i class="fa-solid fa-pen-to-square"></i>
+                                                                                Periksa
+                                                                            </a>
+                                                                        @else
+                                                                            <a class="dropdown-item text-info"
+                                                                                href="{{ route('pasien.show', $queue->patient->id_pasien) }}">
+                                                                                <i class="fa-solid fa-pen-to-square"></i>
+                                                                                Detail
+                                                                            </a>
+                                                                        @endif
+
+                                                                        @can('nurse')
+                                                                            <div class="dropdown-divider"></div>
+                                                                            <form
+                                                                                action="{{ route('antrian.destroy', $queue->id_antrian) }}"
+                                                                                method="POST">
+                                                                                @csrf
+                                                                                @method('DELETE')
+                                                                                <button type="submit"
+                                                                                    class="dropdown-item text-danger"
+                                                                                    onclick="return confirm('Anda yakin ingin menghapus data ini?')">
+                                                                                    <i class="fa-solid fa-trash"></i>
+                                                                                    Hapus
+                                                                                </button>
+                                                                            </form>
+                                                                        @endcan
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
+                                                            </td>
+                                                        </tr>
+                                                    @endif
                                                 @endforeach
                                             </tbody>
                                         </table>

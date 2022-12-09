@@ -55,28 +55,30 @@
                 </div>
                 <!-- /.card-body -->
 
-                <div class="card-footer">
-                    <div class="row">
-                        <div class="col-6">
-                            <form action="{{ route('pasien.destroy', $patient->id_pasien) }}" method="POST">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger"
-                                    onclick="return confirm('Anda yakin ingin menghapus data ini?')">
-                                    <i class="fa-solid fa-trash mr-1"></i>
-                                    Hapus
-                                </button>
-                            </form>
-                        </div>
-                        <div class="col-6">
-                            <a href="{{ route('pasien.edit', $patient->id_pasien) }}"
-                                class="btn btn-sm btn-warning float-right">
-                                <i class="fa-solid fa-pen-to-square mr-1"></i>
-                                Edit
-                            </a>
+                @can('nurse')
+                    <div class="card-footer">
+                        <div class="row">
+                            <div class="col-6">
+                                <form action="{{ route('pasien.destroy', $patient->id_pasien) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-sm btn-danger"
+                                        onclick="return confirm('Anda yakin ingin menghapus data ini?')">
+                                        <i class="fa-solid fa-trash mr-1"></i>
+                                        Hapus
+                                    </button>
+                                </form>
+                            </div>
+                            <div class="col-6">
+                                <a href="{{ route('pasien.edit', $patient->id_pasien) }}"
+                                    class="btn btn-sm btn-warning float-right">
+                                    <i class="fa-solid fa-pen-to-square mr-1"></i>
+                                    Edit
+                                </a>
+                            </div>
                         </div>
                     </div>
-                </div>
+                @endcan
             </div>
         </div>
 
@@ -97,19 +99,23 @@
                         @if ($medRecords->count() > 0)
                             <div class="col-4">
                                 @if ($patient->queue !== null)
-                                    <form action="{{ route('print.medical_record_all', $patient->id_pasien) }}"
-                                        method="POST" class="d-inline" target="_blank">
-                                        @csrf
-                                        <button type="submit" class="btn btn-info btn-sm">
-                                            <i class="fa-solid fa-print"></i>
-                                            Cetak Semua
-                                        </button>
-                                    </form>
-                                    <a href="{{ route('antrian.check', $patient->queue->id_antrian) }}"
-                                        class="btn btn-sm btn-primary">
-                                        <i class="fa-solid fa-plus"></i>
-                                        Tambah
-                                    </a>
+                                    <div class="float-right">
+                                        <form action="{{ route('print.medical_record_all', $patient->id_pasien) }}"
+                                            method="POST" class="d-inline" target="_blank">
+                                            @csrf
+                                            <button type="submit" class="btn btn-info btn-sm">
+                                                <i class="fa-solid fa-print"></i>
+                                                Cetak Semua
+                                            </button>
+                                        </form>
+                                        @can('doctor')
+                                            <a href="{{ route('antrian.check', $patient->queue->id_antrian) }}"
+                                                class="btn btn-sm btn-primary">
+                                                <i class="fa-solid fa-plus"></i>
+                                                Tambah
+                                            </a>
+                                        @endcan
+                                    </div>
                                 @endif
                             </div>
                         @endif
@@ -145,10 +151,12 @@
                                     <td>{{ $medRecord->poly->nama_poli }}</td>
                                     <td>{{ $medRecord->created_at->format('d M Y') }}</td>
                                     <td>
-                                        <a href="{{ route('rekam_medis.edit', [$medRecord->id_pasien, $medRecord->id_rekmed]) }}"
-                                            class="btn btn-sm btn-warning">
-                                            <i class="fa-solid fa-pen-to-square"></i>
-                                        </a>
+                                        @can('doctor')
+                                            <a href="{{ route('rekam_medis.edit', [$medRecord->id_pasien, $medRecord->id_rekmed]) }}"
+                                                class="btn btn-sm btn-warning">
+                                                <i class="fa-solid fa-pen-to-square"></i>
+                                            </a>
+                                        @endcan
                                         <form action="{{ route('rekam_medis.destroy', $medRecord->id_rekmed) }}"
                                             method="POST" class="d-inline">
                                             @csrf
