@@ -192,7 +192,7 @@
                                         <td>{{ $loop->iteration }}.</td>
                                         <td>{{ $prescription->medical_record[0]->patient->nama }}</td>
                                         <td>{!! $prescription->status
-                                            ? '<span class="badge badge-success">Sudah Diperiksa</span>'
+                                            ? '<span class="badge badge-success">Selesai</span>'
                                             : '<span class="badge badge-secondary">Menunggu</span>' !!}
                                         </td>
                                     </tr>
