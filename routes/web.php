@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\MedicalPrescriptionController;
 use App\Http\Controllers\MedicalRecordController;
@@ -28,17 +29,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/', function () {
-        return view('dashboard', [
-            'pageTitle' => 'Dashboard'
-        ]);
-    });
+    Route::get('/', [DashboardController::class, 'index'])->name('dashboard.index');
 
-    Route::get('/dashboard', function () {
-        return view('dashboard', [
-            'pageTitle' => 'Dashboard'
-        ]);
-    })->name('dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
 
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
