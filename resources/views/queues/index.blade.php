@@ -189,7 +189,9 @@
                             <div id="checked_queues_table_wrapper" class="dataTables_wrapper dt-bootstrap4">
 
                                 <!-- Button Delete All -->
-                                @if ($queues->count() > 0)
+                                @if (array_filter($queues->toArray(), function ($checkedPatient) {
+                                    return $checkedPatient['status'] > 0;
+                                }))
                                     <form action="{{ route('antrian.destroyAll') }}" method="POST">
                                         @csrf
                                         @can('nurse')
