@@ -19,7 +19,7 @@ class PolyController extends Controller
         $polies = Poly::latest()->get();
 
         // get doctor and queue with poly -> count
-        foreach($polies as $poly) {
+        foreach ($polies as $poly) {
             $doctors[] = Doctor::where('id_poli', $poly->id_poli)->get();
             $queues[] = Queue::where('id_poli', $poly->id_poli)->get();
         }
@@ -27,10 +27,10 @@ class PolyController extends Controller
         return view('polies.index', [
             'pageTitle' => 'Data Poli',
             'polies' => $polies,
-            'doctors' => collect($doctors)->map(function($doctor) {
+            'doctors' => collect($doctors)->map(function ($doctor) {
                 return $doctor->count();
             }),
-            'queues' => collect($queues)->map(function($queue) {
+            'queues' => collect($queues)->map(function ($queue) {
                 return $queue->count();
             })
         ]);
@@ -100,12 +100,12 @@ class PolyController extends Controller
             'nama_poli' => ['required', 'max:100']
         ];
 
-        if($poli->id_poli !== $request->id_poli) {
+        if ($poli->id_poli !== $request->id_poli) {
             $rules['id_poli'] = ['required', 'unique:polies', 'size:5'];
         }
 
         $validatedData = $request->validate($rules);
-        
+
         Poly::where('id_poli', $poli->id_poli)->update($validatedData);
 
         return redirect()->route('poli.index')->with('success', 'Data berhasil di update');

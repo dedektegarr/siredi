@@ -15,21 +15,25 @@ class Doctor extends Model
     public $incrementing = false;
 
     protected $guarded = [''];
-    
+    protected $with = ['poly'];
+
     public function getRouteKeyName()
     {
         return 'id_dokter';
     }
 
-    public function user() {
+    public function user()
+    {
         return $this->belongsTo(User::class, 'id');
     }
 
-    public function poly() {
+    public function poly()
+    {
         return $this->belongsTo(Poly::class, 'id_poli');
     }
 
-    public function medicalRecord() {
+    public function medicalRecord()
+    {
         return $this->hasMany(MedicalRecord::class, 'id_dokter');
     }
 }

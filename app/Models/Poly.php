@@ -15,15 +15,18 @@ class Poly extends Model
     protected $keyType = 'char';
     public $incrementing = false;
 
-    public function doctor() {
+    public function doctor()
+    {
         return $this->hasMany(Doctor::class, 'id_poli');
     }
 
-    public function queue() {
+    public function queue()
+    {
         return $this->hasMany(Queue::class, 'id_poli');
     }
 
-    public function medicalRecord() {
+    public function medicalRecord()
+    {
         return $this->hasMany(MedicalRecord::class, 'id_poli');
     }
 }
