@@ -17,7 +17,8 @@ class MedicalPrescriptionController extends Controller
     {
         return view('medical_prescriptions.index', [
             'pageTitle' => 'Resep Obat Pasien',
-            'medRecords' => MedicalRecord::all()
+            'medRecords' => MedicalRecord::all(),
+            'prescriptions' => MedicalPrescription::all()
         ]);
     }
 

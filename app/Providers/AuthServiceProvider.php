@@ -57,5 +57,17 @@ class AuthServiceProvider extends ServiceProvider
                 return $user->role;
             }
         });
+
+        Gate::define('onlyDoctor', function (User $user) {
+            if ($user->role === 'dokter') {
+                return $user->role;
+            }
+        });
+
+        Gate::define('onlyPharmacist', function (User $user) {
+            if ($user->role === 'apoteker') {
+                return $user->role;
+            }
+        });
     }
 }

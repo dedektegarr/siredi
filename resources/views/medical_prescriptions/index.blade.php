@@ -54,26 +54,36 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @foreach ($medRecords as $medRecord)
-                                                    @if ($medRecord->prescription->status === 'menunggu')
-                                                        <tr>
-                                                            <td>{{ $loop->iteration }}.</td>
-                                                            <td>{{ $medRecord->patient->nama }}</td>
-                                                            <td>{{ $medRecord->poly->nama_poli }}</td>
-                                                            <td>{{ $medRecord->created_at->format('d M Y') }}</td>
-                                                            <td>
-                                                                <span class="badge bg-secondary">Menunggu</span>
-                                                            </td>
-                                                            <td>
-                                                                <a href="{{ route('print.prescriptions.show', $medRecord->prescription->id_resep) }}"
-                                                                    class="btn btn-sm btn-info">
-                                                                    <i class="fa-solid fa-print"></i>
-                                                                    Siapkan Resep Obat
-                                                                </a>
-                                                            </td>
-                                                        </tr>
-                                                    @endif
-                                                @endforeach
+                                                @if (array_filter($prescriptions->toArray(), function ($waiting) {
+                                                    // $collect = collect($waiting);
+                                                    return $waiting['status'] === 'selesai' > 0;
+                                                }))
+                                                    <tr>
+                                                        <td colspan="6" class="text-center">Tidak ada resep menunggu
+                                                        </td>
+                                                    </tr>
+                                                @else
+                                                    @foreach ($medRecords as $medRecord)
+                                                        @if ($medRecord->prescription->status === 'menunggu')
+                                                            <tr>
+                                                                <td>{{ $loop->iteration }}.</td>
+                                                                <td>{{ $medRecord->patient->nama }}</td>
+                                                                <td>{{ $medRecord->poly->nama_poli }}</td>
+                                                                <td>{{ $medRecord->created_at->format('d M Y') }}</td>
+                                                                <td>
+                                                                    <span class="badge bg-secondary">Menunggu</span>
+                                                                </td>
+                                                                <td>
+                                                                    <a href="{{ route('print.prescriptions.show', $medRecord->prescription->id_resep) }}"
+                                                                        class="btn btn-sm btn-info">
+                                                                        <i class="fa-solid fa-print"></i>
+                                                                        Siapkan Resep Obat
+                                                                    </a>
+                                                                </td>
+                                                            </tr>
+                                                        @endif
+                                                    @endforeach
+                                                @endif
                                             </tbody>
                                         </table>
                                     </div>
@@ -82,10 +92,9 @@
                         </div>
 
                         {{-- done prescription --}}
-                        <div class="tab-pane fade active show" id="done-prescriptions" role="tabpanel"
+                        <div class="tab-pane fade active" id="done-prescriptions" role="tabpanel"
                             aria-labelledby="done-prescriptions-tab">
                             <div id="done_prescriptions_table_wrapper" class="dataTables_wrapper dt-bootstrap4">
-
                                 <div class="row">
                                     <div class="col-sm-12">
                                         @if (session()->has('success'))
