@@ -35,20 +35,21 @@ Route::middleware(['auth'])->group(function () {
 
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
+    Route::prefix('users')->group(function () {
+        // doctor resource
+        Route::resource('dokter', DoctorController::class);
+
+        // nurse resource
+        Route::resource('perawat', NurseController::class);
+
+        // pharmacist resource
+        Route::resource('apoteker', PharmacistController::class);
+    });
+
     Route::middleware('isAdmin')->group(function () {
         // user resource
         Route::resource('user', UserController::class);
 
-        Route::prefix('users')->group(function () {
-            // doctor resource
-            Route::resource('dokter', DoctorController::class);
-
-            // nurse resource
-            Route::resource('perawat', NurseController::class);
-
-            // pharmacist resource
-            Route::resource('apoteker', PharmacistController::class);
-        });
 
         // poly resource
         Route::resource('poli', PolyController::class);

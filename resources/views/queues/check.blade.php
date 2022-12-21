@@ -89,7 +89,7 @@
                         <div class="row mt-2">
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="sistole">Sistole</label>
+                                    <label for="sistole">Sistole (mmHg)</label>
                                     <input type="number" class="form-control @error('sistole') is-invalid @enderror"
                                         placeholder="Sistole" id="sistole" name="sistole" value="{{ old('sistole') }}">
                                     @error('sistole')
@@ -101,7 +101,7 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="diastole">Diastole</label>
+                                    <label for="diastole">Diastole (mmHg)</label>
                                     <input type="number" class="form-control @error('diastole') is-invalid @enderror"
                                         placeholder="Diastole" id="diastole" name="diastole"
                                         value="{{ old('diastole') }}">
@@ -114,7 +114,7 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="gula_darah">Gula Darah</label>
+                                    <label for="gula_darah">Gula Darah (mg/dL)</label>
                                     <input type="number" class="form-control @error('gula_darah') is-invalid @enderror"
                                         placeholder="Gula Darah" id="gula_darah" name="gula_darah"
                                         value="{{ old('gula_darah') }}">

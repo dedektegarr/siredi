@@ -35,8 +35,20 @@
                     <img src="{{ asset('img/default-avatar.png') }}" class="img-circle elevation-2" alt="User Image">
                 @endif
             </div>
+
+            @php
+                $user_link = '#';
+                if (auth()->user()->role === 'dokter') {
+                    $user_link = '/users/dokter/' . auth()->user()->doctor->id_dokter;
+                } elseif (auth()->user()->role === 'perawat') {
+                    $user_link = '/users/perawat/' . auth()->user()->nurse->id_perawat;
+                } elseif (auth()->user()->role === 'apoteker') {
+                    $user_link = '/users/apoteker/' . auth()->user()->pharmacist->id_apoteker;
+                }
+            @endphp
+
             <div class="info">
-                <a href="#" class="d-block">{{ auth()->user()->username }}
+                <a href="{{ $user_link }}" class="d-block">{{ auth()->user()->username }}
                     @if (auth()->user()->role === 'admin')
                         <span class="right badge badge-danger">{{ auth()->user()->role }}</span>
                     @endif

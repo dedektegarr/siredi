@@ -18,6 +18,8 @@ class PolyController extends Controller
     {
         $polies = Poly::latest()->get();
 
+        $doctors = [];
+        $queues = [];
         // get doctor and queue with poly -> count
         foreach ($polies as $poly) {
             $doctors[] = Doctor::where('id_poli', $poly->id_poli)->get();

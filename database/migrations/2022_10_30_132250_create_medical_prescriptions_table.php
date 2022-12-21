@@ -18,7 +18,9 @@ return new class extends Migration
             $table->unsignedBigInteger('id_obat')->nullable();
             $table->foreign('id_obat')->references('id_obat')->on('medicines');
             $table->char('id_dokter', 5)->nullable();
-            $table->foreign('id_dokter')->references('id_dokter')->on('doctors');
+            $table->foreign('id_dokter')->references('id_dokter')->on('doctors')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
             $table->unsignedBigInteger('id_rekmed')->nullable();
             $table->foreign('id_rekmed')->references('id_rekmed')->on('medical_records')->onDelete('cascade');
             $table->integer('jumlah');
