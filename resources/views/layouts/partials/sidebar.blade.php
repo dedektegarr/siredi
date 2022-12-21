@@ -44,6 +44,8 @@
                     $user_link = '/users/perawat/' . auth()->user()->nurse->id_perawat;
                 } elseif (auth()->user()->role === 'apoteker') {
                     $user_link = '/users/apoteker/' . auth()->user()->pharmacist->id_apoteker;
+                } else {
+                    $user_link = '#';
                 }
             @endphp
 
