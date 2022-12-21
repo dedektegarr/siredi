@@ -52,10 +52,15 @@
                                                 </td>
                                                 <td style="width: 100px">
                                                     @if ($patient->jenis_kelamin === 'pria')
-                                                        <h4 class="text-center"><i class="fa-solid fa-person"></i></h4>
+                                                        <p class="text-center">
+                                                            <i class="fa-solid fa-person mr-1"></i>
+                                                            {{ $patient->jenis_kelamin }}
+                                                        </p>
                                                     @else
-                                                        <h4 class="text-center"><i class="fa-solid fa-person-dress"></i>
-                                                        </h4>
+                                                        <p class="text-center">
+                                                            <i class="fa-solid fa-person-dress mr-1"></i>
+                                                            {{ $patient->jenis_kelamin }}
+                                                        </p>
                                                     @endif
                                                 </td>
                                                 <td>{{ $patient->tempat_lahir }}</td>
@@ -118,7 +123,16 @@
                 "lengthChange": false,
                 "autoWidth": false,
                 "ordering": false,
-                "buttons": ["pdf", "print", "colvis"]
+                "buttons": [
+                    "print",
+                    {
+                        extend: 'pdfHtml5',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5, 6]
+                        }
+                    },
+                    "colvis"
+                ]
             }).buttons().container().appendTo('#patients_table_wrapper .col-md-6:eq(0)');
             // $('#example2').DataTable({
             //     "paging": true,

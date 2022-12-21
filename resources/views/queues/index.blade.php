@@ -321,7 +321,16 @@
                 "lengthChange": false,
                 "autoWidth": false,
                 "ordering": false,
-                "buttons": ["pdf", "print", "colvis"]
+                "buttons": [
+                    "print",
+                    {
+                        extend: 'pdfHtml5',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5]
+                        }
+                    },
+                    "colvis"
+                ]
             }).buttons().container().appendTo('#unchecked_queues_table_wrapper .col-md-6:eq(0)');
             // $('#example2').DataTable({
             //     "paging": true,
@@ -340,7 +349,16 @@
                 "lengthChange": false,
                 "autoWidth": false,
                 "ordering": false,
-                "buttons": ["pdf", "print", "colvis"]
+                "buttons": [
+                    "print",
+                    {
+                        extend: 'pdfHtml5',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5]
+                        }
+                    },
+                    "colvis"
+                ]
             }).buttons().container().appendTo('#checked_queues_table_wrapper .col-md-6:eq(0)');
             // $('#example2').DataTable({
             //     "paging": true,
