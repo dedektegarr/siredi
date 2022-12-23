@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\MedicalPrescription;
 use App\Models\MedicalRecord;
+use App\Models\Medicine;
 use Illuminate\Http\Request;
 
 class MedicalPrescriptionController extends Controller
@@ -90,6 +91,7 @@ class MedicalPrescriptionController extends Controller
 
     public function printDetail(MedicalPrescription $resep_obat)
     {
+        // dd($resep_obat->medicine->id_obat);
         return view('prints.prescriptions.show', [
             'pageTitle' => "Cetak Resep Obat",
             'prescriptions' => $resep_obat
@@ -101,6 +103,15 @@ class MedicalPrescriptionController extends Controller
         if ($resep_obat->status === 'menunggu') {
             MedicalPrescription::where('id_resep', $resep_obat->id_resep)->update([
                 'status' => 'selesai'
+            ]);
+
+            // update stok
+            $old_stock = $resep_obat->medicine->stok;
+
+            $new_stock = $old_stock - $resep_obat->jumlah;
+
+            Medicine::where('id_obat', $resep_obat->medicine->id_obat)->update([
+                'stok' => $new_stock
             ]);
         }
 
