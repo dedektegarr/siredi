@@ -39,7 +39,7 @@
                 <a href="{{ env('APP_URL') }}" class="h1">{{ env('APP_NAME') }}</a>
             </div>
             <div class="card-body">
-                <p class="login-box-msg">Masukkan akun anda</p>
+                <p class="login-box-msg">Masukkan akun anda hehe</p>
                 <form action="{{ route('loginStore') }}" method="post">
                     @csrf
                     <div class="input-group mb-3">
